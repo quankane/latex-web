@@ -1,0 +1,25 @@
+[project]
+name = "deep-learning-backprop-init"
+version = "0.1.0"
+description = "Derivatives & Initialization in Deep Learning: Backpropagation and Parameter Initialization"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+    "torch>=2.2",
+    "torchvision>=0.17",
+    "matplotlib>=3.8",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

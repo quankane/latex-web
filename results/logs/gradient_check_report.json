@@ -1,0 +1,41 @@
+{
+  "layer_dims": [
+    6,
+    8,
+    5,
+    1
+  ],
+  "activation": "tanh",
+  "N": 4,
+  "params": [
+    {
+      "layer": 0,
+      "max_abs_err_vs_autograd_W": 4.3897037671492e-09,
+      "max_abs_err_vs_autograd_b": 6.005697869571058e-09,
+      "max_rel_err_vs_finite_diff": 3.894988848343884e-09,
+      "finite_diff_h": 1e-06,
+      "n_samples_checked_W": 6,
+      "n_samples_checked_b": 3
+    },
+    {
+      "layer": 1,
+      "max_abs_err_vs_autograd_W": 6.34539019939151e-09,
+      "max_abs_err_vs_autograd_b": 1.018100637129038e-08,
+      "max_rel_err_vs_finite_diff": 7.60219072715935e-09,
+      "finite_diff_h": 1e-06,
+      "n_samples_checked_W": 6,
+      "n_samples_checked_b": 3
+    },
+    {
+      "layer": 2,
+      "max_abs_err_vs_autograd_W": 4.71118026534878e-09,
+      "max_abs_err_vs_autograd_b": 1.186354534055134e-08,
+      "max_rel_err_vs_finite_diff": 3.3732597836066756e-09,
+      "finite_diff_h": 1e-06,
+      "n_samples_checked_W": 5,
+      "n_samples_checked_b": 1
+    }
+  ],
+  "verdict": "PASS",
+  "threshold": 0.0001
+}

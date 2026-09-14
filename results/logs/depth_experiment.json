@@ -1,0 +1,98 @@
+[
+  {
+    "scheme": "he",
+    "depth": 2,
+    "grad_rms_layer1_init": 0.01803085981913606,
+    "test_acc": 0.7239999990463257,
+    "test_loss": 0.9621258230209351,
+    "final_train_loss": 0.376356090927124
+  },
+  {
+    "scheme": "he",
+    "depth": 4,
+    "grad_rms_layer1_init": 0.012754229425764867,
+    "test_acc": 0.7194999990463257,
+    "test_loss": 0.9553148727416992,
+    "final_train_loss": 0.35572020988464353
+  },
+  {
+    "scheme": "he",
+    "depth": 6,
+    "grad_rms_layer1_init": 0.026675520139242286,
+    "test_acc": 0.693,
+    "test_loss": 1.003669303894043,
+    "final_train_loss": 0.3883870166301727
+  },
+  {
+    "scheme": "he",
+    "depth": 8,
+    "grad_rms_layer1_init": 0.015008640268699153,
+    "test_acc": 0.6935000004768371,
+    "test_loss": 0.9277773222923279,
+    "final_train_loss": 0.3842686876773834
+  },
+  {
+    "scheme": "he",
+    "depth": 10,
+    "grad_rms_layer1_init": 0.011285678936074876,
+    "test_acc": 0.7335000009536743,
+    "test_loss": 0.7681331033706665,
+    "final_train_loss": 0.42044576988220217
+  },
+  {
+    "scheme": "he",
+    "depth": 12,
+    "grad_rms_layer1_init": 0.014169787027053059,
+    "test_acc": 0.3260000002384186,
+    "test_loss": 5.40934529876709,
+    "final_train_loss": 0.45580776767730713
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 2,
+    "grad_rms_layer1_init": 8.338540538901458e-05,
+    "test_acc": 0.5180000009536743,
+    "test_loss": 1.5085874614715575,
+    "final_train_loss": 0.8519076711654663
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 4,
+    "grad_rms_layer1_init": 4.44891924706141e-07,
+    "test_acc": 0.1,
+    "test_loss": 2.3027311820983885,
+    "final_train_loss": 2.3027164459228517
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 6,
+    "grad_rms_layer1_init": 2.757628749624331e-09,
+    "test_acc": 0.1,
+    "test_loss": 2.302740032196045,
+    "final_train_loss": 2.302724711227417
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 8,
+    "grad_rms_layer1_init": 1.7814740063963716e-11,
+    "test_acc": 0.1,
+    "test_loss": 2.302739854812622,
+    "final_train_loss": 2.3027246810913087
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 10,
+    "grad_rms_layer1_init": 1.0752421603055496e-13,
+    "test_acc": 0.1,
+    "test_loss": 2.302740016937256,
+    "final_train_loss": 2.3027247135162354
+  },
+  {
+    "scheme": "random_normal",
+    "depth": 12,
+    "grad_rms_layer1_init": 5.69169725058448e-16,
+    "test_acc": 0.1,
+    "test_loss": 2.3027398700714112,
+    "final_train_loss": 2.3027247314453123
+  }
+]

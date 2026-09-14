@@ -1,0 +1,375 @@
+Dang tai Fashion-MNIST (subset)...
+  train=torch.Size([5000, 784]), val=torch.Size([1000, 784]), test=torch.Size([2000, 784]), mean=0.2881, std=0.3543
+
+[1/20] scheme=zero activation=sigmoid
+  [zero          |sigmoid   ] epoch  1/15  train_loss=2.3062 train_acc=0.101  val_loss=2.3158 val_acc=0.106
+  [zero          |sigmoid   ] epoch  2/15  train_loss=2.3068 train_acc=0.102  val_loss=2.3082 val_acc=0.105
+  [zero          |sigmoid   ] epoch  3/15  train_loss=2.3072 train_acc=0.094  val_loss=2.3319 val_acc=0.092
+  [zero          |sigmoid   ] epoch  4/15  train_loss=2.3091 train_acc=0.101  val_loss=2.3278 val_acc=0.100
+  [zero          |sigmoid   ] epoch  5/15  train_loss=2.3085 train_acc=0.095  val_loss=2.3120 val_acc=0.101
+  [zero          |sigmoid   ] epoch  6/15  train_loss=2.3078 train_acc=0.094  val_loss=2.3217 val_acc=0.094
+  [zero          |sigmoid   ] epoch  7/15  train_loss=2.3081 train_acc=0.096  val_loss=2.3553 val_acc=0.097
+  [zero          |sigmoid   ] epoch  8/15  train_loss=2.3083 train_acc=0.101  val_loss=2.3204 val_acc=0.094
+  [zero          |sigmoid   ] epoch  9/15  train_loss=2.3067 train_acc=0.098  val_loss=2.3130 val_acc=0.094
+  [zero          |sigmoid   ] epoch 10/15  train_loss=2.3070 train_acc=0.099  val_loss=2.3264 val_acc=0.094
+  [zero          |sigmoid   ] epoch 11/15  train_loss=2.3090 train_acc=0.097  val_loss=2.3131 val_acc=0.100
+  [zero          |sigmoid   ] epoch 12/15  train_loss=2.3074 train_acc=0.098  val_loss=2.3069 val_acc=0.106
+  [zero          |sigmoid   ] epoch 13/15  train_loss=2.3066 train_acc=0.098  val_loss=2.3061 val_acc=0.092
+  [zero          |sigmoid   ] epoch 14/15  train_loss=2.3067 train_acc=0.098  val_loss=2.3473 val_acc=0.108
+  [zero          |sigmoid   ] epoch 15/15  train_loss=2.3090 train_acc=0.097  val_loss=2.3152 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3135  (14.3s)  saved run_zero_sigmoid.json
+
+[2/20] scheme=zero activation=tanh
+  [zero          |tanh      ] epoch  1/15  train_loss=2.3027 train_acc=0.092  val_loss=2.3026 val_acc=0.103
+  [zero          |tanh      ] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [zero          |tanh      ] epoch  3/15  train_loss=2.3027 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [zero          |tanh      ] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [zero          |tanh      ] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [zero          |tanh      ] epoch  6/15  train_loss=2.3027 train_acc=0.086  val_loss=2.3031 val_acc=0.094
+  [zero          |tanh      ] epoch  7/15  train_loss=2.3027 train_acc=0.096  val_loss=2.3033 val_acc=0.097
+  [zero          |tanh      ] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [zero          |tanh      ] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [zero          |tanh      ] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [zero          |tanh      ] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [zero          |tanh      ] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [zero          |tanh      ] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [zero          |tanh      ] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [zero          |tanh      ] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.3s)  saved run_zero_tanh.json
+
+[3/20] scheme=zero activation=relu
+  [zero          |relu      ] epoch  1/15  train_loss=2.3027 train_acc=0.092  val_loss=2.3026 val_acc=0.103
+  [zero          |relu      ] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [zero          |relu      ] epoch  3/15  train_loss=2.3027 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [zero          |relu      ] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [zero          |relu      ] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [zero          |relu      ] epoch  6/15  train_loss=2.3027 train_acc=0.086  val_loss=2.3031 val_acc=0.094
+  [zero          |relu      ] epoch  7/15  train_loss=2.3027 train_acc=0.096  val_loss=2.3033 val_acc=0.097
+  [zero          |relu      ] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [zero          |relu      ] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [zero          |relu      ] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [zero          |relu      ] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [zero          |relu      ] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [zero          |relu      ] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [zero          |relu      ] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [zero          |relu      ] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.3s)  saved run_zero_relu.json
+
+[4/20] scheme=zero activation=leaky_relu
+  [zero          |leaky_relu] epoch  1/15  train_loss=2.3027 train_acc=0.092  val_loss=2.3026 val_acc=0.103
+  [zero          |leaky_relu] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [zero          |leaky_relu] epoch  3/15  train_loss=2.3027 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [zero          |leaky_relu] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [zero          |leaky_relu] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [zero          |leaky_relu] epoch  6/15  train_loss=2.3027 train_acc=0.086  val_loss=2.3031 val_acc=0.094
+  [zero          |leaky_relu] epoch  7/15  train_loss=2.3027 train_acc=0.096  val_loss=2.3033 val_acc=0.097
+  [zero          |leaky_relu] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [zero          |leaky_relu] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [zero          |leaky_relu] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [zero          |leaky_relu] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [zero          |leaky_relu] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [zero          |leaky_relu] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [zero          |leaky_relu] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [zero          |leaky_relu] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.5s)  saved run_zero_leaky_relu.json
+
+[5/20] scheme=random_normal activation=sigmoid
+  [random_normal |sigmoid   ] epoch  1/15  train_loss=2.3064 train_acc=0.103  val_loss=2.3157 val_acc=0.106
+  [random_normal |sigmoid   ] epoch  2/15  train_loss=2.3068 train_acc=0.102  val_loss=2.3082 val_acc=0.105
+  [random_normal |sigmoid   ] epoch  3/15  train_loss=2.3071 train_acc=0.094  val_loss=2.3317 val_acc=0.092
+  [random_normal |sigmoid   ] epoch  4/15  train_loss=2.3091 train_acc=0.101  val_loss=2.3276 val_acc=0.100
+  [random_normal |sigmoid   ] epoch  5/15  train_loss=2.3085 train_acc=0.095  val_loss=2.3119 val_acc=0.101
+  [random_normal |sigmoid   ] epoch  6/15  train_loss=2.3077 train_acc=0.094  val_loss=2.3216 val_acc=0.094
+  [random_normal |sigmoid   ] epoch  7/15  train_loss=2.3081 train_acc=0.096  val_loss=2.3549 val_acc=0.097
+  [random_normal |sigmoid   ] epoch  8/15  train_loss=2.3083 train_acc=0.101  val_loss=2.3203 val_acc=0.094
+  [random_normal |sigmoid   ] epoch  9/15  train_loss=2.3067 train_acc=0.098  val_loss=2.3129 val_acc=0.094
+  [random_normal |sigmoid   ] epoch 10/15  train_loss=2.3069 train_acc=0.099  val_loss=2.3263 val_acc=0.094
+  [random_normal |sigmoid   ] epoch 11/15  train_loss=2.3090 train_acc=0.097  val_loss=2.3130 val_acc=0.100
+  [random_normal |sigmoid   ] epoch 12/15  train_loss=2.3074 train_acc=0.098  val_loss=2.3069 val_acc=0.106
+  [random_normal |sigmoid   ] epoch 13/15  train_loss=2.3066 train_acc=0.098  val_loss=2.3061 val_acc=0.092
+  [random_normal |sigmoid   ] epoch 14/15  train_loss=2.3067 train_acc=0.098  val_loss=2.3469 val_acc=0.108
+  [random_normal |sigmoid   ] epoch 15/15  train_loss=2.3090 train_acc=0.097  val_loss=2.3151 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3134  (2.5s)  saved run_random_normal_sigmoid.json
+
+[6/20] scheme=random_normal activation=tanh
+  [random_normal |tanh      ] epoch  1/15  train_loss=2.3027 train_acc=0.092  val_loss=2.3026 val_acc=0.103
+  [random_normal |tanh      ] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [random_normal |tanh      ] epoch  3/15  train_loss=2.3028 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [random_normal |tanh      ] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [random_normal |tanh      ] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [random_normal |tanh      ] epoch  6/15  train_loss=2.3027 train_acc=0.087  val_loss=2.3031 val_acc=0.094
+  [random_normal |tanh      ] epoch  7/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3034 val_acc=0.097
+  [random_normal |tanh      ] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [random_normal |tanh      ] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [random_normal |tanh      ] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [random_normal |tanh      ] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [random_normal |tanh      ] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [random_normal |tanh      ] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [random_normal |tanh      ] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [random_normal |tanh      ] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.8s)  saved run_random_normal_tanh.json
+
+[7/20] scheme=random_normal activation=relu
+  [random_normal |relu      ] epoch  1/15  train_loss=2.3027 train_acc=0.091  val_loss=2.3026 val_acc=0.103
+  [random_normal |relu      ] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [random_normal |relu      ] epoch  3/15  train_loss=2.3027 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [random_normal |relu      ] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [random_normal |relu      ] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [random_normal |relu      ] epoch  6/15  train_loss=2.3027 train_acc=0.086  val_loss=2.3031 val_acc=0.094
+  [random_normal |relu      ] epoch  7/15  train_loss=2.3027 train_acc=0.096  val_loss=2.3033 val_acc=0.097
+  [random_normal |relu      ] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [random_normal |relu      ] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [random_normal |relu      ] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [random_normal |relu      ] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [random_normal |relu      ] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [random_normal |relu      ] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [random_normal |relu      ] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [random_normal |relu      ] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.2s)  saved run_random_normal_relu.json
+
+[8/20] scheme=random_normal activation=leaky_relu
+  [random_normal |leaky_relu] epoch  1/15  train_loss=2.3027 train_acc=0.091  val_loss=2.3026 val_acc=0.103
+  [random_normal |leaky_relu] epoch  2/15  train_loss=2.3027 train_acc=0.098  val_loss=2.3028 val_acc=0.092
+  [random_normal |leaky_relu] epoch  3/15  train_loss=2.3027 train_acc=0.100  val_loss=2.3030 val_acc=0.092
+  [random_normal |leaky_relu] epoch  4/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.092
+  [random_normal |leaky_relu] epoch  5/15  train_loss=2.3027 train_acc=0.102  val_loss=2.3030 val_acc=0.100
+  [random_normal |leaky_relu] epoch  6/15  train_loss=2.3027 train_acc=0.086  val_loss=2.3031 val_acc=0.094
+  [random_normal |leaky_relu] epoch  7/15  train_loss=2.3027 train_acc=0.096  val_loss=2.3033 val_acc=0.097
+  [random_normal |leaky_relu] epoch  8/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3036 val_acc=0.097
+  [random_normal |leaky_relu] epoch  9/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3036 val_acc=0.097
+  [random_normal |leaky_relu] epoch 10/15  train_loss=2.3028 train_acc=0.099  val_loss=2.3036 val_acc=0.094
+  [random_normal |leaky_relu] epoch 11/15  train_loss=2.3028 train_acc=0.097  val_loss=2.3034 val_acc=0.094
+  [random_normal |leaky_relu] epoch 12/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3032 val_acc=0.094
+  [random_normal |leaky_relu] epoch 13/15  train_loss=2.3027 train_acc=0.099  val_loss=2.3032 val_acc=0.094
+  [random_normal |leaky_relu] epoch 14/15  train_loss=2.3027 train_acc=0.097  val_loss=2.3031 val_acc=0.094
+  [random_normal |leaky_relu] epoch 15/15  train_loss=2.3027 train_acc=0.101  val_loss=2.3032 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3027  (2.5s)  saved run_random_normal_leaky_relu.json
+
+[9/20] scheme=lecun activation=sigmoid
+  [lecun         |sigmoid   ] epoch  1/15  train_loss=2.3164 train_acc=0.099  val_loss=2.3175 val_acc=0.106
+  [lecun         |sigmoid   ] epoch  2/15  train_loss=2.3071 train_acc=0.102  val_loss=2.3087 val_acc=0.105
+  [lecun         |sigmoid   ] epoch  3/15  train_loss=2.3075 train_acc=0.094  val_loss=2.3352 val_acc=0.092
+  [lecun         |sigmoid   ] epoch  4/15  train_loss=2.3095 train_acc=0.101  val_loss=2.3321 val_acc=0.100
+  [lecun         |sigmoid   ] epoch  5/15  train_loss=2.3089 train_acc=0.095  val_loss=2.3137 val_acc=0.101
+  [lecun         |sigmoid   ] epoch  6/15  train_loss=2.3081 train_acc=0.096  val_loss=2.3235 val_acc=0.094
+  [lecun         |sigmoid   ] epoch  7/15  train_loss=2.3085 train_acc=0.098  val_loss=2.3630 val_acc=0.097
+  [lecun         |sigmoid   ] epoch  8/15  train_loss=2.3088 train_acc=0.101  val_loss=2.3220 val_acc=0.094
+  [lecun         |sigmoid   ] epoch  9/15  train_loss=2.3070 train_acc=0.100  val_loss=2.3141 val_acc=0.094
+  [lecun         |sigmoid   ] epoch 10/15  train_loss=2.3073 train_acc=0.097  val_loss=2.3298 val_acc=0.094
+  [lecun         |sigmoid   ] epoch 11/15  train_loss=2.3094 train_acc=0.097  val_loss=2.3154 val_acc=0.100
+  [lecun         |sigmoid   ] epoch 12/15  train_loss=2.3077 train_acc=0.097  val_loss=2.3077 val_acc=0.106
+  [lecun         |sigmoid   ] epoch 13/15  train_loss=2.3068 train_acc=0.098  val_loss=2.3065 val_acc=0.092
+  [lecun         |sigmoid   ] epoch 14/15  train_loss=2.3070 train_acc=0.098  val_loss=2.3539 val_acc=0.108
+  [lecun         |sigmoid   ] epoch 15/15  train_loss=2.3095 train_acc=0.099  val_loss=2.3170 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3153  (2.7s)  saved run_lecun_sigmoid.json
+
+[10/20] scheme=lecun activation=tanh
+  [lecun         |tanh      ] epoch  1/15  train_loss=1.3003 train_acc=0.621  val_loss=0.8442 val_acc=0.730
+  [lecun         |tanh      ] epoch  2/15  train_loss=0.7215 train_acc=0.759  val_loss=0.8743 val_acc=0.694
+  [lecun         |tanh      ] epoch  3/15  train_loss=0.6028 train_acc=0.784  val_loss=1.0259 val_acc=0.586
+  [lecun         |tanh      ] epoch  4/15  train_loss=0.5435 train_acc=0.810  val_loss=0.5699 val_acc=0.807
+  [lecun         |tanh      ] epoch  5/15  train_loss=0.4826 train_acc=0.834  val_loss=1.3736 val_acc=0.609
+  [lecun         |tanh      ] epoch  6/15  train_loss=0.4919 train_acc=0.827  val_loss=1.2251 val_acc=0.634
+  [lecun         |tanh      ] epoch  7/15  train_loss=0.4518 train_acc=0.839  val_loss=0.6701 val_acc=0.736
+  [lecun         |tanh      ] epoch  8/15  train_loss=0.4143 train_acc=0.856  val_loss=0.8407 val_acc=0.718
+  [lecun         |tanh      ] epoch  9/15  train_loss=0.3969 train_acc=0.858  val_loss=0.5626 val_acc=0.813
+  [lecun         |tanh      ] epoch 10/15  train_loss=0.3723 train_acc=0.868  val_loss=1.3077 val_acc=0.656
+  [lecun         |tanh      ] epoch 11/15  train_loss=0.3703 train_acc=0.869  val_loss=0.7221 val_acc=0.775
+  [lecun         |tanh      ] epoch 12/15  train_loss=0.3422 train_acc=0.880  val_loss=1.0586 val_acc=0.725
+  [lecun         |tanh      ] epoch 13/15  train_loss=0.3576 train_acc=0.872  val_loss=1.2032 val_acc=0.723
+  [lecun         |tanh      ] epoch 14/15  train_loss=0.3294 train_acc=0.889  val_loss=1.6564 val_acc=0.632
+  [lecun         |tanh      ] epoch 15/15  train_loss=0.3493 train_acc=0.879  val_loss=1.1158 val_acc=0.693
+  -> test_acc=0.689  test_loss=1.0983  (2.4s)  saved run_lecun_tanh.json
+
+[11/20] scheme=lecun activation=relu
+  [lecun         |relu      ] epoch  1/15  train_loss=1.9809 train_acc=0.376  val_loss=1.5228 val_acc=0.384
+  [lecun         |relu      ] epoch  2/15  train_loss=1.0082 train_acc=0.618  val_loss=1.3301 val_acc=0.548
+  [lecun         |relu      ] epoch  3/15  train_loss=0.7744 train_acc=0.713  val_loss=2.7679 val_acc=0.454
+  [lecun         |relu      ] epoch  4/15  train_loss=0.7146 train_acc=0.749  val_loss=0.9383 val_acc=0.661
+  [lecun         |relu      ] epoch  5/15  train_loss=0.5875 train_acc=0.788  val_loss=1.8817 val_acc=0.562
+  [lecun         |relu      ] epoch  6/15  train_loss=0.5806 train_acc=0.791  val_loss=1.0354 val_acc=0.654
+  [lecun         |relu      ] epoch  7/15  train_loss=0.5143 train_acc=0.811  val_loss=0.7931 val_acc=0.699
+  [lecun         |relu      ] epoch  8/15  train_loss=0.4790 train_acc=0.829  val_loss=0.8616 val_acc=0.727
+  [lecun         |relu      ] epoch  9/15  train_loss=0.4617 train_acc=0.831  val_loss=0.7161 val_acc=0.768
+  [lecun         |relu      ] epoch 10/15  train_loss=0.4292 train_acc=0.845  val_loss=1.7777 val_acc=0.515
+  [lecun         |relu      ] epoch 11/15  train_loss=0.4456 train_acc=0.838  val_loss=0.9926 val_acc=0.692
+  [lecun         |relu      ] epoch 12/15  train_loss=0.3932 train_acc=0.857  val_loss=1.4377 val_acc=0.731
+  [lecun         |relu      ] epoch 13/15  train_loss=0.4094 train_acc=0.858  val_loss=1.7258 val_acc=0.695
+  [lecun         |relu      ] epoch 14/15  train_loss=0.4091 train_acc=0.865  val_loss=1.8256 val_acc=0.634
+  [lecun         |relu      ] epoch 15/15  train_loss=0.3897 train_acc=0.867  val_loss=1.8076 val_acc=0.646
+  -> test_acc=0.638  test_loss=1.7416  (2.2s)  saved run_lecun_relu.json
+
+[12/20] scheme=lecun activation=leaky_relu
+  [lecun         |leaky_relu] epoch  1/15  train_loss=1.9790 train_acc=0.378  val_loss=1.5097 val_acc=0.388
+  [lecun         |leaky_relu] epoch  2/15  train_loss=0.9993 train_acc=0.623  val_loss=1.4106 val_acc=0.549
+  [lecun         |leaky_relu] epoch  3/15  train_loss=0.7755 train_acc=0.714  val_loss=2.7702 val_acc=0.445
+  [lecun         |leaky_relu] epoch  4/15  train_loss=0.7159 train_acc=0.751  val_loss=0.9376 val_acc=0.662
+  [lecun         |leaky_relu] epoch  5/15  train_loss=0.5875 train_acc=0.787  val_loss=1.8811 val_acc=0.568
+  [lecun         |leaky_relu] epoch  6/15  train_loss=0.5811 train_acc=0.793  val_loss=1.0465 val_acc=0.653
+  [lecun         |leaky_relu] epoch  7/15  train_loss=0.5182 train_acc=0.808  val_loss=0.7835 val_acc=0.707
+  [lecun         |leaky_relu] epoch  8/15  train_loss=0.4791 train_acc=0.826  val_loss=0.8102 val_acc=0.744
+  [lecun         |leaky_relu] epoch  9/15  train_loss=0.4579 train_acc=0.834  val_loss=0.7077 val_acc=0.767
+  [lecun         |leaky_relu] epoch 10/15  train_loss=0.4292 train_acc=0.845  val_loss=2.0752 val_acc=0.474
+  [lecun         |leaky_relu] epoch 11/15  train_loss=0.4615 train_acc=0.835  val_loss=0.9311 val_acc=0.700
+  [lecun         |leaky_relu] epoch 12/15  train_loss=0.3945 train_acc=0.856  val_loss=1.4998 val_acc=0.724
+  [lecun         |leaky_relu] epoch 13/15  train_loss=0.4164 train_acc=0.854  val_loss=1.4578 val_acc=0.708
+  [lecun         |leaky_relu] epoch 14/15  train_loss=0.3922 train_acc=0.867  val_loss=1.7655 val_acc=0.628
+  [lecun         |leaky_relu] epoch 15/15  train_loss=0.3851 train_acc=0.866  val_loss=1.8068 val_acc=0.657
+  -> test_acc=0.648  test_loss=1.7317  (2.3s)  saved run_lecun_leaky_relu.json
+
+[13/20] scheme=xavier activation=sigmoid
+  [xavier        |sigmoid   ] epoch  1/15  train_loss=2.3242 train_acc=0.101  val_loss=2.3187 val_acc=0.106
+  [xavier        |sigmoid   ] epoch  2/15  train_loss=2.3073 train_acc=0.103  val_loss=2.3091 val_acc=0.105
+  [xavier        |sigmoid   ] epoch  3/15  train_loss=2.3077 train_acc=0.097  val_loss=2.3378 val_acc=0.092
+  [xavier        |sigmoid   ] epoch  4/15  train_loss=2.3098 train_acc=0.099  val_loss=2.3356 val_acc=0.100
+  [xavier        |sigmoid   ] epoch  5/15  train_loss=2.3093 train_acc=0.095  val_loss=2.3150 val_acc=0.101
+  [xavier        |sigmoid   ] epoch  6/15  train_loss=2.3084 train_acc=0.094  val_loss=2.3249 val_acc=0.094
+  [xavier        |sigmoid   ] epoch  7/15  train_loss=2.3087 train_acc=0.098  val_loss=2.3694 val_acc=0.097
+  [xavier        |sigmoid   ] epoch  8/15  train_loss=2.3092 train_acc=0.098  val_loss=2.3232 val_acc=0.094
+  [xavier        |sigmoid   ] epoch  9/15  train_loss=2.3072 train_acc=0.098  val_loss=2.3150 val_acc=0.094
+  [xavier        |sigmoid   ] epoch 10/15  train_loss=2.3076 train_acc=0.098  val_loss=2.3325 val_acc=0.094
+  [xavier        |sigmoid   ] epoch 11/15  train_loss=2.3097 train_acc=0.098  val_loss=2.3174 val_acc=0.100
+  [xavier        |sigmoid   ] epoch 12/15  train_loss=2.3079 train_acc=0.097  val_loss=2.3083 val_acc=0.106
+  [xavier        |sigmoid   ] epoch 13/15  train_loss=2.3070 train_acc=0.098  val_loss=2.3069 val_acc=0.092
+  [xavier        |sigmoid   ] epoch 14/15  train_loss=2.3072 train_acc=0.098  val_loss=2.3594 val_acc=0.108
+  [xavier        |sigmoid   ] epoch 15/15  train_loss=2.3099 train_acc=0.099  val_loss=2.3184 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3168  (2.7s)  saved run_xavier_sigmoid.json
+
+[14/20] scheme=xavier activation=tanh
+  [xavier        |tanh      ] epoch  1/15  train_loss=1.1837 train_acc=0.642  val_loss=0.7666 val_acc=0.749
+  [xavier        |tanh      ] epoch  2/15  train_loss=0.6700 train_acc=0.770  val_loss=0.8335 val_acc=0.702
+  [xavier        |tanh      ] epoch  3/15  train_loss=0.5747 train_acc=0.792  val_loss=1.1638 val_acc=0.573
+  [xavier        |tanh      ] epoch  4/15  train_loss=0.5287 train_acc=0.815  val_loss=0.5590 val_acc=0.808
+  [xavier        |tanh      ] epoch  5/15  train_loss=0.4652 train_acc=0.837  val_loss=1.4517 val_acc=0.593
+  [xavier        |tanh      ] epoch  6/15  train_loss=0.4802 train_acc=0.830  val_loss=1.3383 val_acc=0.628
+  [xavier        |tanh      ] epoch  7/15  train_loss=0.4416 train_acc=0.841  val_loss=0.6998 val_acc=0.739
+  [xavier        |tanh      ] epoch  8/15  train_loss=0.3988 train_acc=0.858  val_loss=0.9644 val_acc=0.704
+  [xavier        |tanh      ] epoch  9/15  train_loss=0.3866 train_acc=0.861  val_loss=0.5512 val_acc=0.812
+  [xavier        |tanh      ] epoch 10/15  train_loss=0.3545 train_acc=0.873  val_loss=1.3286 val_acc=0.669
+  [xavier        |tanh      ] epoch 11/15  train_loss=0.3535 train_acc=0.873  val_loss=0.7273 val_acc=0.777
+  [xavier        |tanh      ] epoch 12/15  train_loss=0.3244 train_acc=0.886  val_loss=1.1169 val_acc=0.724
+  [xavier        |tanh      ] epoch 13/15  train_loss=0.3388 train_acc=0.881  val_loss=1.1743 val_acc=0.723
+  [xavier        |tanh      ] epoch 14/15  train_loss=0.3057 train_acc=0.898  val_loss=1.4534 val_acc=0.679
+  [xavier        |tanh      ] epoch 15/15  train_loss=0.3101 train_acc=0.891  val_loss=1.2459 val_acc=0.699
+  -> test_acc=0.692  test_loss=1.2387  (2.4s)  saved run_xavier_tanh.json
+
+[15/20] scheme=xavier activation=relu
+  [xavier        |relu      ] epoch  1/15  train_loss=1.7155 train_acc=0.451  val_loss=1.2982 val_acc=0.561
+  [xavier        |relu      ] epoch  2/15  train_loss=0.9076 train_acc=0.659  val_loss=1.3919 val_acc=0.563
+  [xavier        |relu      ] epoch  3/15  train_loss=0.7198 train_acc=0.737  val_loss=2.5509 val_acc=0.454
+  [xavier        |relu      ] epoch  4/15  train_loss=0.6710 train_acc=0.765  val_loss=0.9668 val_acc=0.668
+  [xavier        |relu      ] epoch  5/15  train_loss=0.5581 train_acc=0.802  val_loss=1.9018 val_acc=0.588
+  [xavier        |relu      ] epoch  6/15  train_loss=0.5566 train_acc=0.801  val_loss=1.4424 val_acc=0.579
+  [xavier        |relu      ] epoch  7/15  train_loss=0.5100 train_acc=0.811  val_loss=0.8507 val_acc=0.712
+  [xavier        |relu      ] epoch  8/15  train_loss=0.4568 train_acc=0.837  val_loss=0.8476 val_acc=0.734
+  [xavier        |relu      ] epoch  9/15  train_loss=0.4357 train_acc=0.839  val_loss=0.6860 val_acc=0.770
+  [xavier        |relu      ] epoch 10/15  train_loss=0.4060 train_acc=0.854  val_loss=1.9596 val_acc=0.497
+  [xavier        |relu      ] epoch 11/15  train_loss=0.4451 train_acc=0.838  val_loss=1.2541 val_acc=0.631
+  [xavier        |relu      ] epoch 12/15  train_loss=0.3827 train_acc=0.861  val_loss=1.4496 val_acc=0.732
+  [xavier        |relu      ] epoch 13/15  train_loss=0.3922 train_acc=0.860  val_loss=1.9085 val_acc=0.687
+  [xavier        |relu      ] epoch 14/15  train_loss=0.3995 train_acc=0.871  val_loss=1.8927 val_acc=0.635
+  [xavier        |relu      ] epoch 15/15  train_loss=0.3782 train_acc=0.873  val_loss=1.4231 val_acc=0.677
+  -> test_acc=0.674  test_loss=1.3727  (2.4s)  saved run_xavier_relu.json
+
+[16/20] scheme=xavier activation=leaky_relu
+  [xavier        |leaky_relu] epoch  1/15  train_loss=1.7046 train_acc=0.458  val_loss=1.3967 val_acc=0.533
+  [xavier        |leaky_relu] epoch  2/15  train_loss=0.9047 train_acc=0.662  val_loss=1.1714 val_acc=0.580
+  [xavier        |leaky_relu] epoch  3/15  train_loss=0.7091 train_acc=0.739  val_loss=2.6202 val_acc=0.453
+  [xavier        |leaky_relu] epoch  4/15  train_loss=0.6704 train_acc=0.767  val_loss=0.9483 val_acc=0.671
+  [xavier        |leaky_relu] epoch  5/15  train_loss=0.5573 train_acc=0.800  val_loss=1.8543 val_acc=0.575
+  [xavier        |leaky_relu] epoch  6/15  train_loss=0.5573 train_acc=0.802  val_loss=1.5087 val_acc=0.574
+  [xavier        |leaky_relu] epoch  7/15  train_loss=0.5085 train_acc=0.812  val_loss=0.8170 val_acc=0.726
+  [xavier        |leaky_relu] epoch  8/15  train_loss=0.4563 train_acc=0.838  val_loss=0.8715 val_acc=0.732
+  [xavier        |leaky_relu] epoch  9/15  train_loss=0.4409 train_acc=0.837  val_loss=0.6773 val_acc=0.773
+  [xavier        |leaky_relu] epoch 10/15  train_loss=0.4067 train_acc=0.851  val_loss=1.9959 val_acc=0.508
+  [xavier        |leaky_relu] epoch 11/15  train_loss=0.4541 train_acc=0.836  val_loss=1.1154 val_acc=0.663
+  [xavier        |leaky_relu] epoch 12/15  train_loss=0.3793 train_acc=0.863  val_loss=1.4806 val_acc=0.725
+  [xavier        |leaky_relu] epoch 13/15  train_loss=0.3947 train_acc=0.864  val_loss=1.7426 val_acc=0.704
+  [xavier        |leaky_relu] epoch 14/15  train_loss=0.3886 train_acc=0.871  val_loss=1.8295 val_acc=0.643
+  [xavier        |leaky_relu] epoch 15/15  train_loss=0.3729 train_acc=0.874  val_loss=1.4819 val_acc=0.682
+  -> test_acc=0.682  test_loss=1.4101  (2.5s)  saved run_xavier_leaky_relu.json
+
+[17/20] scheme=he activation=sigmoid
+  [he            |sigmoid   ] epoch  1/15  train_loss=2.3259 train_acc=0.099  val_loss=2.3198 val_acc=0.106
+  [he            |sigmoid   ] epoch  2/15  train_loss=2.3076 train_acc=0.104  val_loss=2.3095 val_acc=0.105
+  [he            |sigmoid   ] epoch  3/15  train_loss=2.3080 train_acc=0.097  val_loss=2.3399 val_acc=0.092
+  [he            |sigmoid   ] epoch  4/15  train_loss=2.3101 train_acc=0.098  val_loss=2.3379 val_acc=0.100
+  [he            |sigmoid   ] epoch  5/15  train_loss=2.3094 train_acc=0.095  val_loss=2.3160 val_acc=0.101
+  [he            |sigmoid   ] epoch  6/15  train_loss=2.3085 train_acc=0.097  val_loss=2.3261 val_acc=0.094
+  [he            |sigmoid   ] epoch  7/15  train_loss=2.3088 train_acc=0.100  val_loss=2.3737 val_acc=0.097
+  [he            |sigmoid   ] epoch  8/15  train_loss=2.3093 train_acc=0.098  val_loss=2.3240 val_acc=0.094
+  [he            |sigmoid   ] epoch  9/15  train_loss=2.3071 train_acc=0.098  val_loss=2.3156 val_acc=0.094
+  [he            |sigmoid   ] epoch 10/15  train_loss=2.3075 train_acc=0.098  val_loss=2.3344 val_acc=0.094
+  [he            |sigmoid   ] epoch 11/15  train_loss=2.3096 train_acc=0.098  val_loss=2.3185 val_acc=0.100
+  [he            |sigmoid   ] epoch 12/15  train_loss=2.3077 train_acc=0.099  val_loss=2.3085 val_acc=0.106
+  [he            |sigmoid   ] epoch 13/15  train_loss=2.3067 train_acc=0.098  val_loss=2.3068 val_acc=0.092
+  [he            |sigmoid   ] epoch 14/15  train_loss=2.3069 train_acc=0.098  val_loss=2.3633 val_acc=0.108
+  [he            |sigmoid   ] epoch 15/15  train_loss=2.3096 train_acc=0.099  val_loss=2.3190 val_acc=0.094
+  -> test_acc=0.100  test_loss=2.3174  (2.7s)  saved run_he_sigmoid.json
+
+[18/20] scheme=he activation=tanh
+  [he            |tanh      ] epoch  1/15  train_loss=1.0045 train_acc=0.672  val_loss=0.6975 val_acc=0.739
+  [he            |tanh      ] epoch  2/15  train_loss=0.5962 train_acc=0.786  val_loss=0.8650 val_acc=0.710
+  [he            |tanh      ] epoch  3/15  train_loss=0.5213 train_acc=0.810  val_loss=1.2266 val_acc=0.585
+  [he            |tanh      ] epoch  4/15  train_loss=0.4768 train_acc=0.829  val_loss=0.5279 val_acc=0.813
+  [he            |tanh      ] epoch  5/15  train_loss=0.4028 train_acc=0.859  val_loss=1.0692 val_acc=0.677
+  [he            |tanh      ] epoch  6/15  train_loss=0.4117 train_acc=0.851  val_loss=1.0415 val_acc=0.667
+  [he            |tanh      ] epoch  7/15  train_loss=0.3717 train_acc=0.870  val_loss=0.6460 val_acc=0.760
+  [he            |tanh      ] epoch  8/15  train_loss=0.3317 train_acc=0.885  val_loss=1.0365 val_acc=0.689
+  [he            |tanh      ] epoch  9/15  train_loss=0.3310 train_acc=0.885  val_loss=0.5307 val_acc=0.807
+  [he            |tanh      ] epoch 10/15  train_loss=0.2925 train_acc=0.898  val_loss=1.5974 val_acc=0.656
+  [he            |tanh      ] epoch 11/15  train_loss=0.3042 train_acc=0.900  val_loss=0.6289 val_acc=0.788
+  [he            |tanh      ] epoch 12/15  train_loss=0.2513 train_acc=0.915  val_loss=0.8456 val_acc=0.755
+  [he            |tanh      ] epoch 13/15  train_loss=0.2538 train_acc=0.913  val_loss=0.8933 val_acc=0.747
+  [he            |tanh      ] epoch 14/15  train_loss=0.2370 train_acc=0.923  val_loss=0.7880 val_acc=0.764
+  [he            |tanh      ] epoch 15/15  train_loss=0.2234 train_acc=0.927  val_loss=1.3369 val_acc=0.718
+  -> test_acc=0.694  test_loss=1.3291  (2.5s)  saved run_he_tanh.json
+
+[19/20] scheme=he activation=relu
+  [he            |relu      ] epoch  1/15  train_loss=1.2423 train_acc=0.576  val_loss=1.1140 val_acc=0.564
+  [he            |relu      ] epoch  2/15  train_loss=0.7090 train_acc=0.737  val_loss=1.2499 val_acc=0.555
+  [he            |relu      ] epoch  3/15  train_loss=0.6117 train_acc=0.772  val_loss=2.2397 val_acc=0.495
+  [he            |relu      ] epoch  4/15  train_loss=0.5871 train_acc=0.794  val_loss=1.1491 val_acc=0.653
+  [he            |relu      ] epoch  5/15  train_loss=0.5020 train_acc=0.821  val_loss=1.5726 val_acc=0.560
+  [he            |relu      ] epoch  6/15  train_loss=0.4925 train_acc=0.826  val_loss=0.7643 val_acc=0.728
+  [he            |relu      ] epoch  7/15  train_loss=0.4059 train_acc=0.849  val_loss=0.8091 val_acc=0.732
+  [he            |relu      ] epoch  8/15  train_loss=0.3884 train_acc=0.858  val_loss=0.9996 val_acc=0.698
+  [he            |relu      ] epoch  9/15  train_loss=0.3741 train_acc=0.866  val_loss=0.5832 val_acc=0.811
+  [he            |relu      ] epoch 10/15  train_loss=0.3261 train_acc=0.882  val_loss=1.3335 val_acc=0.642
+  [he            |relu      ] epoch 11/15  train_loss=0.3468 train_acc=0.874  val_loss=0.8080 val_acc=0.746
+  [he            |relu      ] epoch 12/15  train_loss=0.2955 train_acc=0.893  val_loss=1.5192 val_acc=0.743
+  [he            |relu      ] epoch 13/15  train_loss=0.3462 train_acc=0.880  val_loss=1.9268 val_acc=0.699
+  [he            |relu      ] epoch 14/15  train_loss=0.3467 train_acc=0.887  val_loss=0.5353 val_acc=0.835
+  [he            |relu      ] epoch 15/15  train_loss=0.2564 train_acc=0.904  val_loss=1.9192 val_acc=0.672
+  -> test_acc=0.667  test_loss=1.8220  (2.4s)  saved run_he_relu.json
+
+[20/20] scheme=he activation=leaky_relu
+  [he            |leaky_relu] epoch  1/15  train_loss=1.2344 train_acc=0.578  val_loss=1.2173 val_acc=0.580
+  [he            |leaky_relu] epoch  2/15  train_loss=0.7012 train_acc=0.737  val_loss=1.3957 val_acc=0.528
+  [he            |leaky_relu] epoch  3/15  train_loss=0.6079 train_acc=0.781  val_loss=2.7330 val_acc=0.424
+  [he            |leaky_relu] epoch  4/15  train_loss=0.5873 train_acc=0.796  val_loss=1.0533 val_acc=0.680
+  [he            |leaky_relu] epoch  5/15  train_loss=0.4889 train_acc=0.823  val_loss=1.5484 val_acc=0.610
+  [he            |leaky_relu] epoch  6/15  train_loss=0.4849 train_acc=0.825  val_loss=0.7218 val_acc=0.755
+  [he            |leaky_relu] epoch  7/15  train_loss=0.4070 train_acc=0.848  val_loss=0.7211 val_acc=0.752
+  [he            |leaky_relu] epoch  8/15  train_loss=0.3689 train_acc=0.863  val_loss=0.9973 val_acc=0.676
+  [he            |leaky_relu] epoch  9/15  train_loss=0.3784 train_acc=0.861  val_loss=0.6298 val_acc=0.798
+  [he            |leaky_relu] epoch 10/15  train_loss=0.3288 train_acc=0.881  val_loss=1.4747 val_acc=0.599
+  [he            |leaky_relu] epoch 11/15  train_loss=0.3375 train_acc=0.873  val_loss=0.7627 val_acc=0.772
+  [he            |leaky_relu] epoch 12/15  train_loss=0.2906 train_acc=0.896  val_loss=1.0098 val_acc=0.762
+  [he            |leaky_relu] epoch 13/15  train_loss=0.3146 train_acc=0.888  val_loss=1.6569 val_acc=0.723
+  [he            |leaky_relu] epoch 14/15  train_loss=0.3226 train_acc=0.896  val_loss=0.7784 val_acc=0.791
+  [he            |leaky_relu] epoch 15/15  train_loss=0.2580 train_acc=0.907  val_loss=2.6914 val_acc=0.624
+  -> test_acc=0.634  test_loss=2.5785  (2.6s)  saved run_he_leaky_relu.json
+
+Tong thoi gian: 1.0 phut cho 20 cau hinh.
+Da luu bang: C:\Users\ACER\latex-web\projects\deep-learning-backprop-init\results\tables\initialization_comparison.csv
+
+Dang sinh 8 hinh bat buoc...
+  results\figures\loss_comparison.png
+  results\figures\accuracy_comparison.png
+  results\figures\gradient_norm.png
+  results\figures\activation_variance.png
+  results\figures\weight_variance.png
+  results\figures\initialization_comparison.png
+  results\figures\gradient_histogram.png
+  results\figures\activation_histogram.png

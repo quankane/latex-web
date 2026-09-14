@@ -1,0 +1,13 @@
+data/
+__pycache__/
+*.pyc
+report/node_modules/
+report/*.log
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.out
+report/*.toc
+report/*.lof
+report/*.lot
+report/qc/
