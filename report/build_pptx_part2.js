@@ -101,6 +101,9 @@ const {
   statCallout(s, { x: MX, y: 5.3, w: 3.7, h: 1.3, value: "0,25205", label: "Loss — khớp tuyệt đối", color: BLUE });
   statCallout(s, { x: 4.9, y: 5.3, w: 3.7, h: 1.3, value: "0,00e+00", label: "sai số vs. PyTorch autograd", color: GOOD });
   statCallout(s, { x: 8.8, y: 5.3, w: 3.7, h: 1.3, value: "NumPy", label: "100% tự viết, không autograd", color: MUTED });
+  s.addText("* 0,00e+00 = đã chạm giới hạn biểu diễn số thực float64 (machine precision ε≈2,2×10⁻¹⁶) — không phải trùng hợp, mà là bằng chứng hai phép tính TOÁN HỌC GIỐNG HỆT NHAU.", {
+    x: MX, y: 6.75, w: W - 2 * MX, h: 0.4, fontSize: 10.5, italic: true, color: MUTED, align: "center", fontFace: FONT_BODY, isTextBox: true, margin: 0,
+  });
   pageTag(s, 20); stampFooter(s, 20);
   noteText(s, "Đây là Part A của project — chứng minh Backprop = Chain Rule bằng code thật, không chỉ lý thuyết suông.");
 }
@@ -115,7 +118,7 @@ const {
   formulaBox(s, "(f(w+h) − f(w−h)) / 2h        h = 10⁻⁶", { y: 2.05, h: 0.85, fontSize: 18 });
   bulletBlock(s, [
     "3 cách tính độc lập: manual (NumPy) · PyTorch autograd · finite-difference",
-    "Sai số tối đa giữa 3 cách: ≈10⁻⁹ (mức làm tròn số thực, KHÔNG phải sai số thuật toán)",
+    "Sai số tối đa giữa 3 cách: ≈10⁻⁹ — mức sai số làm tròn float64 (machine precision), KHÔNG phải sai số thuật toán",
     "Kết quả: PASS (ngưỡng chấp nhận 10⁻⁴)",
   ], { y: 3.2, w: W - 2 * MX, h: 2.0, fontSize: 16 });
   const cx = MX, cw = W - 2 * MX;
@@ -134,13 +137,13 @@ const {
   const s = pres.addSlide();
   kicker(s, "Kết quả thực nghiệm");
   title(s, "Test Accuracy — toàn bộ lưới 20 cấu hình");
-  const imgW = 7.6, imgH = imgW / 2.122;
-  s.addImage({ path: FIG("initialization_comparison.png"), x: (W - imgW) / 2, y: 1.95, w: imgW, h: imgH });
+  const imgW = 6.0, imgH = imgW / 1.789;
+  s.addImage({ path: FIG("initialization_comparison_slide.png"), x: (W - imgW) / 2, y: 1.85, w: imgW, h: imgH });
   bulletBlock(s, [
     "Zero/Random: LUÔN ở mức ngẫu nhiên (10%), với MỌI activation",
     "Sigmoid: LUÔN ~10% dù initialization nào — kể cả He/Xavier",
     "LeCun/Xavier/He: 64–69% với Tanh/ReLU/Leaky ReLU",
-  ], { y: 1.95 + imgH + 0.25, w: W - 2 * MX, h: 1.6, fontSize: 14.5, spaceAfter: 6 });
+  ], { y: 1.85 + imgH + 0.15, w: W - 2 * MX, h: 1.3, fontSize: 13, spaceAfter: 5 });
   pageTag(s, 22); stampFooter(s, 22);
   noteText(s, "Đọc bảng theo hàng rồi theo cột — hàng cho thấy Zero/Random luôn thất bại, cột Sigmoid cho thấy ngay cả initialization tốt cũng thất bại ở độ sâu này.");
 }
@@ -152,8 +155,8 @@ const {
   const s = pres.addSlide();
   kicker(s, "Kết quả thực nghiệm");
   title(s, "Gradient Norm theo Layer (Sigmoid)");
-  const imgH = 4.3, imgW = imgH * 1.358;
-  s.addImage({ path: FIG("gradient_norm.png"), x: MX, y: 1.95, w: imgW, h: imgH });
+  const imgH = 4.3, imgW = imgH * 1.4615;
+  s.addImage({ path: FIG("gradient_norm_slide.png"), x: MX, y: 1.95, w: imgW, h: imgH });
   bulletBlock(s, [
     "Random (naive): suy giảm ≈9 bậc độ lớn, output → input",
     "LeCun/Xavier/He: suy giảm nhẹ hơn nhiều (2–3 bậc)…",
@@ -207,15 +210,65 @@ const {
 {
   const s = pres.addSlide();
   kicker(s, "Thảo luận");
-  title(s, "Vì sao Sigmoid thất bại dù He/Xavier “đúng lý thuyết”?");
+  title(s, "Vì sao Sigmoid thất bại dù He/Xavier “đúng lý thuyết”?", { fontSize: 24 });
+
+  const colW = 5.6, cy = 2.0, ch = 3.05;
+  const leftX = MX, rightX = W - MX - colW;
+  s.addShape(pres.ShapeType.roundRect, { x: leftX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "EAF0FB" }, line: { color: BLUE, width: 1 }, shadow: cardShadow() });
+  s.addText("Nguyên nhân 1 — trần đạo hàm", { x: leftX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.4, fontSize: 15, bold: true, color: BLUE, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
   bulletBlock(s, [
-    "σ′(z) ≤ 0,25 LUÔN LUÔN đúng — không liên quan tới weight scale",
-    "6 lớp ⇒ hệ số suy giảm trần do riêng activation: 0,25⁶ ≈ 2,4×10⁻⁴",
-    "Gradient lớp 1 (Sigmoid+He) ≈ 1,6×10⁻⁵ — khác 0 nhưng quá nhỏ để cập nhật đáng kể ở lr=0,05/15 epoch",
-    "Kết luận: Initialization tốt là ĐIỀU KIỆN CẦN, không phải ĐIỀU KIỆN ĐỦ",
-  ], { y: 2.15, w: W - 2 * MX, h: 3.9, fontSize: 16 });
+    "σ′(z) ≤ 0,25 LUÔN đúng, bất kể weight scale",
+    "6 lớp ⇒ trần suy giảm: 0,25⁶ ≈ 2,4×10⁻⁴",
+    "Gradient lớp 1 ≈ 1,6×10⁻⁵ — khác 0 nhưng quá nhỏ",
+  ], { x: leftX + 0.3, y: cy + 0.75, w: colW - 0.6, h: ch - 0.9, fontSize: 13.5, bulletColor: BLUE, spaceAfter: 8 });
+
+  s.addShape(pres.ShapeType.roundRect, { x: rightX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "FBEEEC" }, line: { color: RED, width: 1 }, shadow: cardShadow() });
+  s.addText("Nguyên nhân 2 — lệch tâm (zig-zag)", { x: rightX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.4, fontSize: 15, bold: true, color: RED, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
+  bulletBlock(s, [
+    "σ(z)∈(0,1) không đối xứng quanh 0 (E[σ]≈0,5)",
+    "⇒ mọi trọng số vào 1 neuron cùng dấu gradient",
+    "⇒ Gradient Descent buộc đi đường DÍCH DẮC, không đường thẳng",
+  ], { x: rightX + 0.3, y: cy + 0.75, w: colW - 0.6, h: ch - 0.9, fontSize: 13.5, bulletColor: RED, spaceAfter: 8 });
+
+  // small zig-zag-vs-direct-path glyph under the right card: a light
+  // straight reference line (ideal path) plus a red staircase path
+  // (SGD under a non-centered/correlated gradient) converging to the same
+  // target dot -- every intermediate zigzag segment is a plain line (no
+  // arrowhead), only the FINAL segment gets one, so it reads as one
+  // continuous path instead of several disconnected arrows.
+  (function zigzagGlyph() {
+    const gx = rightX + 0.35, gy = cy + ch + 0.22, gw = colW - 0.9, gh = 0.42;
+    const start = { x: gx, y: gy }, target = { x: gx + gw, y: gy + gh };
+    // faint straight reference path
+    s.addShape(pres.ShapeType.line, {
+      x: start.x, y: start.y, w: gw, h: gh,
+      line: { color: LINE, width: 1.25, dashType: "dash" },
+    });
+    // red staircase path: alternating small horizontal / vertical steps
+    const steps = 5;
+    const pts = [start];
+    for (let i = 1; i <= steps; i++) {
+      const prev = pts[pts.length - 1];
+      if (i % 2 === 1) pts.push({ x: prev.x + gw / steps, y: prev.y });
+      else pts.push({ x: prev.x, y: prev.y + gh / (steps / 2) });
+    }
+    pts.push(target);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const isLast = i === pts.length - 2;
+      const a = pts[i], b = pts[i + 1];
+      if (isLast) {
+        arrow(s, a.x, a.y, b.x, b.y, { color: RED, width: 2 });
+      } else {
+        s.addShape(pres.ShapeType.line, { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y),
+          w: Math.abs(b.x - a.x), h: Math.abs(b.y - a.y), line: { color: RED, width: 2 } });
+      }
+    }
+    s.addShape(pres.ShapeType.ellipse, { x: target.x - 0.05, y: target.y - 0.05, w: 0.1, h: 0.1, fill: { color: RED }, line: { type: "none" } });
+  })();
+
+  formulaBox(s, "Kết luận: Initialization đúng = ĐIỀU KIỆN CẦN, không phải ĐIỀU KIỆN ĐỦ", { y: 5.85, h: 0.75, w: W - 2 * MX, fontSize: 15.5 });
   pageTag(s, 25); stampFooter(s, 25);
-  noteText(s, "Đây là phần thể hiện tư duy phản biện — không chỉ báo cáo số mà GIẢI THÍCH cơ chế. He vs Xavier cho ReLU: chênh lệch nằm trong nhiễu 1-seed, không kết luận dứt khoát được.");
+  noteText(s, "Đây là phần thể hiện tư duy phản biện — hai nguyên nhân ĐỘC LẬP: (1) trần đạo hàm 0,25 làm tín hiệu yếu, (2) lệch tâm dương làm SGD đi đường dích dắc (như LeCun 1998 'Efficient BackProp' khuyến nghị centering). He vs Xavier cho ReLU: chênh lệch nằm trong nhiễu 1-seed, không có ý nghĩa thống kê, không kết luận dứt khoát được.");
 }
 
 // ================================================================

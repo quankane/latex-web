@@ -342,9 +342,9 @@ function nodeChainRow(slide, y, labels) {
   title(s, "Quy tắc chuỗi (Chain Rule)");
   formulaBox(s, "y = f(g(x))      ⇒      dy/dx = (dy/dg)·(dg/dx)", { y: 2.0, h: 0.85, fontSize: 20 });
   bulletBlock(s, [
-    "g biến đổi x thành đại lượng trung gian; f biến đổi đại lượng đó thành y",
-    "Độ nhạy tổng = độ nhạy từng bước, nhân dồn lại",
-    "Ẩn dụ: truyền tin đồn qua một chuỗi người — sai lệch cuối cùng phụ thuộc mức khuếch đại ở MỖI khâu",
+    "g biến x → đại lượng trung gian; f biến đại lượng đó → y",
+    "Độ nhạy tổng = tích độ nhạy từng bước (nhân dồn)",
+    "Ẩn dụ: tin đồn qua nhiều người — sai lệch cuối phụ thuộc MỖI khâu",
   ], { y: 3.1, w: 7.0, h: 2.0 });
   nodeChainRow(s, 5.4, ["x", "z=wx+b", "a=σ(z)", "L"]);
   formulaBox(s, "∂L/∂w = (∂L/∂a)·(∂a/∂z)·(∂z/∂w)", { x: MX, y: 6.3, w: W - 2 * MX, h: 0.7, fontSize: 17 });
@@ -428,16 +428,33 @@ function nodeChainRow(slide, y, labels) {
   kicker(s, "Backpropagation");
   title(s, "Trực giác: không phải thuật toán thần kỳ");
   bulletBlock(s, [
-    "Backprop = Chain Rule áp dụng CÓ HỆ THỐNG trên một computational graph",
-    "Đi ngược từ Loss, hỏi ở mỗi bước: “bước này khuếch đại hay giảm lỗi bao nhiêu?”",
+    "Backprop = Chain Rule áp dụng CÓ HỆ THỐNG trên computational graph",
+    "Đi ngược từ Loss: mỗi bước hỏi “khuếch đại/giảm lỗi bao nhiêu?”",
     "Tận dụng giá trị forward đã lưu (cache) — không tính lại từ đầu",
-    "Phổ biến rộng rãi bởi Rumelhart, Hinton & Williams (1986)",
-  ], { y: 2.15, w: 6.6, h: 4.0 });
-  const cx = 7.7, cw = 4.9;
-  s.addShape(pres.ShapeType.roundRect, { x: cx, y: 2.15, w: cw, h: 4.0, rectRadius: 0.08, fill: { color: PANEL }, line: { color: LINE, width: 0.75 } , shadow: cardShadow() });
-  s.addText("Ẩn dụ dây chuyền sản xuất", { x: cx + 0.3, y: 2.4, w: cw - 0.6, h: 0.4, fontSize: 14, bold: true, color: NAVY, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
-  s.addText("Sản phẩm cuối bị lỗi. Muốn biết công đoạn nào “chịu trách nhiệm” bao nhiêu, ta đi NGƯỢC từ cuối dây chuyền về đầu, hỏi từng công đoạn — rồi nhân dồn các mức khuếch đại lại.", {
-    x: cx + 0.3, y: 2.95, w: cw - 0.6, h: 2.9, fontSize: 14, italic: true, color: INK, fontFace: FONT_BODY, isTextBox: true, margin: 0, valign: "top",
+    "Phổ biến bởi Rumelhart, Hinton & Williams (1986)",
+  ], { y: 2.1, w: W - 2 * MX, h: 1.9, fontSize: 16.5 });
+
+  // Assembly-line block diagram: forward = production, backward = "who's
+  // responsible for the defect?" -- replaces the old narrative paragraph.
+  const stW = 1.7, stH = 0.75, stGap = 0.55, stY = 4.55;
+  const stages = ["Công đoạn 1", "Công đoạn 2", "Công đoạn 3", "Sản phẩm\n(lỗi)"];
+  const totalW = stages.length * stW + (stages.length - 1) * stGap;
+  let sx = (W - totalW) / 2;
+  const cxs = [];
+  stages.forEach((label, i) => {
+    node(s, { x: sx, y: stY, w: stW, h: stH, label: label.replace("\n", " "), fs: 12,
+              fill: i === stages.length - 1 ? "FBEEEC" : PAPER, lineColor: i === stages.length - 1 ? RED : INK });
+    cxs.push(sx + stW / 2);
+    sx += stW + stGap;
+  });
+  for (let i = 0; i < cxs.length - 1; i++) arrow(s, cxs[i] + stW / 2, stY + stH / 2, cxs[i + 1] - stW / 2, stY + stH / 2, { color: BLUE });
+  const by = stY + stH + 0.5;
+  for (let i = cxs.length - 2; i >= 0; i--) arrow(s, cxs[i + 1] - stW / 2, by, cxs[i] + stW / 2, by, { color: RED, dash: "dash" });
+  s.addText("“Công đoạn nào gây lỗi nhiều nhất?” — đi ngược, hỏi từng bước", {
+    x: MX, y: by + 0.12, w: W - 2 * MX, h: 0.35, align: "center", fontSize: 12, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0,
+  });
+  s.addText("mũi tên xanh = forward (sản xuất)   ·   mũi tên đỏ đứt = backward (truy lỗi)", {
+    x: MX, y: by + 0.55, w: W - 2 * MX, h: 0.3, align: "center", fontSize: 10.5, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0,
   });
   pageTag(s, 8); stampFooter(s, 8);
   noteText(s, "Ẩn dụ dây chuyền sản xuất bị lỗi, truy ngược công đoạn nào gây lỗi nhiều nhất — tương ứng với việc backprop hỏi từng lớp 'anh khuếch đại lỗi bao nhiêu?'.");
@@ -626,14 +643,15 @@ function nodeChainRow(slide, y, labels) {
   title(s, "He / Kaiming Initialization");
   formulaBox(s, "Var(W) = 2 / n_in", { y: 2.05, h: 0.85, fontSize: 20 });
   bulletBlock(s, [
-    "Gấp đôi Xavier — bù việc ReLU triệt tiêu khoảng một nửa variance (phần z<0 → 0)",
+    "Gấp đôi Xavier — bù ReLU triệt tiêu ~một nửa variance (z<0 → 0)",
     "Phù hợp ReLU / Leaky ReLU",
-    "Thực nghiệm: ReLU+Xavier 67,4% vs. ReLU+He 66,7% — chênh lệch nằm TRONG biên độ nhiễu của 1 seed/15 epoch",
-  ], { y: 3.2, w: W - 2 * MX, h: 2.4, fontSize: 16 });
+    "Hệ quả bậc-1 chưa xử lý: ReLU còn LỆCH TÂM DƯƠNG (E[a]≈0,4σ>0) — động lực cho ELU/SELU tự chuẩn hoá",
+    "Thực nghiệm: ReLU+Xavier 67,4% vs. ReLU+He 66,7% (n=1 seed)",
+  ], { y: 3.05, w: W - 2 * MX, h: 2.5, fontSize: 15, spaceAfter: 8 });
   const cx = MX, cw = W - 2 * MX;
   s.addShape(pres.ShapeType.roundRect, { x: cx, y: 5.5, w: cw, h: 1.15, rectRadius: 0.08, fill: { color: "FBEEEC" }, line: { color: RED, width: 0.75 } , shadow: cardShadow() });
-  s.addText("Trung thực khoa học: dự đoán lý thuyết “He > Xavier cho ReLU” KHÔNG được xác nhận rõ ràng ở quy mô thực nghiệm nhỏ này", {
-    x: cx + 0.3, y: 5.5, w: cw - 0.6, h: 1.15, align: "center", valign: "middle", fontSize: 13.5, italic: true, color: NAVY, fontFace: FONT_BODY, isTextBox: true, margin: 0,
+  s.addText("Trung thực khoa học: chênh lệch He/Xavier trên KHÔNG có ý nghĩa thống kê (statistically insignificant, n=1) — KHÔNG kết luận Xavier vượt trội He cho ReLU", {
+    x: cx + 0.3, y: 5.5, w: cw - 0.6, h: 1.15, align: "center", valign: "middle", fontSize: 13, italic: true, color: NAVY, fontFace: FONT_BODY, isTextBox: true, margin: 0,
   });
   pageTag(s, 16); stampFooter(s, 16);
   noteText(s, "Cơ hội thể hiện tư duy phản biện nếu bị hỏi: không phải mọi dự đoán lý thuyết đều được xác nhận rõ ràng ở thực nghiệm nhỏ — đây là điểm trung thực, không phải điểm yếu.");
