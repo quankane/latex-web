@@ -313,7 +313,7 @@ function node(slide, { x, y, w, h, label, fill = PAPER, lineColor = INK, textCol
   }
   s.addShape(pres.ShapeType.ellipse, { x: pts[35].x - 0.06, y: pts[35].y - 0.06, w: 0.12, h: 0.12, fill: { color: RED }, line: { type: "none" } });
   s.addText("y = x²", { x: gx + gw - 1.6, y: gy + 0.25, w: 1.4, h: 0.35, fontSize: 13, color: BLUE, bold: true, fontFace: "Cambria Math", isTextBox: true, margin: 0 });
-  s.addText("tại x=1,5: dy/dx = 3", { x: gx + 0.35, y: gy + gh - 0.45, w: gw - 0.7, h: 0.32, fontSize: 11.5, color: RED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
+  s.addText("tại x=1.5: dy/dx = 3", { x: gx + 0.35, y: gy + gh - 0.45, w: gw - 0.7, h: 0.32, fontSize: 11.5, color: RED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
   pageTag(s, 4); stampFooter(s, 4);
   noteText(s, "Dùng hình tiếp tuyến để minh hoạ. Nếu bị hỏi 'đạo hàm âm nghĩa là gì' — tăng w thì loss giảm, nên optimizer sẽ TĂNG w (đi ngược dấu gradient).");
 }
@@ -362,8 +362,8 @@ function nodeChainRow(slide, y, labels) {
   bulletBlock(s, [
     "Mỗi nút = 1 phép toán; forward tính giá trị, backward nhân đạo hàm cục bộ",
     "Ví dụ: z=wx+b → a=ReLU(z) → L=½(a−y)²",
-    "x=2, w=0,5, b=−0,3, y=1  ⇒  L=0,045",
-    "∂L/∂w = −0,6  (khớp PyTorch autograd & finite-difference tuyệt đối)",
+    "x=2, w=0.5, b=−0.3, y=1  ⇒  L=0.045",
+    "∂L/∂w = −0.6  (khớp PyTorch autograd & finite-difference tuyệt đối)",
   ], { y: 2.05, w: W - 2 * MX, h: 1.9, fontSize: 15 });
   const y = 4.1, nodeW = 1.35, nodeH = 0.7, gap = 0.85;
   const labels = ["x", "z", "a", "L"];
@@ -584,7 +584,7 @@ function nodeChainRow(slide, y, labels) {
     "“Mất khả năng phá vỡ đối xứng” (symmetry breaking) — lớp n neuron chỉ có sức mạnh như 1",
     "Với W=0 ở MỌI lớp: gradient lớp ẩn = ĐÚNG BẰNG 0, không chỉ “rất nhỏ”",
   ], { y: 2.1, w: 7.0, h: 3.2, fontSize: 16 });
-  statCallout(s, { x: 8.3, y: 2.6, w: 4.3, h: 1.8, value: "0,0", label: "gradient đo được tại MỌI lớp ẩn (thực nghiệm, Mục 9)", color: RED });
+  statCallout(s, { x: 8.3, y: 2.6, w: 4.3, h: 1.8, value: "0.0", label: "gradient đo được tại MỌI lớp ẩn (thực nghiệm, Mục 9)", color: RED });
   s.addText("Zero-init không phải “rất nhỏ” — mà là CHẶN ĐỨNG tuyệt đối", {
     x: 8.3, y: 4.6, w: 4.3, h: 0.9, fontSize: 12.5, italic: true, color: MUTED, align: "center",
     fontFace: FONT_BODY, isTextBox: true, margin: 0,
@@ -625,9 +625,9 @@ function nodeChainRow(slide, y, labels) {
   bulletBlock(s, [
     "Dung hoà 2 điều kiện: giữ Var(z) khi forward VÀ giữ Var(gradient) khi backward",
     "Phù hợp Tanh/Sigmoid — activation đối xứng quanh 0",
-    "Thực nghiệm: Tanh + Xavier đạt 69,2% test accuracy (cao nhất trong lưới 20 cấu hình)",
+    "Thực nghiệm: Tanh + Xavier đạt 69.2% test accuracy (cao nhất trong lưới 20 cấu hình)",
   ], { y: 3.2, w: W - 2 * MX, h: 2.2, fontSize: 16 });
-  statCallout(s, { x: MX, y: 5.4, w: 3.6, h: 1.3, value: "69,2%", label: "Tanh + Xavier — test accuracy", color: BLUE });
+  statCallout(s, { x: MX, y: 5.4, w: 3.6, h: 1.3, value: "69.2%", label: "Tanh + Xavier — test accuracy", color: BLUE });
   statCallout(s, { x: 4.9, y: 5.4, w: 3.6, h: 1.3, value: "n_in ≠ n_out", label: "2 điều kiện chỉ trùng khi bằng nhau", color: MUTED });
   statCallout(s, { x: 9.1, y: 5.4, w: 3.6, h: 1.3, value: "2010", label: "Glorot & Bengio, AISTATS", color: MUTED });
   pageTag(s, 15); stampFooter(s, 15);
@@ -645,8 +645,8 @@ function nodeChainRow(slide, y, labels) {
   bulletBlock(s, [
     "Gấp đôi Xavier — bù ReLU triệt tiêu ~một nửa variance (z<0 → 0)",
     "Phù hợp ReLU / Leaky ReLU",
-    "Hệ quả bậc-1 chưa xử lý: ReLU còn LỆCH TÂM DƯƠNG (E[a]≈0,4σ>0) — động lực cho ELU/SELU tự chuẩn hoá",
-    "Thực nghiệm: ReLU+Xavier 67,4% vs. ReLU+He 66,7% (n=1 seed)",
+    "Hệ quả bậc-1 chưa xử lý: ReLU còn LỆCH TÂM DƯƠNG (E[a]≈0.4σ>0) — động lực cho ELU/SELU tự chuẩn hoá",
+    "Thực nghiệm: ReLU+Xavier 67.4% vs. ReLU+He 66.7% (n=1 seed)",
   ], { y: 3.05, w: W - 2 * MX, h: 2.5, fontSize: 15, spaceAfter: 8 });
   const cx = MX, cw = W - 2 * MX;
   s.addShape(pres.ShapeType.roundRect, { x: cx, y: 5.5, w: cw, h: 1.15, rectRadius: 0.08, fill: { color: "FBEEEC" }, line: { color: RED, width: 0.75 } , shadow: cardShadow() });

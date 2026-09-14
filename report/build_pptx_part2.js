@@ -19,8 +19,8 @@ const {
   bulletBlock(s, [
     "Gradient = tích nhiều đạo hàm cục bộ qua L lớp  ≈  gᴸ",
     "g < 1  ⇒  suy giảm theo HÀM MŨ khi L tăng",
-    "g=0,5, L=50  ⇒  hệ số ≈ 8,9×10⁻¹⁶ (gần bằng 0)",
-    "Nguyên nhân kép: activation bão hoà (σ′≤0,25) + weight scale sai",
+    "g=0.5, L=50  ⇒  hệ số ≈ 8.9×10⁻¹⁶ (gần bằng 0)",
+    "Nguyên nhân kép: activation bão hoà (σ′≤0.25) + weight scale sai",
   ], { y: 2.1, w: 6.6, h: 3.9, fontSize: 16 });
   const bx = 7.7, by0 = 2.3, bw = 4.9, barH = 0.5, gap = 0.28;
   const labels = ["L=1", "L=5", "L=10", "L=20", "L=50"];
@@ -30,7 +30,7 @@ const {
     s.addShape(pres.ShapeType.roundRect, { x: bx, y, w: widths[i], h: barH, rectRadius: 0.04, fill: { color: RED } });
     s.addText(lab, { x: bx + widths[i] + 0.12, y, w: 1.0, h: barH, valign: "middle", fontSize: 11.5, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
   });
-  s.addText("g = 0,5 — độ lớn gradient co lại theo độ sâu", { x: bx, y: by0 - 0.42, w: bw, h: 0.35, fontSize: 12, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
+  s.addText("g = 0.5 — độ lớn gradient co lại theo độ sâu", { x: bx, y: by0 - 0.42, w: bw, h: 0.35, fontSize: 12, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
   pageTag(s, 17); stampFooter(s, 17);
   noteText(s, "Số liệu bảng 'hệ số g^L theo L' rất trực quan để trình bày — đọc thẳng từ báo cáo Mục 6. Thanh đỏ co lại minh hoạ trực quan độ lớn gradient.");
 }
@@ -44,7 +44,7 @@ const {
   title(s, "Exploding Gradient");
   bulletBlock(s, [
     "g > 1  ⇒  tăng theo HÀM MŨ khi L tăng",
-    "g=2, L=50  ⇒  hệ số ≈ 1,1×10¹⁵",
+    "g=2, L=50  ⇒  hệ số ≈ 1.1×10¹⁵",
     "Hệ quả: loss dao động mạnh hoặc NaN, huấn luyện phân kỳ",
     "Cùng nguyên nhân với vanishing — chỉ khác dấu của (g−1)",
   ], { y: 2.1, w: 6.6, h: 3.9, fontSize: 16 });
@@ -70,8 +70,8 @@ const {
   title(s, "Thiết kế thực nghiệm");
   bulletBlock(s, [
     "MLP 784→128×6→10, KHÔNG BatchNorm/Dropout",
-    "Fashion-MNIST subset: 5.000 train / 1.000 val / 2.000 test",
-    "SGD thuần, lr=0,05, batch=128, 15 epoch, seed=42",
+    "Fashion-MNIST subset: 5,000 train / 1,000 val / 2,000 test",
+    "SGD thuần, lr=0.05, batch=128, 15 epoch, seed=42",
     "Lưới đầy đủ: 5 initialization × 4 activation = 20 cấu hình",
   ], { y: 2.1, w: 6.5, h: 3.9, fontSize: 16 });
   const cx = 7.6, cw = 5.0, cy = 2.1, ch = 4.1;
@@ -94,14 +94,14 @@ const {
   title(s, "Part A: Manual Backpropagation");
   bulletBlock(s, [
     "Tự viết forward + backward bằng NumPy thuần — KHÔNG dùng autograd (src/manual_nn.py)",
-    "Chạy đúng ví dụ 2 lớp ở Slide 9 (x=1,1 → L=0,25205)",
-    "Đối chiếu PyTorch autograd: sai số tuyệt đối = 0,00e+00",
+    "Chạy đúng ví dụ 2 lớp ở Slide 9 (x=(1,1) → L=0.25205)",
+    "Đối chiếu PyTorch autograd: sai số tuyệt đối = 0.00e+00",
     "Chứng minh Backprop = Chain Rule bằng CODE THẬT, không chỉ lý thuyết",
   ], { y: 2.2, w: W - 2 * MX, h: 3.2, fontSize: 16.5 });
-  statCallout(s, { x: MX, y: 5.3, w: 3.7, h: 1.3, value: "0,25205", label: "Loss — khớp tuyệt đối", color: BLUE });
-  statCallout(s, { x: 4.9, y: 5.3, w: 3.7, h: 1.3, value: "0,00e+00", label: "sai số vs. PyTorch autograd", color: GOOD });
+  statCallout(s, { x: MX, y: 5.3, w: 3.7, h: 1.3, value: "0.25205", label: "Loss — khớp tuyệt đối", color: BLUE });
+  statCallout(s, { x: 4.9, y: 5.3, w: 3.7, h: 1.3, value: "0.00e+00", label: "sai số vs. PyTorch autograd", color: GOOD });
   statCallout(s, { x: 8.8, y: 5.3, w: 3.7, h: 1.3, value: "NumPy", label: "100% tự viết, không autograd", color: MUTED });
-  s.addText("* 0,00e+00 = đã chạm giới hạn biểu diễn số thực float64 (machine precision ε≈2,2×10⁻¹⁶) — không phải trùng hợp, mà là bằng chứng hai phép tính TOÁN HỌC GIỐNG HỆT NHAU.", {
+  s.addText("* 0.00e+00 = đã chạm giới hạn biểu diễn số thực float64 (machine precision ε≈2.2×10⁻¹⁶) — không phải trùng hợp, mà là bằng chứng hai phép tính TOÁN HỌC GIỐNG HỆT NHAU.", {
     x: MX, y: 6.75, w: W - 2 * MX, h: 0.4, fontSize: 10.5, italic: true, color: MUTED, align: "center", fontFace: FONT_BODY, isTextBox: true, margin: 0,
   });
   pageTag(s, 20); stampFooter(s, 20);
@@ -160,7 +160,7 @@ const {
   bulletBlock(s, [
     "Random (naive): suy giảm ≈9 bậc độ lớn, output → input",
     "LeCun/Xavier/He: suy giảm nhẹ hơn nhiều (2–3 bậc)…",
-    "…nhưng VẪN suy giảm — vì σ′(z)≤0,25 bất kể weight scale",
+    "…nhưng VẪN suy giảm — vì σ′(z)≤0.25 bất kể weight scale",
     "Đây là bằng chứng thực nghiệm trực tiếp nhất cho lý thuyết vanishing gradient",
   ], { x: MX + imgW + 0.4, y: 2.1, w: W - MX - imgW - 0.4 - MX, h: 4.1, fontSize: 14.5 });
   pageTag(s, 23); stampFooter(s, 23);
@@ -176,11 +176,11 @@ const {
   title(s, "Bức tranh tổng thể");
   const headers = ["", "Sigmoid", "Tanh", "ReLU", "Leaky ReLU"];
   const rows = [
-    ["Zero", "0,100", "0,100", "0,100", "0,100"],
-    ["Random", "0,100", "0,100", "0,100", "0,100"],
-    ["LeCun", "0,100", "0,689", "0,638", "0,648"],
-    ["Xavier", "0,100", "0,692", "0,674", "0,682"],
-    ["He", "0,100", "0,694", "0,667", "0,634"],
+    ["Zero", "0.100", "0.100", "0.100", "0.100"],
+    ["Random", "0.100", "0.100", "0.100", "0.100"],
+    ["LeCun", "0.100", "0.689", "0.638", "0.648"],
+    ["Xavier", "0.100", "0.692", "0.674", "0.682"],
+    ["He", "0.100", "0.694", "0.667", "0.634"],
   ];
   const tRows = [headers.map((h) => ({ text: h, options: { bold: true, fill: { color: NAVY }, color: PAPER, fontSize: 13 } }))]
     .concat(rows.map((r, ri) => r.map((c, ci) => ({
@@ -217,15 +217,15 @@ const {
   s.addShape(pres.ShapeType.roundRect, { x: leftX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "EAF0FB" }, line: { color: BLUE, width: 1 }, shadow: cardShadow() });
   s.addText("Nguyên nhân 1 — trần đạo hàm", { x: leftX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.4, fontSize: 15, bold: true, color: BLUE, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
   bulletBlock(s, [
-    "σ′(z) ≤ 0,25 LUÔN đúng, bất kể weight scale",
-    "6 lớp ⇒ trần suy giảm: 0,25⁶ ≈ 2,4×10⁻⁴",
-    "Gradient lớp 1 ≈ 1,6×10⁻⁵ — khác 0 nhưng quá nhỏ",
+    "σ′(z) ≤ 0.25 LUÔN đúng, bất kể weight scale",
+    "6 lớp ⇒ trần suy giảm: 0.25⁶ ≈ 2.4×10⁻⁴",
+    "Gradient lớp 1 ≈ 1.6×10⁻⁵ — khác 0 nhưng quá nhỏ",
   ], { x: leftX + 0.3, y: cy + 0.75, w: colW - 0.6, h: ch - 0.9, fontSize: 13.5, bulletColor: BLUE, spaceAfter: 8 });
 
   s.addShape(pres.ShapeType.roundRect, { x: rightX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "FBEEEC" }, line: { color: RED, width: 1 }, shadow: cardShadow() });
   s.addText("Nguyên nhân 2 — lệch tâm (zig-zag)", { x: rightX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.4, fontSize: 15, bold: true, color: RED, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
   bulletBlock(s, [
-    "σ(z)∈(0,1) không đối xứng quanh 0 (E[σ]≈0,5)",
+    "σ(z)∈(0,1) không đối xứng quanh 0 (E[σ]≈0.5)",
     "⇒ mọi trọng số vào 1 neuron cùng dấu gradient",
     "⇒ Gradient Descent buộc đi đường DÍCH DẮC, không đường thẳng",
   ], { x: rightX + 0.3, y: cy + 0.75, w: colW - 0.6, h: ch - 0.9, fontSize: 13.5, bulletColor: RED, spaceAfter: 8 });
@@ -268,7 +268,7 @@ const {
 
   formulaBox(s, "Kết luận: Initialization đúng = ĐIỀU KIỆN CẦN, không phải ĐIỀU KIỆN ĐỦ", { y: 5.85, h: 0.75, w: W - 2 * MX, fontSize: 15.5 });
   pageTag(s, 25); stampFooter(s, 25);
-  noteText(s, "Đây là phần thể hiện tư duy phản biện — hai nguyên nhân ĐỘC LẬP: (1) trần đạo hàm 0,25 làm tín hiệu yếu, (2) lệch tâm dương làm SGD đi đường dích dắc (như LeCun 1998 'Efficient BackProp' khuyến nghị centering). He vs Xavier cho ReLU: chênh lệch nằm trong nhiễu 1-seed, không có ý nghĩa thống kê, không kết luận dứt khoát được.");
+  noteText(s, "Đây là phần thể hiện tư duy phản biện — hai nguyên nhân ĐỘC LẬP: (1) trần đạo hàm 0.25 làm tín hiệu yếu, (2) lệch tâm dương làm SGD đi đường dích dắc (như LeCun 1998 'Efficient BackProp' khuyến nghị centering). He vs Xavier cho ReLU: chênh lệch nằm trong nhiễu 1-seed, không có ý nghĩa thống kê, không kết luận dứt khoát được.");
 }
 
 // ================================================================
@@ -302,14 +302,29 @@ const {
   const s = pres.addSlide();
   kicker(s, "Hạn chế");
   title(s, "Hạn chế của thực nghiệm");
+
+  const colW = 5.6, cy = 2.1, ch = 4.5;
+  const leftX = MX, rightX = W - MX - colW;
+
+  s.addShape(pres.ShapeType.roundRect, { x: leftX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "EAF0FB" }, line: { color: BLUE, width: 1 }, shadow: cardShadow() });
+  s.addText("Lựa chọn phương pháp luận có chủ đích", { x: leftX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.65, fontSize: 14.5, bold: true, color: BLUE, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
   bulletBlock(s, [
-    "Subset nhỏ (5.000/1.000/2.000), 15 epoch, 1 seed duy nhất — không đại diện quy mô lớn",
-    "SGD thuần, không tinh chỉnh learning rate riêng cho từng cấu hình",
-    "Không BatchNorm/Dropout/LR schedule (cố ý, để cô lập biến initialization)",
-    "Validation dao động mạnh do tập val chỉ 1.000 mẫu",
-  ], { y: 2.2, w: W - 2 * MX, h: 3.9, fontSize: 16.5 });
+    "Không BatchNorm/Dropout/LR schedule — cô lập đúng 1 biến đang khảo sát: initialization",
+    "Kiến trúc, optimizer, seed GIỮ NGUYÊN giữa cả 20 cấu hình (fair experiment)",
+    "Subset nhỏ, chạy nhanh trên CPU — ưu tiên tái lập dễ dàng trên phần cứng phổ thông",
+  ], { x: leftX + 0.3, y: cy + 1.0, w: colW - 0.6, h: ch - 1.15, fontSize: 13, bulletColor: BLUE, spaceAfter: 10 });
+
+  s.addShape(pres.ShapeType.roundRect, { x: rightX, y: cy, w: colW, h: ch, rectRadius: 0.08, fill: { color: "FBEEEC" }, line: { color: RED, width: 1 }, shadow: cardShadow() });
+  s.addText("Giới hạn thực nghiệm & hướng mở rộng", { x: rightX + 0.3, y: cy + 0.22, w: colW - 0.6, h: 0.65, fontSize: 14.5, bold: true, color: RED, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
+  bulletBlock(s, [
+    "1 seed duy nhất — chênh lệch nhỏ (vd. Xavier vs. He) không có ý nghĩa thống kê",
+    "Không tinh chỉnh learning rate riêng cho từng cấu hình — có thể chưa tối ưu cho một vài scheme",
+    "Val chỉ 1,000 mẫu — dao động cao; hướng mở rộng: nhiều seed + k-fold cross-validation",
+    "Subset 5,000/1,000/2,000 mẫu — chưa đại diện quy mô full dataset/production",
+  ], { x: rightX + 0.3, y: cy + 1.0, w: colW - 0.6, h: ch - 1.15, fontSize: 12, bulletColor: RED, spaceAfter: 8 });
+
   pageTag(s, 27); stampFooter(s, 27);
-  noteText(s, "Trung thực về giới hạn — không giấu, đây là điểm cộng học thuật khi trả lời câu hỏi phản biện.");
+  noteText(s, "Trung thực về giới hạn — không giấu, đây là điểm cộng học thuật khi trả lời câu hỏi phản biện. Cột trái = lựa chọn có chủ đích (không phải sơ suất); cột phải = giới hạn thật + hướng khắc phục.");
 }
 
 // ================================================================
@@ -346,22 +361,24 @@ const {
   kicker(s, "Tài liệu tham khảo", { color: "8FA3C9", y: 0.55 });
   title(s, "References", { color: PAPER, y: 1.0 });
   const refs = [
-    "Rumelhart, Hinton & Williams (1986). Learning representations by back-propagating errors. Nature, 323:533–536.",
-    "Glorot & Bengio (2010). Understanding the difficulty of training deep feedforward neural networks. AISTATS.",
-    "He, Zhang, Ren & Sun (2015). Delving Deep into Rectifiers. ICCV. arXiv:1502.01852.",
-    "LeCun, Bottou, Orr & Müller (1998/2012). Efficient BackProp. Neural Networks: Tricks of the Trade.",
-    "Goodfellow, Bengio & Courville (2016). Deep Learning. MIT Press.",
-    "Bishop (2006). Pattern Recognition and Machine Learning. Springer.",
-    "Kingma & Ba (2015). Adam: A Method for Stochastic Optimization. ICLR. arXiv:1412.6980.",
-    "Xiao, Rasul & Vollgraf (2017). Fashion-MNIST. arXiv:1708.07747.",
-    "Paszke et al. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. NeurIPS.",
+    "[1] Rumelhart, Hinton & Williams (1986). Learning representations by back-propagating errors. Nature, 323(6088):533–536. DOI: 10.1038/323533a0.",
+    "[2] LeCun, Bottou, Orr & Müller (1998/2012). Efficient BackProp. In Neural Networks: Tricks of the Trade, 2nd ed., LNCS vol. 7700. Springer.",
+    "[3] Glorot & Bengio (2010). Understanding the difficulty of training deep feedforward neural networks. AISTATS, vol. 9, pp. 249–256.",
+    "[4] He, Zhang, Ren & Sun (2015). Delving Deep into Rectifiers. ICCV. arXiv:1502.01852.",
+    "[5] Bishop (2006). Pattern Recognition and Machine Learning. Springer.",
+    "[6] Goodfellow, Bengio & Courville (2016). Deep Learning. MIT Press.",
+    "[7] Kingma & Ba (2015). Adam: A Method for Stochastic Optimization. ICLR. arXiv:1412.6980.",
+    "[8] Clevert, Unterthiner & Hochreiter (2016). Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs). ICLR. arXiv:1511.07289.",
+    "[9] Klambauer, Unterthiner, Mayr & Hochreiter (2017). Self-Normalizing Neural Networks. NeurIPS, vol. 30. arXiv:1706.02515.",
+    "[10] Xiao, Rasul & Vollgraf (2017). Fashion-MNIST. arXiv:1708.07747.",
+    "[11] Paszke et al. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. NeurIPS, vol. 32. arXiv:1912.01703.",
   ];
   const paras = refs.map((t) => ({
-    text: t, options: { bullet: { code: "2022", color: "6FA3E0", indent: 16 }, color: "D8E0EF", fontSize: 12.5, breakLine: true, paraSpaceAfter: 8, fontFace: FONT_BODY },
+    text: t, options: { bullet: false, color: "D8E0EF", fontSize: 11, breakLine: true, paraSpaceAfter: 6.5, fontFace: FONT_BODY },
   }));
-  s.addText(paras, { x: MX, y: 1.9, w: W - 2 * MX, h: 5.0, valign: "top", isTextBox: true, margin: 0 });
+  s.addText(paras, { x: MX, y: 1.85, w: W - 2 * MX, h: 5.15, valign: "top", isTextBox: true, margin: 0 });
   stampFooter(s, 29, true);
-  noteText(s, "Sẵn sàng nêu nguồn cụ thể nếu giảng viên hỏi 'câu này lấy từ đâu' — 9 nguồn, đều đã verify qua tìm kiếm thực tế, không có nguồn bịa.");
+  noteText(s, "Sẵn sàng nêu nguồn cụ thể nếu giảng viên hỏi 'câu này lấy từ đâu' — 11 nguồn, khớp 100% với danh mục tham khảo IEEE trong báo cáo PDF, đều đã verify qua tìm kiếm thực tế, không có nguồn bịa.");
 }
 
 pres.writeFile({ fileName: "Slide_Backprop_Initialization.pptx" }).then((fileName) => {

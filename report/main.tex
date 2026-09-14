@@ -28,8 +28,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
 \usepackage[unicode=true,hidelinks]{hyperref}
-\usepackage{natbib}
-\bibliographystyle{plainnat}
+\usepackage[numbers,square,sort&compress]{natbib}
+\bibliographystyle{IEEEtranN}
 \usepackage{listings}
 
 \setlist{itemsep=1.5pt,topsep=3pt,parsep=0pt}
@@ -98,15 +98,15 @@
 and Parameter Initialization}\\[2.0cm]
 
 \begin{tabular}{rl}
-Tác giả: & \emph{[Điền họ tên sinh viên]} \\
-Đơn vị đào tạo: & \emph{[Điền tên Trường / Khoa]} \\
+Tác giả: & Bùi Đức Quân \\
+Đơn vị đào tạo: & Khoa Công nghệ Thông tin, Trường Đại học Công nghiệp Hà Nội \\
 Nhóm thực hiện: & Nhóm sinh viên Deep Learning \\
-Giảng viên hướng dẫn: & \emph{[Điền tên giảng viên]} \\
+Giảng viên hướng dẫn: & Bộ môn Trí tuệ nhân tạo \\
 \end{tabular}
 
 \vspace{1.2cm}
 {\small Mã nguồn \& dữ liệu tái lập (reproducibility):\\
-\texttt{[Điền URL GitHub repository sau khi đẩy mã nguồn lên]}\\
+\url{https://github.com/quanbui/deep-learning-derivatives-init}\\
 Commit tham chiếu gần nhất tại thời điểm biên soạn: \texttt{637eec4}
 (xem lịch sử repo để tra đúng commit khớp bản PDF này)}
 
@@ -212,8 +212,8 @@ nhiêu?} --- nó đo \textbf{độ nhạy} của đầu ra theo đầu vào tạ
 
 $$\frac{dy}{dx} = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.$$
 
-Ví dụ $y=x^2$: $dy/dx=2x$. Tại $x=1{,}5$, đạo hàm $=3$, nghĩa là quanh
-$x=1{,}5$, nhích $x$ thêm một lượng nhỏ $h$ thì $y$ đổi xấp xỉ $3h$ (Hình~\ref{fig:deriv}
+Ví dụ $y=x^2$: $dy/dx=2x$. Tại $x=1.5$, đạo hàm $=3$, nghĩa là quanh
+$x=1.5$, nhích $x$ thêm một lượng nhỏ $h$ thì $y$ đổi xấp xỉ $3h$ (Hình~\ref{fig:deriv}
 minh hoạ bằng tiếp tuyến).
 
 \begin{figure}[H]
@@ -225,9 +225,9 @@ minh hoạ bằng tiếp tuyến).
   plot (\x,{\x*\x}) node[right,black] {$y=x^2$};
 \draw[bcol, thick, dashed, domain=0.6:2.4, samples=2]
   plot (\x,{2.25+3*(\x-1.5)}) node[right,black,font=\footnotesize]
-  {tiếp tuyến tại $x=1{,}5$ (độ dốc $=3$)};
+  {tiếp tuyến tại $x=1.5$ (độ dốc $=3$)};
 \filldraw[bcol] (1.5,2.25) circle (1.6pt);
-\node[below] at (1.5,-0.05) {\footnotesize $x=1{,}5$};
+\node[below] at (1.5,-0.05) {\footnotesize $x=1.5$};
 \end{tikzpicture}
 \caption{Đạo hàm $=$ độ dốc của tiếp tuyến $=$ độ nhạy cục bộ của $y$ theo $x$.}
 \label{fig:deriv}
@@ -274,12 +274,12 @@ gradient ($\varphi=180°$), tức hướng giảm nhanh nhất là $-\nabla_\the
 
 \textbf{Ví dụ số} ($L(\theta_1,\theta_2)=\theta_1^2+2\theta_2^2$ tại
 $\theta=(1,1)$): $\nabla L = (2\theta_1,\,4\theta_2) = (2,4)$,
-$\lVert\nabla L\rVert=\sqrt{20}\approx4{,}47$. So sánh $D_vL$ theo 3 hướng
+$\lVert\nabla L\rVert=\sqrt{20}\approx4.47$. So sánh $D_vL$ theo 3 hướng
 đơn vị khác nhau:
 \begin{itemize}
-\item $v=\nabla L/\lVert\nabla L\rVert\approx(0{,}447;\,0{,}894)$ (cùng hướng gradient): $D_vL=\sqrt{20}\approx4{,}47$ (lớn nhất).
+\item $v=\nabla L/\lVert\nabla L\rVert\approx(0.447;\,0.894)$ (cùng hướng gradient): $D_vL=\sqrt{20}\approx4.47$ (lớn nhất).
 \item $v=(1,0)$ (chỉ đổi $\theta_1$): $D_vL = (2,4)\cdot(1,0)=2$.
-\item $v=-\nabla L/\lVert\nabla L\rVert\approx(-0{,}447;\,-0{,}894)$ (ngược hướng gradient): $D_vL=-\sqrt{20}\approx-4{,}47$ (nhỏ nhất --- giảm nhanh nhất).
+\item $v=-\nabla L/\lVert\nabla L\rVert\approx(-0.447;\,-0.894)$ (ngược hướng gradient): $D_vL=-\sqrt{20}\approx-4.47$ (nhỏ nhất --- giảm nhanh nhất).
 \end{itemize}
 Đúng như dự đoán: đi theo $-\nabla L$ cho tốc độ giảm $L$ nhanh hơn hẳn đi
 theo $(1,0)$ hay bất kỳ hướng nào khác --- đây chính xác là lý do
@@ -474,7 +474,7 @@ hướng giảm hợp lệ, nên chọn $0$ (đơn giản nhất về mặt cài
 đương coi ReLU "chết" tại đúng điểm gãy) không ảnh hưởng tính đúng đắn
 của Gradient Descent trong thực hành.
 
-\textbf{Ví dụ số} ($x=2,\ w=0{,}5,\ b=-0{,}3,\ y=1$, đã kiểm chứng bằng
+\textbf{Ví dụ số} ($x=2,\ w=0.5,\ b=-0.3,\ y=1$, đã kiểm chứng bằng
 NumPy, PyTorch autograd và finite-difference trong
 \url{experiments/toy_example_verify.py} --- ba cách tính cho kết quả
 khớp tuyệt đối):
@@ -519,17 +519,17 @@ dồn.
 \end{tructiep}
 
 \textbf{Ví dụ số}: $w$ dùng chung cho hai input $x_1=2,\ x_2=3$:
-$z = w x_1 + w x_2,\quad a=z,\quad L=\tfrac12(a-y)^2$, với $w=0{,}4,\ y=1$.
-$$z = 0{,}4\times2 + 0{,}4\times3 = 2{,}0,\qquad a=2{,}0,\qquad L=\tfrac12(2{,}0-1)^2=0{,}5.$$
+$z = w x_1 + w x_2,\quad a=z,\quad L=\tfrac12(a-y)^2$, với $w=0.4,\ y=1$.
+$$z = 0.4\times2 + 0.4\times3 = 2.0,\qquad a=2.0,\qquad L=\tfrac12(2.0-1)^2=0.5.$$
 Xem $w$ ảnh hưởng $L$ qua \emph{hai nhánh} $p=wx_1$ và $q=wx_2$
 ($\partial L/\partial p=\partial L/\partial q=a-y$, $\partial p/\partial w=x_1$,
 $\partial q/\partial w=x_2$):
 \begin{align*}
 \frac{\partial L}{\partial w} &= \frac{\partial L}{\partial p}\frac{\partial p}{\partial w} + \frac{\partial L}{\partial q}\frac{\partial q}{\partial w}\\
-&= (a-y)(x_1+x_2) = 1{,}0\times5 = 5{,}0.
+&= (a-y)(x_1+x_2) = 1.0\times5 = 5.0.
 \end{align*}
 Kiểm tra trực tiếp bằng đạo hàm thường trên $L(w)=\tfrac12\big(w(x_1{+}x_2)-y\big)^2$:
-$dL/dw = \big(w(x_1{+}x_2)-y\big)(x_1{+}x_2) = (2{,}0-1)\times5=5{,}0$ --- khớp
+$dL/dw = \big(w(x_1{+}x_2)-y\big)(x_1{+}x_2) = (2.0-1)\times5=5.0$ --- khớp
 tuyệt đối (kiểm chứng bằng NumPy/autograd trong hàm
 \texttt{example\_shared\_weight}, \url{experiments/toy_example_verify.py}).
 
@@ -590,12 +590,36 @@ lớn (tiến tới $\infty$) khi mô hình gán xác suất gần $0$ cho lớp
 đúng trực giác ``phạt nặng khi tự tin sai''.
 
 \textbf{Ví dụ số} (rút gọn còn $3$ lớp cho dễ theo dõi, logits
-$z=(2{,}0;\ 0{,}5;\ -1{,}0)$, nhãn đúng là lớp $1$):
-$$p = (0{,}7856;\ 0{,}1753;\ 0{,}0391), \qquad L=-\log(0{,}7856)=0{,}2413.$$
-Đạo hàm của Cross-Entropy kết hợp Softmax rút gọn đẹp bất ngờ ---
-\emph{không cần đạo hàm riêng từng hàm}, chain rule qua cả hai bước cho
-kết quả cực đơn giản:
-$$\frac{\partial L}{\partial z} = p - y = (-0{,}2144;\ 0{,}1753;\ 0{,}0391)$$
+$z=(2.0;\ 0.5;\ -1.0)$, nhãn đúng là lớp $1$):
+$$p = (0.7856;\ 0.1753;\ 0.0391), \qquad L=-\log(0.7856)=0.2413.$$
+Đạo hàm của Cross-Entropy kết hợp Softmax rút gọn đẹp bất ngờ --- ta chứng
+minh tường minh dưới đây thay vì chỉ nêu kết quả.
+
+\textbf{Bước 1 --- Jacobian của Softmax.} Với $i=j$:
+$\partial p_i/\partial z_i = p_i(1-p_i)$; với $i\ne j$:
+$\partial p_i/\partial z_j = -p_ip_j$ (đạo hàm thương số, dùng
+$\partial e^{z_i}/\partial z_j=e^{z_i}\delta_{ij}$). Hai trường hợp gộp
+lại bằng ký hiệu Kronecker delta ($\delta_{ij}=1$ nếu $i=j$, ngược lại
+$=0$):
+$$\frac{\partial p_i}{\partial z_j} = p_i(\delta_{ij}-p_j).$$
+
+\textbf{Bước 2 --- Chain rule qua Cross-Entropy.} Với
+$L=-\sum_k y_k\log p_k$, áp dụng chain rule đa biến (tổng qua mọi $p_i$ mà
+$z_j$ ảnh hưởng tới, vì mỗi $z_j$ tác động lên \emph{toàn bộ} vector $p$
+qua phép chuẩn hoá Softmax):
+$$\frac{\partial L}{\partial z_j} = \sum_{i=1}^{10}\frac{\partial L}{\partial p_i}\frac{\partial p_i}{\partial z_j}
+= \sum_{i=1}^{10}\Big(-\frac{y_i}{p_i}\Big)\,p_i(\delta_{ij}-p_j)
+= -\sum_{i=1}^{10} y_i(\delta_{ij}-p_j)
+= -y_j + p_j\sum_{i=1}^{10}y_i.$$
+
+\textbf{Bước 3 --- rút gọn.} Vì $y$ là one-hot nên $\sum_i y_i=1$, số hạng
+cuối rút về đúng $p_j$:
+$$\boxed{\frac{\partial L}{\partial z_j} = p_j - y_j} \qquad\Longrightarrow\qquad \frac{\partial L}{\partial z} = p - y.$$
+Đây là lý do kết quả "đẹp bất ngờ": hai Jacobian riêng lẻ (Softmax và
+Cross-Entropy) đều không đơn giản, nhưng tích của chúng --- qua chain rule
+--- triệt tiêu gần hết số hạng, chỉ còn lại hiệu vector đơn giản. Áp dụng
+số cho ví dụ trên ($p=(0.7856;\ 0.1753;\ 0.0391)$, $y=(1,0,0)$):
+$$\frac{\partial L}{\partial z} = p - y = (-0.2144;\ 0.1753;\ 0.0391)$$
 (hiệu giữa xác suất dự đoán và one-hot nhãn thật) --- đây chính là công
 thức $\delta_2=\hat y-y$ đã dùng xuyên suốt Mục~\ref{sec:scalar}--\ref{sec:matrixform}
 của báo cáo (ở đó bài toán hồi quy $1$ chiều nên $\hat y-y$ chỉ là hiệu
@@ -645,9 +669,23 @@ cho huấn luyện là $\partial L/\partial w,\ \partial L/\partial b$ (cập nh
 tham số) và $\partial L/\partial x$ (tiếp tục lan truyền ngược nếu có lớp
 trước đó) --- xem Bảng~\ref{tab:compgraph_numeric}.
 
+\textbf{Lưu ý đồng bộ ký hiệu.} Mục~\ref{sec:jacobian} viết phép biến đổi
+tuyến tính tổng quát dạng $z=Wx+b$ với $W\in\mathbb R^{m\times n}$ nhân
+\emph{bên trái} vector cột $x\in\mathbb R^n$ --- quy ước đại số tuyến tính
+chuẩn cho một phép biến đổi $\mathbb R^n\to\mathbb R^m$. Từ đây trở đi,
+báo cáo chuyển sang quy ước phổ biến hơn trong tài liệu mạng nơ-ron: mỗi
+neuron có một vector trọng số riêng đặt theo \emph{cột} của ma trận $W$
+(cột $k$ của $W$ là trọng số của neuron $k$), nên phép nhân tương ứng viết
+$z=W\T x+b$ (tức $W$ ở quy ước Mục~\ref{sec:jacobian} chính là $W\T$ ở đây).
+Hai cách viết mô tả cùng một phép tính --- khác nhau chỉ ở việc trọng số
+mỗi neuron được lưu theo hàng hay theo cột của ma trận --- và \emph{quy
+ước hàng-là-mẫu, cột-là-neuron} ($z=W\T x+b$) là quy ước dùng xuyên suốt
+từ đây, khớp với cách NumPy/PyTorch lưu tham số (\texttt{weight.shape =
+(fan\_out, fan\_in)}).
+
 \textbf{Bước 2 --- mạng 2 lớp.} Xét kiến trúc (quy ước vector cột cho
-\emph{một mẫu đơn lẻ}, quen thuộc sách giáo trình; Mục~\ref{sec:matrixform}
-sẽ đổi sang quy ước hàng-là-mẫu để khớp code):
+\emph{một mẫu đơn lẻ} vừa nêu ở trên; Mục~\ref{sec:matrixform}
+sẽ đổi sang quy ước hàng-là-mẫu (batch) để khớp code):
 $$x \to \mathrm{Linear}(W_1,b_1) \to \mathrm{ReLU} \to \mathrm{Linear}(W_2,b_2)
 \to \hat y \to L,$$
 với:
@@ -726,7 +764,7 @@ $\partial L/\partial x$ & $(-0.071,\ -0.071)$ \\
 
 \textbf{Điểm sư phạm quan trọng.} Cột thứ 2 của $\partial L/\partial W_1$
 và $\partial L/\partial W_2$ đều bằng $0$ --- vì neuron 2 bị ReLU ``khoá'' ở
-forward ($z_1[2]=-0{,}4<0$) nên $\mathrm{ReLU}'(z_1[2])=0$ chặn đứng toàn
+forward ($z_1[2]=-0.4<0$) nên $\mathrm{ReLU}'(z_1[2])=0$ chặn đứng toàn
 bộ gradient chảy qua neuron đó, bất kể $\delta$ phía sau lớn hay nhỏ. Đây
 là minh hoạ trực tiếp hiện tượng \textbf{``dead ReLU''}, sẽ nhắc lại ở
 Mục~\ref{sec:init} và Mục~\ref{sec:vanishing}.
@@ -765,31 +803,31 @@ ví dụ bằng tay ở Mục~\ref{sec:scalar} dùng quy ước cột cho gọn.
 $3\to2\to1$, ReLU --- toàn bộ tính bằng NumPy và đối chiếu PyTorch
 autograd khớp tuyệt đối trong
 \url{experiments/toy_example_verify.py::example_matrix_batch}):
-$$X=\begin{pmatrix}1{,}0 & 0{,}5 & -1{,}0\\ 0{,}0 & 1{,}0 & 2{,}0\end{pmatrix},\quad
-W^{(1)}=\begin{pmatrix}0{,}2 & -0{,}1\\ 0{,}4 & 0{,}3\\ -0{,}5 & 0{,}2\end{pmatrix},\quad
-b^{(1)}=\begin{pmatrix}0{,}1 & -0{,}2\end{pmatrix}$$
-$$W^{(2)}=\begin{pmatrix}0{,}6\\ -0{,}3\end{pmatrix},\qquad
-b^{(2)}=\begin{pmatrix}0{,}05\end{pmatrix},\qquad
-Y=\begin{pmatrix}1{,}0\\ 0{,}0\end{pmatrix}.$$
+$$X=\begin{pmatrix}1.0 & 0.5 & -1.0\\ 0.0 & 1.0 & 2.0\end{pmatrix},\quad
+W^{(1)}=\begin{pmatrix}0.2 & -0.1\\ 0.4 & 0.3\\ -0.5 & 0.2\end{pmatrix},\quad
+b^{(1)}=\begin{pmatrix}0.1 & -0.2\end{pmatrix}$$
+$$W^{(2)}=\begin{pmatrix}0.6\\ -0.3\end{pmatrix},\qquad
+b^{(2)}=\begin{pmatrix}0.05\end{pmatrix},\qquad
+Y=\begin{pmatrix}1.0\\ 0.0\end{pmatrix}.$$
 
 \textbf{Forward:}
-$$Z^{(1)}=XW^{(1)}+b^{(1)} = \begin{pmatrix}1{,}00 & -0{,}35\\ -0{,}50 & 0{,}50\end{pmatrix},\qquad
-A^{(1)}=\mathrm{ReLU}(Z^{(1)}) = \begin{pmatrix}1{,}00 & 0{,}00\\ 0{,}00 & 0{,}50\end{pmatrix}$$
-$$\hat Y = A^{(1)}W^{(2)}+b^{(2)} = \begin{pmatrix}0{,}65\\ -0{,}10\end{pmatrix},\qquad
-L=\frac{1}{2N}\sum_i\lVert \hat y_i-y_i\rVert^2 = 0{,}033125.$$
+$$Z^{(1)}=XW^{(1)}+b^{(1)} = \begin{pmatrix}1.00 & -0.35\\ -0.50 & 0.50\end{pmatrix},\qquad
+A^{(1)}=\mathrm{ReLU}(Z^{(1)}) = \begin{pmatrix}1.00 & 0.00\\ 0.00 & 0.50\end{pmatrix}$$
+$$\hat Y = A^{(1)}W^{(2)}+b^{(2)} = \begin{pmatrix}0.65\\ -0.10\end{pmatrix},\qquad
+L=\frac{1}{2N}\sum_i\lVert \hat y_i-y_i\rVert^2 = 0.033125.$$
 
 \textbf{Backward:}
-$$\frac{\partial L}{\partial Z^{(2)}} = \frac{\hat Y-Y}{N} = \begin{pmatrix}-0{,}175\\ -0{,}050\end{pmatrix},\qquad
-\frac{\partial L}{\partial W^{(2)}} = \big(A^{(1)}\big)\T\frac{\partial L}{\partial Z^{(2)}} = \begin{pmatrix}-0{,}175\\ -0{,}025\end{pmatrix}$$
-$$\frac{\partial L}{\partial b^{(2)}} = \begin{pmatrix}-0{,}225\end{pmatrix},\qquad
-\frac{\partial L}{\partial A^{(1)}} = \frac{\partial L}{\partial Z^{(2)}}\big(W^{(2)}\big)\T = \begin{pmatrix}-0{,}105 & 0{,}0525\\ -0{,}030 & 0{,}0150\end{pmatrix}$$
-$$\frac{\partial L}{\partial Z^{(1)}} = \frac{\partial L}{\partial A^{(1)}}\odot\mathrm{ReLU}'(Z^{(1)}) = \begin{pmatrix}-0{,}105 & 0{,}000\\ 0{,}000 & 0{,}015\end{pmatrix}$$
-$$\frac{\partial L}{\partial W^{(1)}} = X\T\frac{\partial L}{\partial Z^{(1)}} = \begin{pmatrix}-0{,}1050 & 0{,}000\\ -0{,}0525 & 0{,}015\\ 0{,}1050 & 0{,}030\end{pmatrix},\qquad
-\frac{\partial L}{\partial b^{(1)}} = \begin{pmatrix}-0{,}105 & 0{,}015\end{pmatrix}$$
+$$\frac{\partial L}{\partial Z^{(2)}} = \frac{\hat Y-Y}{N} = \begin{pmatrix}-0.175\\ -0.050\end{pmatrix},\qquad
+\frac{\partial L}{\partial W^{(2)}} = \big(A^{(1)}\big)\T\frac{\partial L}{\partial Z^{(2)}} = \begin{pmatrix}-0.175\\ -0.025\end{pmatrix}$$
+$$\frac{\partial L}{\partial b^{(2)}} = \begin{pmatrix}-0.225\end{pmatrix},\qquad
+\frac{\partial L}{\partial A^{(1)}} = \frac{\partial L}{\partial Z^{(2)}}\big(W^{(2)}\big)\T = \begin{pmatrix}-0.105 & 0.0525\\ -0.030 & 0.0150\end{pmatrix}$$
+$$\frac{\partial L}{\partial Z^{(1)}} = \frac{\partial L}{\partial A^{(1)}}\odot\mathrm{ReLU}'(Z^{(1)}) = \begin{pmatrix}-0.105 & 0.000\\ 0.000 & 0.015\end{pmatrix}$$
+$$\frac{\partial L}{\partial W^{(1)}} = X\T\frac{\partial L}{\partial Z^{(1)}} = \begin{pmatrix}-0.1050 & 0.000\\ -0.0525 & 0.015\\ 0.1050 & 0.030\end{pmatrix},\qquad
+\frac{\partial L}{\partial b^{(1)}} = \begin{pmatrix}-0.105 & 0.015\end{pmatrix}$$
 
 Lưu ý cột 2 của $\partial L/\partial Z^{(1)}$ có phần tử $0$ ở hàng 1 (vì
-$Z^{(1)}_{1,2}=-0{,}35<0$ --- neuron đó ``chết'' với mẫu 1) trong khi cột 1
-có phần tử $0$ ở hàng 2 (vì $Z^{(1)}_{2,1}=-0{,}50<0$ --- neuron kia
+$Z^{(1)}_{1,2}=-0.35<0$ --- neuron đó ``chết'' với mẫu 1) trong khi cột 1
+có phần tử $0$ ở hàng 2 (vì $Z^{(1)}_{2,1}=-0.50<0$ --- neuron kia
 ``chết'' với mẫu 2 khác) --- minh hoạ dead ReLU xảy ra \emph{độc lập theo
 từng cặp (mẫu, neuron)}, không phải một hiện tượng toàn cục.
 
@@ -813,7 +851,7 @@ lại Backprop tự viết.
 
 \textbf{Số liệu cụ thể cho kiến trúc của báo cáo} ($784\to128^{\times6}\to10$,
 Mục~\ref{sec:methodology}): tổng số tham số
-$$P = \underbrace{784{\times}128{+}128}_{\text{lớp 1}} + \underbrace{5\times(128{\times}128{+}128)}_{\text{5 lớp ẩn giữa}} + \underbrace{128{\times}10{+}10}_{\text{lớp output}} = 184{,}330.$$
+$$P = \underbrace{784{\times}128{+}128}_{\text{lớp 1}} + \underbrace{5\times(128{\times}128{+}128)}_{\text{5 lớp ẩn giữa}} + \underbrace{128{\times}10{+}10}_{\text{lớp output}} = 184\,330.$$
 Finite-difference cần $O(P)=184\,330$ lượt forward \emph{chỉ để tính
 gradient một lần} (một lượt cho mỗi tham số, cộng thêm 1 lượt gốc); trên
 CPU của báo cáo (một lượt forward batch $128$ mẫu mất cỡ vài mili-giây),
@@ -873,7 +911,7 @@ các bước trước.
 \textbf{Momentum}: tích luỹ một ``vận tốc'' $v_t$ --- trung bình trượt có
 trọng số mũ của các gradient trước đó, giúp vượt qua các vùng dao động
 nhỏ (nhiễu batch) và tăng tốc theo hướng nhất quán:
-$$v_t = \beta v_{t-1} + (1-\beta)\nabla_\theta L_t, \qquad \theta_{t+1} = \theta_t - \eta v_t \qquad (\beta\approx0{,}9).$$
+$$v_t = \beta v_{t-1} + (1-\beta)\nabla_\theta L_t, \qquad \theta_{t+1} = \theta_t - \eta v_t \qquad (\beta\approx0.9).$$
 
 \textbf{Adam}~\citep{kingma2015adam}: kết hợp Momentum (ước lượng bậc 1
 $m_t$, giống $v_t$ ở trên) với một ước lượng bậc 2 $v_t$ (trung bình trượt
@@ -885,8 +923,8 @@ v_t=\beta_2 v_{t-1}+(1-\beta_2)(\nabla_\theta L_t)^2,$$
 $$\hat m_t = \frac{m_t}{1-\beta_1^t},\quad \hat v_t=\frac{v_t}{1-\beta_2^t},\qquad
 \theta_{t+1}=\theta_t-\eta\,\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}$$
 ($\hat m_t,\hat v_t$ là phiên bản đã hiệu chỉnh thiên lệch --- \en{bias
-correction} --- cho vài bước đầu khi $m_0=v_0=0$; $\beta_1{=}0{,}9,
-\beta_2{=}0{,}999,\epsilon{=}10^{-8}$ là giá trị mặc định phổ biến).
+correction} --- cho vài bước đầu khi $m_0=v_0=0$; $\beta_1{=}0.9,
+\beta_2{=}0.999,\epsilon{=}10^{-8}$ là giá trị mặc định phổ biến).
 
 \begin{tructiep}[Adam có ``cứu'' được initialization tồi không?]
 Không hoàn toàn. Chia tỷ lệ theo $\sqrt{\hat v_t}$ giúp Adam \emph{bớt
@@ -931,11 +969,11 @@ $\partial L/\partial a^{(l-1)} = \delta^{(l)}(W^{(l)})\T = \delta^{(l)}\cdot
 0 = 0$ với mọi lớp ẩn --- gradient của \emph{mọi} lớp ẩn bằng \textbf{đúng
 bằng $0$}, không chỉ ``rất nhỏ''. Chỉ lớp output (không có lớp nào phía sau
 để nhân với $W=0$) còn nhận gradient khác 0 từ chính hàm loss. Mục~\ref{sec:results}
-kiểm chứng đúng dự đoán này bằng số liệu thật (gradient đo được $=0{,}0$
+kiểm chứng đúng dự đoán này bằng số liệu thật (gradient đo được $=0.0$
 tuyệt đối tại mọi lớp ẩn khi khởi tạo Zero).
 
 \textbf{Ví dụ số truy vết 2 bước cập nhật} (mạng $1\to2\to1$, activation
-linear để đơn giản, $x=1,\ y=1$, $\eta=0{,}1$, mọi $W,b$ khởi tạo $0$):
+linear để đơn giản, $x=1,\ y=1$, $\eta=0.1$, mọi $W,b$ khởi tạo $0$):
 
 \begin{table}[H]
 \centering
@@ -957,8 +995,8 @@ Sau bước 2 & $(0.0;\ 0.0)$ & $(0.0;\ 0.0)$ & $0.19$ & --- \\
 \textbf{đứng yên tuyệt đối ở $0$ qua cả 2 bước} ($dW^{(1)}=dW^{(2)}=0$
 luôn luôn) --- hai neuron ẩn không bao giờ phân hoá. Toàn bộ việc ``học''
 chỉ đến từ $b^{(2)}$ (bias lớp output, không bị vấn đề đối xứng vì chỉ có
-\emph{một} neuron output) dịch chuyển dần $0\to0{,}1\to0{,}19$, kéo loss
-giảm nhẹ $0{,}500\to0{,}405$ --- mạng ``học'' được một hằng số (giá trị
+\emph{một} neuron output) dịch chuyển dần $0\to0.1\to0.19$, kéo loss
+giảm nhẹ $0.500\to0.405$ --- mạng ``học'' được một hằng số (giá trị
 trung bình của $y$), không học được bất kỳ đặc trưng nào của $x$, khớp
 đúng dự đoán lý thuyết ở trên và số liệu thực nghiệm thật ở
 Mục~\ref{sec:results}.
@@ -976,7 +1014,7 @@ bên dưới, vốn chọn $\sigma$ dựa trên kích thước lớp thay vì m�
 
 \textbf{Vì sao không đơn giản chọn $\sigma$ lớn hơn?} Đây là câu hỏi tự
 nhiên tiếp theo --- nếu $\sigma$ quá nhỏ gây vanishing (Mục~\ref{sec:results}:
-Random với $\sigma=0{,}01$), tại sao không chọn $\sigma$ lớn hơn để bù?
+Random với $\sigma=0.01$), tại sao không chọn $\sigma$ lớn hơn để bù?
 Vấn đề là \textbf{không có một $\sigma$ cố định nào đúng cho mọi kiến
 trúc}: hệ số nhân dồn $r=n_{\text{in}}\sigma^2$ (Mục~\ref{sec:schemes})
 phụ thuộc \emph{cả} $\sigma$ \emph{lẫn} $n_{\text{in}}$ --- cùng một
@@ -1060,7 +1098,7 @@ hiệu; ReLU còn tạo ra một hiệu ứng \emph{bậc một} (kỳ vọng) m
 $\mathrm{Var}(W)=2/n_{\text{in}}$ \textbf{không} khắc phục. Vì
 $\mathrm{ReLU}(z)=\max(0,z)\ge0$ với mọi $z$, và với giả thiết chuẩn
 $z\sim\mathcal N(0,\sigma_z^2)$ (dùng xuyên suốt Mục~\ref{sec:schemes}):
-$$\mathbb E[\mathrm{ReLU}(z)] = \int_0^\infty z\,\frac{1}{\sigma_z\sqrt{2\pi}}e^{-z^2/2\sigma_z^2}\,dz = \frac{\sigma_z}{\sqrt{2\pi}} \approx 0{,}40\,\sigma_z \;>\;0.$$
+$$\mathbb E[\mathrm{ReLU}(z)] = \int_0^\infty z\,\frac{1}{\sigma_z\sqrt{2\pi}}e^{-z^2/2\sigma_z^2}\,dz = \frac{\sigma_z}{\sqrt{2\pi}} \approx 0.40\,\sigma_z \;>\;0.$$
 Nói cách khác, \textbf{đầu ra trung bình của mỗi neuron ReLU luôn dương},
 bất kể trọng số $W$ có kỳ vọng $0$ (đối xứng) hay không --- khác hẳn
 Tanh/Sigmoid-đã-chuẩn-hoá vốn có $\mathbb E[a]\approx0$. Hệ quả: input của
@@ -1107,6 +1145,21 @@ vẫn có thể học giá trị khác nhau miễn $W$ đã phá đối xứng),
 là điểm khởi đầu trung tính, đơn giản, được dùng thống nhất trong toàn bộ
 thực nghiệm của báo cáo (Mục~\ref{sec:methodology}).
 
+\begin{tructiep}[Biến thể: bias dương nhỏ cho ReLU]
+Một số tài liệu thực hành (không dùng trong thực nghiệm của báo cáo này,
+nêu ở đây để đầy đủ) đề xuất khởi tạo $b$ bằng một hằng số dương nhỏ, ví
+dụ $b=0.01$, thay vì $0$ cho các lớp dùng ReLU. Lý do: nếu $z=W\T x+b<0$
+ngay ở bước forward đầu tiên (trước khi $W$ kịp học), neuron đó rơi vào
+trạng thái $\mathrm{ReLU}(z)=0$ và $\mathrm{ReLU}'(z)=0$ --- không có
+gradient chảy qua để cập nhật $W,b$, tức nguy cơ \emph{dead ReLU} ngay từ
+lúc khởi tạo. Một độ lệch dương nhỏ trong $b$ đẩy nhiều neuron hơn về phía
+$z>0$ lúc khởi đầu, giảm xác suất "chết" sớm. Đánh đổi: $b>0$ phá vỡ tính
+trung tính của bias và có thể làm lệch phân phối activation ban đầu; đây
+là lý do thực nghiệm của báo cáo giữ $b=0$ để tách biệt hoàn toàn hiệu ứng
+của $\mathrm{Var}(W)$ (biến độc lập đang khảo sát) khỏi hiệu ứng phụ của
+bias.
+\end{tructiep}
+
 \subsection{Chuỗi ảnh hưởng: Initialization $\to$ Training Stability}
 
 \begin{align*}
@@ -1147,12 +1200,12 @@ Random & $1.00$ & $1.28\text{e-}2$ & $1.64\text{e-}4$ & $2.10\text{e-}6$ & $2.68
 \label{tab:varprop}
 \end{table}
 \emph{Ghi chú}: hệ số nhân dồn mỗi lớp $r_{\text{eff}}\approx1$ cho hai
-scheme đầu (theo thiết kế, Mục~\ref{sec:schemes}); $r=n_{\text{in}}\mathrm{Var}(W)=0{,}0128$
-cho Random (naive, $\sigma=0{,}01$ cố định, không hiệu chỉnh activation).
+scheme đầu (theo thiết kế, Mục~\ref{sec:schemes}); $r=n_{\text{in}}\mathrm{Var}(W)=0.0128$
+cho Random (naive, $\sigma=0.01$ cố định, không hiệu chỉnh activation).
 
 Với He/Xavier, hệ số $r$ được \emph{thiết kế} để xấp xỉ $1$ nên variance
 tín hiệu giữ nguyên bậc-độ-lớn qua cả 6 lớp. Với Random (naive)
-($\sigma=0{,}01$ cố định $\Rightarrow r=128\times0{,}01^2=0{,}0128$),
+($\sigma=0.01$ cố định $\Rightarrow r=128\times0.01^2=0.0128$),
 variance suy giảm \textbf{10 bậc độ lớn} chỉ sau 6 lớp --- khớp đúng bậc
 độ lớn với suy giảm gradient đo được thật trong Hình~\ref{fig:gradnorm}
 ($\approx$9 bậc từ lớp 7 về lớp 1), vì gradient và activation suy giảm
@@ -1217,7 +1270,7 @@ $2.0$ (exploding) & $2.0$ & $3.2\times10^{1}$ & $1.0\times10^{3}$ & $1.0\times10
 \label{tab:ge_numeric}
 \end{table}
 
-Với $g=0{,}5$, sau $L=10$ lớp hệ số chỉ còn $\approx1/1024$; sau $L=50$ lớp
+Với $g=0.5$, sau $L=10$ lớp hệ số chỉ còn $\approx1/1024$; sau $L=50$ lớp
 gần như bằng $0$ dưới độ chính xác số thực. Với $g=2$, sau $L=10$ lớp hệ số
 đã là $1024$; sau $L=50$ là hơn $10^{15}$. Bảng~\ref{tab:ge_numeric} minh
 hoạ trực quan vì sao ``giữ $g\approx1$'' (chính là mục tiêu của Xavier/He)
@@ -1225,7 +1278,7 @@ quan trọng với mạng sâu --- một sai lệch nhỏ ở $g$ bị \textbf{k
 theo hàm mũ} của số lớp.
 
 $g$ phụ thuộc \textbf{cả ba yếu tố}: activation (hệ số co từ đạo hàm $f'$
---- vd. $\sigma'(z)\le0{,}25$ luôn luôn co lại), weight scale (qua
+--- vd. $\sigma'(z)\le0.25$ luôn luôn co lại), weight scale (qua
 $\mathrm{Var}(W)$, Mục~\ref{sec:schemes}), và độ sâu $L$ (số lần nhân).
 Thực nghiệm Mục~\ref{sec:results} (Hình~\ref{fig:gradnorm}) đo trực tiếp
 gradient theo từng lớp trên mạng thật, xác nhận đúng ba yếu tố này cùng
@@ -1234,7 +1287,7 @@ tác động.
 \begin{tructiep}[Vì sao ReLU giúp giảm vanishing so với Sigmoid/Tanh]
 $\mathrm{ReLU}'(z)\in\{0,1\}$ (tại $z=0$, xem quy ước dưới đạo hàm
 Mục~\ref{sec:compgraph}) --- khi ``sống'' ($z>0$), hệ số nhân đúng bằng
-$1$ (không co lại như $\sigma'(z)\le0{,}25$); khi ``chết'' ($z\le0$), hệ số
+$1$ (không co lại như $\sigma'(z)\le0.25$); khi ``chết'' ($z\le0$), hệ số
 bằng $0$ hoàn toàn (không ``biến mất dần'' mà ``cắt đứt hẳn''). Đây là lý do
 ReLU không bị vanishing \emph{do chính activation gây ra} như Sigmoid,
 nhưng đổi lại có rủi ro riêng: \textbf{dead ReLU} (neuron chết vĩnh viễn
@@ -1269,8 +1322,8 @@ epoch (phải), theo độ sâu mạng, activation ReLU. Đường chấm ở đ
 
 \begin{enumerate}
 \item \textbf{Random (naive) suy giảm gradient theo đúng đường thẳng trên
-  thang log} khi độ sâu tăng tuyến tính --- từ $\approx8{,}3\times10^{-5}$
-  ($L{=}2$) xuống $\approx5{,}7\times10^{-16}$ ($L{=}12$), tức
+  thang log} khi độ sâu tăng tuyến tính --- từ $\approx8.3\times10^{-5}$
+  ($L{=}2$) xuống $\approx5.7\times10^{-16}$ ($L{=}12$), tức
   \textbf{suy giảm 12 bậc độ lớn chỉ sau 10 lớp thêm vào} --- xác nhận
   trực tiếp mô hình $g^L$ (Mục~\ref{sec:vanishing}, Bảng~\ref{tab:ge_numeric}):
   trên thang log, $\log(g^L)=L\log g$ là một đường thẳng theo $L$, đúng
@@ -1284,14 +1337,14 @@ epoch (phải), theo độ sâu mạng, activation ReLU. Đường chấm ở đ
   Mục~\ref{sec:schemes}: gradient RMS lớp 1 tại khởi tạo vẫn bình thường
   ($\approx4\times10^{-2}$, Hình~\ref{fig:depthexp} trái, không hề suy
   giảm so với các độ sâu nhỏ hơn). Tuy nhiên, test accuracy tại $L{=}12$
-  \textbf{giảm mạnh xuống $32{,}6\%$}. Đối chiếu \emph{cả hai} loss (không
+  \textbf{giảm mạnh xuống $32.6\%$}. Đối chiếu \emph{cả hai} loss (không
   chỉ accuracy) loại trừ ngay giả thuyết vanishing gradient:
-  train loss $=0{,}456$ (khớp fit tốt trên tập train, cùng bậc với mọi độ
-  sâu khác --- $0{,}36$--$0{,}42$) trong khi test loss vọt lên
-  $5{,}409$ --- \textbf{vượt xa} cả mức loss của một mô hình đoán ngẫu
-  nhiên hoàn toàn ($-\ln(1/10)\approx2{,}303$). Một mô hình \emph{không
+  train loss $=0.456$ (khớp fit tốt trên tập train, cùng bậc với mọi độ
+  sâu khác --- $0.36$--$0.42$) trong khi test loss vọt lên
+  $5.409$ --- \textbf{vượt xa} cả mức loss của một mô hình đoán ngẫu
+  nhiên hoàn toàn ($-\ln(1/10)\approx2.303$). Một mô hình \emph{không
   học được gì} (vanishing gradient thực sự) sẽ có train loss \emph{và}
-  test loss đều mắc kẹt gần $2{,}3$ như các cấu hình Zero/Random
+  test loss đều mắc kẹt gần $2.3$ như các cấu hình Zero/Random
   (Bảng~\ref{tab:results_grid}); ở đây train loss thấp chứng tỏ mô hình
   \emph{học được} trên tập train. Chữ ký số liệu này (train loss thấp,
   test loss cao hơn cả baseline ngẫu nhiên) là dấu hiệu kinh điển của
@@ -1364,12 +1417,13 @@ seed cố định $=42$.
 \textbf{Tiền xử lý}: mỗi ảnh làm phẳng thành vector $784$ chiều
 ($28\times28\to784$, khớp input của MLP, Mục~\ref{sec:forward}), giá trị
 pixel gốc $\in[0,255]$ chia $255$ về $[0,1]$, sau đó chuẩn hoá
-$(\text{pixel}-\mu)/\sigma$ với $\mu=0{,}2881$, $\sigma=0{,}3543$ ---
+$(\text{pixel}-\mu)/\sigma$ với $\mu=0.2881$, $\sigma=0.3543$ ---
 \textbf{tính trực tiếp từ chính $5\,000$ mẫu train đang dùng} (không tra
 số liệu chuẩn hoá từ nguồn khác) để tránh rò rỉ thông tin từ phần dữ liệu
 không dùng tới huấn luyện.
 
 \subsection{Kiến trúc mô hình}
+\label{sec:architecture}
 
 MLP 6 hidden layer, \textbf{cố định cho mọi cấu hình}, không
 BatchNorm/Dropout, không pretrained:
@@ -1381,6 +1435,7 @@ không nhạy với initialization, xem thảo luận Mục~\ref{sec:discussion}
 vẫn huấn luyện nhanh trên CPU.
 
 \subsection{Thiết kế lưới thực nghiệm}
+\label{sec:designgrid}
 
 \textbf{Biến thực nghiệm (fair experiment)}: lưới đầy đủ
 $5\text{ initialization}\times4\text{ activation}=20$ cấu hình
@@ -1454,6 +1509,41 @@ $$\mathrm{RMS}\Big(\frac{\partial L}{\partial W^{(l)}}\Big) = \frac{\lVert\parti
 vẽ trong Hình~\ref{fig:gradnorm}, \ref{fig:depthexp}, cho phép so sánh
 công bằng giữa các lớp có kích thước khác nhau (chi tiết cài đặt: hàm
 \texttt{grad\_norms\_per\_layer} trong \url{src/metrics.py}).
+
+\subsection{Môi trường tính toán (System Environment)}
+\label{sec:sysenv}
+
+Để phục vụ tái lập kết quả (\en{reproducibility}), Bảng~\ref{tab:sysenv}
+liệt kê đầy đủ cấu hình phần cứng và phiên bản phần mềm dùng để chạy toàn
+bộ thực nghiệm của báo cáo.
+
+\begin{table}[H]
+\centering
+\caption{Cấu hình môi trường thực nghiệm}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Thành phần} & \textbf{Chi tiết} \\
+\midrule
+CPU & Intel Core i5-13420H (13th Gen) \\
+RAM & 16 GB \\
+GPU & Không dùng --- toàn bộ thực nghiệm chạy trên CPU \\
+Hệ điều hành & Windows 11 (build 10.0.26200) \\
+Python & 3.11.9 \\
+PyTorch & 2.14.0+cpu \\
+NumPy & 2.4.6 \\
+\bottomrule
+\end{tabular}
+\label{tab:sysenv}
+\end{table}
+
+Vì kiến trúc mô hình nhỏ (Mục~\ref{sec:architecture}) và dataset đã được
+lấy mẫu con còn $5\,000$ ảnh (Mục~\ref{sec:dataset}), toàn bộ $20$ cấu
+hình của lưới thực nghiệm chính (Mục~\ref{sec:designgrid}) chạy hoàn toàn
+trên CPU trong thời gian hợp lý, không cần GPU/CUDA --- một lựa chọn có
+chủ đích để giữ bài toán trong tầm tái lập trên phần cứng phổ thông (xem
+thêm Mục~\ref{sec:limitations} về đánh đổi giữa quy mô thực nghiệm và tốc
+độ lặp).
 
 %==============================================================================
 % 8. IMPLEMENTATION
@@ -1655,7 +1745,7 @@ Ba quan sát chính (Hình~\ref{fig:initcomp}, Bảng~\ref{tab:results_grid}):
 
 \subsubsection*{Đọc chi tiết theo từng activation (cột của Bảng~\ref{tab:results_grid})}
 
-\textbf{Cột Sigmoid.} Cả 5 scheme đều dừng ở $10{,}0\%$ --- không có ``người
+\textbf{Cột Sigmoid.} Cả 5 scheme đều dừng ở $10.0\%$ --- không có ``người
 thắng''. Đây không phải lỗi thực nghiệm (đã kiểm tra: mọi cấu hình sigmoid
 đều hội tụ về đúng cùng một điểm bias-only, xem thảo luận cơ chế chính
 xác ở Mục~\ref{sec:discussion}). Điểm đáng chú ý: \emph{ngay cả về mặt
@@ -1664,21 +1754,21 @@ phân dù xuất phát từ 5 initialization khác hẳn nhau --- gợi ý mạn
 được đúng \emph{một} hàm hằng số (dự đoán theo tần suất lớp), không phân
 biệt được input, bất kể initialization.
 
-\textbf{Cột Tanh.} Kết quả tốt nhất trong toàn lưới (He: $69{,}4\%$,
-Xavier: $69{,}2\%$, LeCun: $68{,}9\%$) --- khớp lý thuyết: Tanh có đạo hàm
-cực đại $=1$ tại $z=0$ (so với $0{,}25$ của Sigmoid), ít suy giảm tín hiệu
+\textbf{Cột Tanh.} Kết quả tốt nhất trong toàn lưới (He: $69.4\%$,
+Xavier: $69.2\%$, LeCun: $68.9\%$) --- khớp lý thuyết: Tanh có đạo hàm
+cực đại $=1$ tại $z=0$ (so với $0.25$ của Sigmoid), ít suy giảm tín hiệu
 nhất trong 4 activation được thử, nên ``tha thứ'' cho sai lệch nhỏ giữa 3
 scheme LeCun/Xavier/He hơn.
 
-\textbf{Cột ReLU.} Xavier dẫn đầu nhẹ ($67{,}4\%$) trước He ($66{,}7\%$)
-và LeCun ($63{,}8\%$) --- như đã thảo luận (Mục~\ref{sec:discussion}),
+\textbf{Cột ReLU.} Xavier dẫn đầu nhẹ ($67.4\%$) trước He ($66.7\%$)
+và LeCun ($63.8\%$) --- như đã thảo luận (Mục~\ref{sec:discussion}),
 chênh lệch Xavier/He nằm trong biên độ nhiễu 1-seed, không nên diễn giải
 quá mức. LeCun rõ ràng thấp hơn hẳn 2 scheme kia --- hợp lý vì LeCun
 không có hệ số bù $\times2$ cho việc ReLU triệt tiêu nửa variance
 (Mục~\ref{sec:schemes}).
 
-\textbf{Cột Leaky ReLU.} Xavier tốt nhất ($68{,}2\%$), He giảm xuống
-$63{,}4\%$ (thấp hơn cả ReLU thường) --- điểm bất ngờ nhẹ, vì Leaky ReLU
+\textbf{Cột Leaky ReLU.} Xavier tốt nhất ($68.2\%$), He giảm xuống
+$63.4\%$ (thấp hơn cả ReLU thường) --- điểm bất ngờ nhẹ, vì Leaky ReLU
 có $\mathrm{Var}(a)$ nhỉnh hơn ReLU (phần $z<0$ không hoàn toàn về $0$,
 xem Mục~\ref{sec:vanishing}), nên hệ số bù $\times2$ của He có thể hơi
 \emph{``quá tay''} cho Leaky ReLU cụ thể ở kiến trúc/learning-rate này ---
@@ -1700,10 +1790,10 @@ $0$ tại 6 lớp ẩn (Mục~\ref{sec:zero}) --- log của $0$ không xác đ�
 Hình~\ref{fig:gradnorm} là bằng chứng thực nghiệm rõ nhất cho
 Mục~\ref{sec:vanishing}: \textbf{Random (naive)} suy giảm gần \textbf{9 bậc
 độ lớn} từ lớp 7 (output) về lớp 1 (gần input), từ $\approx10^{-2}$ xuống
-$\approx3\times10^{-11}$ --- vanishing gradient kinh điển do $\sigma=0{,}01$
+$\approx3\times10^{-11}$ --- vanishing gradient kinh điển do $\sigma=0.01$
 không được scale theo $n_{\text{in}}=128$. \textbf{LeCun/Xavier/He} suy
 giảm nhẹ hơn nhiều (khoảng 2--3 bậc độ lớn) nhưng \emph{vẫn suy giảm} vì
-bản thân $\sigma'(z)\le0{,}25$ (Sigmoid) co tín hiệu lại ở mỗi lớp bất kể
+bản thân $\sigma'(z)\le0.25$ (Sigmoid) co tín hiệu lại ở mỗi lớp bất kể
 weight scale đã đúng.
 
 \subsection{Activation variance theo layer}
@@ -1717,7 +1807,7 @@ weight scale đã đúng.
 
 Variance activation của Random (naive) ổn định ở mức rất thấp
 ($\approx2$--$3\times10^{-4}$) ngay từ lớp 2 trở đi --- các neuron gần như
-bão hoà quanh $\sigma(0)=0{,}5$ với biến thiên cực nhỏ, giải thích trực
+bão hoà quanh $\sigma(0)=0.5$ với biến thiên cực nhỏ, giải thích trực
 tiếp vì sao gradient (Hình~\ref{fig:gradnorm}) cũng vanish nặng: activation
 gần như hằng số $\Rightarrow$ không mang thông tin phân biệt các mẫu.
 LeCun/Xavier/He giữ variance cao hơn hẳn ($10^{-2}$), ổn định qua các lớp.
@@ -1775,8 +1865,8 @@ Mục~\ref{sec:limitations}).
 Histogram gradient (Hình~\ref{fig:gradhist}) của Random (naive) co cụm sát
 $0$ với biên độ nhỏ hơn nhiều bậc so với LeCun/Xavier/He --- cùng một hiện
 tượng vanishing nhìn từ góc phân phối thay vì trung bình/norm. Histogram
-activation (Hình~\ref{fig:acthist}) của Zero co cụm hoàn toàn tại $0{,}5$
-(hằng số, đúng như phân tích Mục~\ref{sec:zero}: $a=\sigma(0)=0{,}5$ với
+activation (Hình~\ref{fig:acthist}) của Zero co cụm hoàn toàn tại $0.5$
+(hằng số, đúng như phân tích Mục~\ref{sec:zero}: $a=\sigma(0)=0.5$ với
 mọi mẫu vì $z\equiv0$).
 
 \subsection{Toàn cảnh: loss theo epoch của cả 20 cấu hình}
@@ -1793,7 +1883,7 @@ báo cáo chỉ trưng lát cắt ReLU/Sigmoid ở các mục trước.
 \includegraphics[width=0.92\linewidth]{figures/small_multiples_loss.png}
 \caption{Loss theo epoch, toàn bộ 20 cấu hình (hàng = scheme, cột =
 activation; nét liền = train, nét đứt = validation; trục tung cắt ở
-$2{,}5$ để các đường hội tụ không bị nén). Hai hàng Zero/Random phẳng
+$2.5$ để các đường hội tụ không bị nén). Hai hàng Zero/Random phẳng
 tuyệt đối ở mọi cột --- xác nhận trực quan Bảng~\ref{tab:results_grid}
 không có ngoại lệ ẩn nào ngoài lát cắt đã trình bày.}
 \label{fig:smallmult}
@@ -1821,21 +1911,21 @@ lát cắt đơn lẻ.
 đáng chú ý nhất của thực nghiệm (Bảng~\ref{tab:results_grid}): lý thuyết
 Mục~\ref{sec:schemes} nói He/Xavier ``bảo toàn variance tín hiệu'', nhưng
 điều đó chỉ đúng về \emph{weight scale} --- nó không thể bù cho việc
-$\sigma'(z)\le0{,}25$ \textbf{luôn luôn đúng}, bất kể variance của $z$ là
+$\sigma'(z)\le0.25$ \textbf{luôn luôn đúng}, bất kể variance của $z$ là
 bao nhiêu. Với 6 lớp, hệ số suy giảm trần do riêng activation gây ra đã là
-$0{,}25^6\approx2{,}4\times10^{-4}$ --- cộng thêm $15$ epoch với SGD thuần
-($\eta=0{,}05$, không momentum) là không đủ để vượt qua mức suy giảm này
+$0.25^6\approx2.4\times10^{-4}$ --- cộng thêm $15$ epoch với SGD thuần
+($\eta=0.05$, không momentum) là không đủ để vượt qua mức suy giảm này
 trong thời gian huấn luyện ngắn của báo cáo. Số liệu Mục~\ref{sec:results}
 xác nhận đúng cơ chế này: gradient RMS lớp 1 của Sigmoid+He chỉ
-$\approx1{,}6\times10^{-5}$ (so với $\approx2{,}8\times10^{-2}$ của
+$\approx1.6\times10^{-5}$ (so với $\approx2.8\times10^{-2}$ của
 ReLU+He) --- khác $0$ (không ``chết'' như Zero-init) nhưng quá nhỏ để tạo ra
 bước cập nhật đáng kể ở LR đang dùng.
 
 \textbf{Nguyên nhân thứ hai, độc lập với trần đạo hàm: lệch tâm của
-Sigmoid gây dao động dích dắc (zig-zagging).} $\sigma'(z)\le0{,}25$ giải
+Sigmoid gây dao động dích dắc (zig-zagging).} $\sigma'(z)\le0.25$ giải
 thích tín hiệu \emph{yếu}; nhưng ngay cả khi tín hiệu đủ mạnh, Sigmoid còn
 một vấn đề thứ hai làm SGD hội tụ chậm: $\sigma(z)\in(0,1)$
-\textbf{không đối xứng quanh $0$} ($\mathbb E[\sigma(z)]\approx0{,}5>0$,
+\textbf{không đối xứng quanh $0$} ($\mathbb E[\sigma(z)]\approx0.5>0$,
 cùng bản chất lệch tâm dương đã phân tích cho ReLU ở Mục~\ref{sec:schemes},
 chỉ khác Sigmoid lệch tâm nhiều hơn hẳn vì miền giá trị bị nén hoàn toàn
 vào $(0,1)$). Theo công thức Mục~\ref{sec:matrixform},
@@ -1870,9 +1960,9 @@ bài toán phân loại nhị phân.
 hoàn toàn với thực nghiệm, ở cả lưới chính (Mục~\ref{sec:results}) lẫn
 thực nghiệm độ sâu bổ sung (Mục~\ref{sec:depthexp}). Dự đoán ``He tốt hơn
 Xavier cho ReLU'' \textbf{không nên được diễn giải là đã xác nhận} ở quy
-mô thực nghiệm này: He đạt $66{,}7\%$, Xavier đạt $67{,}4\%$ trên
+mô thực nghiệm này: He đạt $66.7\%$, Xavier đạt $67.4\%$ trên
 \textbf{đúng một seed} ($seed{=}42$) --- Xavier nhỉnh hơn về mặt số học,
-nhưng chênh lệch $0{,}7$ điểm phần trăm này hoàn toàn nằm trong biên độ
+nhưng chênh lệch $0.7$ điểm phần trăm này hoàn toàn nằm trong biên độ
 dao động ngẫu nhiên bình thường giữa các lần chạy (minibatch shuffling,
 thứ tự cập nhật) của \emph{cùng một} scheme, không có ý nghĩa thống kê
 (\en{statistically insignificant}) khi chỉ có $n{=}1$ quan sát mỗi
@@ -1885,9 +1975,9 @@ lại nhiều seed và kiểm định thống kê, xem Mục~\ref{sec:limitation
 Kết quả thực nghiệm độ sâu (Mục~\ref{sec:depthexp}) bổ sung một phát hiện
 \emph{ngoài dự đoán của riêng lý thuyết variance}: tại $L{=}12$, He vẫn
 giữ gradient khởi tạo ổn định (đúng dự đoán Mục~\ref{sec:schemes}) nhưng
-test accuracy sụp xuống $32{,}6\%$ --- tuy nhiên (xem phân tích chi tiết
+test accuracy sụp xuống $32.6\%$ --- tuy nhiên (xem phân tích chi tiết
 ở Mục~\ref{sec:depthexp}) đây là \textbf{suy sụp năng lực khái quát hoá
-do overfitting} (train loss thấp, test loss vọt lên $5{,}409$), \textbf{không
+do overfitting} (train loss thấp, test loss vọt lên $5.409$), \textbf{không
 phải} một dạng vanishing/exploding gradient chưa được mô hình hoá. Điều
 này khẳng định rõ ranh giới của Mục~\ref{sec:init}: phân tích variance
 tĩnh mô tả đúng \emph{bước khởi tạo}, nhưng không --- và không có ý định
@@ -2044,7 +2134,7 @@ tham số. Về Initialization, báo cáo chứng minh bằng cả suy luận to
 (Mục~\ref{sec:init}) lẫn thực nghiệm thật (Mục~\ref{sec:results}) rằng lựa
 chọn $\theta_0$ ảnh hưởng quyết định tới việc mạng có học được hay không:
 Zero-init xoá hoàn toàn khả năng phá vỡ đối xứng (gradient lớp ẩn $\equiv0$,
-đo được chính xác bằng $0{,}0$ trong thực nghiệm); Random (naive) và ngay
+đo được chính xác bằng $0.0$ trong thực nghiệm); Random (naive) và ngay
 cả He/Xavier với activation bão hoà sâu (Sigmoid, 6 lớp) vẫn có thể
 vanishing đủ mạnh để chặn đứng việc học trong thời gian huấn luyện ngắn.
 Hai chủ đề tưởng như tách biệt của báo cáo hoá ra là hai mặt của cùng một
@@ -2166,30 +2256,30 @@ cấu hình, lấy trực tiếp từ \url{results/tables/initialization_compari
 \toprule
 \textbf{Scheme} & \textbf{Activation} & \textbf{Train loss} & \textbf{Val loss} & \textbf{Test loss} & \textbf{Test acc.} \\
 \midrule
-Zero & Sigmoid & 2,309 & 2,315 & 2,314 & 0,100 \\
-Zero & Tanh & 2,303 & 2,303 & 2,303 & 0,100 \\
-Zero & ReLU & 2,303 & 2,303 & 2,303 & 0,100 \\
-Zero & Leaky ReLU & 2,303 & 2,303 & 2,303 & 0,100 \\
+Zero & Sigmoid & 2.309 & 2.315 & 2.314 & 0.100 \\
+Zero & Tanh & 2.303 & 2.303 & 2.303 & 0.100 \\
+Zero & ReLU & 2.303 & 2.303 & 2.303 & 0.100 \\
+Zero & Leaky ReLU & 2.303 & 2.303 & 2.303 & 0.100 \\
 \addlinespace
-Random & Sigmoid & 2,309 & 2,315 & 2,313 & 0,100 \\
-Random & Tanh & 2,303 & 2,303 & 2,303 & 0,100 \\
-Random & ReLU & 2,303 & 2,303 & 2,303 & 0,100 \\
-Random & Leaky ReLU & 2,303 & 2,303 & 2,303 & 0,100 \\
+Random & Sigmoid & 2.309 & 2.315 & 2.313 & 0.100 \\
+Random & Tanh & 2.303 & 2.303 & 2.303 & 0.100 \\
+Random & ReLU & 2.303 & 2.303 & 2.303 & 0.100 \\
+Random & Leaky ReLU & 2.303 & 2.303 & 2.303 & 0.100 \\
 \addlinespace
-LeCun & Sigmoid & 2,309 & 2,317 & 2,315 & 0,100 \\
-LeCun & Tanh & 0,349 & 1,116 & 1,098 & \textbf{0,689} \\
-LeCun & ReLU & 0,390 & 1,808 & 1,742 & 0,638 \\
-LeCun & Leaky ReLU & 0,385 & 1,807 & 1,732 & 0,648 \\
+LeCun & Sigmoid & 2.309 & 2.317 & 2.315 & 0.100 \\
+LeCun & Tanh & 0.349 & 1.116 & 1.098 & \textbf{0.689} \\
+LeCun & ReLU & 0.390 & 1.808 & 1.742 & 0.638 \\
+LeCun & Leaky ReLU & 0.385 & 1.807 & 1.732 & 0.648 \\
 \addlinespace
-Xavier & Sigmoid & 2,310 & 2,318 & 2,317 & 0,100 \\
-Xavier & Tanh & 0,310 & 1,246 & 1,239 & \textbf{0,692} \\
-Xavier & ReLU & 0,378 & 1,423 & 1,373 & \textbf{0,674} \\
-Xavier & Leaky ReLU & 0,373 & 1,482 & 1,410 & \textbf{0,682} \\
+Xavier & Sigmoid & 2.310 & 2.318 & 2.317 & 0.100 \\
+Xavier & Tanh & 0.310 & 1.246 & 1.239 & \textbf{0.692} \\
+Xavier & ReLU & 0.378 & 1.423 & 1.373 & \textbf{0.674} \\
+Xavier & Leaky ReLU & 0.373 & 1.482 & 1.410 & \textbf{0.682} \\
 \addlinespace
-He & Sigmoid & 2,310 & 2,319 & 2,317 & 0,100 \\
-He & Tanh & 0,223 & 1,337 & 1,329 & \textbf{0,694} \\
-He & ReLU & 0,256 & 1,919 & 1,822 & 0,667 \\
-He & Leaky ReLU & 0,258 & 2,691 & 2,579 & 0,634 \\
+He & Sigmoid & 2.310 & 2.319 & 2.317 & 0.100 \\
+He & Tanh & 0.223 & 1.337 & 1.329 & \textbf{0.694} \\
+He & ReLU & 0.256 & 1.919 & 1.822 & 0.667 \\
+He & Leaky ReLU & 0.258 & 2.691 & 2.579 & 0.634 \\
 \bottomrule
 \end{tabular}
 \label{tab:fulltable}
@@ -2197,9 +2287,9 @@ He & Leaky ReLU & 0,258 & 2,691 & 2,579 & 0,634 \\
 
 \textbf{Đọc bảng}: cột in đậm là giá trị cao nhất theo cột trong nhóm
 Tanh/ReLU/Leaky ReLU (Sigmoid không có cột in đậm vì cả 5 scheme đều
-$0{,}100$ --- không có ``người thắng'', xem thảo luận Mục~\ref{sec:discussion}).
+$0.100$ --- không có ``người thắng'', xem thảo luận Mục~\ref{sec:discussion}).
 Chênh lệch train loss vs.\ val/test loss ở mọi cấu hình học được (vd.\
-He+Tanh: $0{,}223$ so với $1{,}337$) phản ánh đúng hiện tượng overfitting
+He+Tanh: $0.223$ so với $1.337$) phản ánh đúng hiện tượng overfitting
 nhẹ đã nêu ở Mục~\ref{sec:smallmult} --- dự kiến với $5\,000$ mẫu train,
 không regularization, 15 epoch.
 
@@ -2250,7 +2340,7 @@ trả lời có trích dẫn mục tương ứng để tra cứu chi tiết.
 \item \textbf{Tại sao ReLU thường đi với He initialization?} Vì He được
   suy ra \emph{trực tiếp} từ đặc tính của ReLU (hệ số bù $\times2$ ở câu
   9); dùng Xavier cho ReLU vẫn hoạt động (Bảng~\ref{tab:results_grid}: Xavier+ReLU
-  $67{,}4\%$) nhưng không xuất phát từ đúng giả định về activation
+  $67.4\%$) nhưng không xuất phát từ đúng giả định về activation
   (Mục~\ref{sec:schemes}, \ref{sec:discussion}).
 \item \textbf{fan\_in và fan\_out là gì?} $\mathrm{fan\_in}=n_{l-1}$ (số
   input của 1 neuron), $\mathrm{fan\_out}=n_l$ (số neuron lớp sau nhận
