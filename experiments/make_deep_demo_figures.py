@@ -94,6 +94,32 @@ def make_deep_demo_accuracy_slide(runs: dict) -> Path:
     return out
 
 
+def make_activation_variance_slide(runs: dict) -> Path:
+    """Var(A^(l)) theo layer, tai buoc khoi tao -- bang chung THEO FORWARD PASS
+    cho cung cau chuyen initialization dang duoc ke bang gradient (backward).
+    Bo qua 'zero' (moi activation dung bang 0, khong ve duoc tren thang log)."""
+    schemes = ["random_normal", "random_large", "xavier", "he"]
+    fig, ax = plt.subplots(figsize=(9, 6.2))
+    for scheme in schemes:
+        stats = runs[scheme]["initial_activation_stats"]
+        layers = [s["layer"] for s in stats]
+        var = [max(s["var"], 1e-20) for s in stats]
+        ax.plot(layers, var, color=DEMO_COLOR[scheme], marker="o", markersize=8,
+                linewidth=2.8, label=DEMO_LABEL[scheme])
+    ax.set_yscale("log")
+    ax.set_xlabel("Layer (1 = gần input nhất, 10 = lớp ẩn cuối)", fontsize=17)
+    ax.set_ylabel("Var(A⁽ˡ⁾), tại khởi tạo (log)", fontsize=17)
+    ax.set_title("Activation variance theo layer — bằng chứng phía FORWARD PASS", fontsize=16.5)
+    ax.tick_params(axis="both", labelsize=15)
+    ax.legend(loc="best", frameon=False, fontsize=14)
+    ax.grid(alpha=0.3, which="both")
+    fig.tight_layout()
+    out = FIG_DIR / "activation_variance_slide.png"
+    fig.savefig(out, dpi=150)
+    plt.close(fig)
+    return out
+
+
 def make_depth_v2_slide() -> Path:
     rows = json.loads((LOG_DIR / "depth_experiment_v2.json").read_text(encoding="utf-8"))
     scheme_order = ["random_normal", "xavier", "he"]
@@ -125,5 +151,6 @@ if __name__ == "__main__":
     p1 = make_gradient_heatmap_slide(runs)
     p2 = make_deep_demo_accuracy_slide(runs)
     p3 = make_depth_v2_slide()
-    for p in (p1, p2, p3):
+    p4 = make_activation_variance_slide(runs)
+    for p in (p1, p2, p3, p4):
         print("saved", p)

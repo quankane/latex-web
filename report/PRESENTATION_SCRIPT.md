@@ -1,6 +1,6 @@
 # Kịch bản thuyết trình — Backpropagation & Parameter Initialization
 
-**Dùng cùng với:** `Slide_Backprop_Initialization.pptx` (29 slide)
+**Dùng cùng với:** `Slide_Backprop_Initialization.pptx` (30 slide)
 **Thời lượng đề xuất:** 25–30 phút thuyết trình + 5–10 phút demo/Q&A
 **Đối tượng:** Học phần Deep Learning bậc Thạc sĩ
 
@@ -24,8 +24,8 @@
 |---|---|---|---|
 | 1. Motivation & Math | 1–9 | Đặt vấn đề → Derivative → Gradient → GD → Forward → Chain Rule → Backprop | ~8 phút |
 | 2. Vanishing/Exploding & Init | 10–17 | Vanishing/Exploding → Zero/Random/Xavier/He → Synthesis | ~8 phút |
-| 3. Experiment | 18–26 | Thiết kế thực nghiệm → 5 experiment → Heatmap → Depth → Bảng tổng hợp | ~10 phút |
-| 4. Conclusion | 27–29 | Kết luận → Mở rộng → References | ~3 phút |
+| 3. Experiment | 18–27 | Thiết kế thực nghiệm → 5 experiment → Heatmap → Activation Variance → Depth → Bảng tổng hợp | ~11 phút |
+| 4. Conclusion | 28–30 | Kết luận → Mở rộng → References | ~3 phút |
 
 ---
 
@@ -69,9 +69,12 @@
 
 ### Slide 9 — Multi-layer Backpropagation
 **Nói:**
-> "Mở rộng lên mạng nhiều lớp: x→W₁→h₁→W₂→h₂→W₃→ŷ→Loss. Khi đi backward, ta có Loss→∇W₃→∇W₂→∇W₁. **Điểm mấu chốt**: gradient của lớp càng gần input phụ thuộc vào TÍCH của càng nhiều đạo hàm cục bộ. Đây là cầu nối trực tiếp sang câu hỏi tiếp theo: điều gì xảy ra khi tích đó có rất nhiều số hạng?"
+> "Mở rộng lên mạng nhiều lớp: x→W₁→h₁→W₂→h₂→W₃→ŷ→Loss. Khi đi backward, ta có Loss→∇W₃→∇W₂→∇W₁. **Điểm mấu chốt**: gradient lan truyền về lớp gần input phụ thuộc vào TÍCH của nhiều local Jacobian VÀ weight transformation — không chỉ là tích các đạo hàm vô hướng đơn giản. Đây là cầu nối trực tiếp sang câu hỏi tiếp theo: điều gì xảy ra khi tích đó có rất nhiều số hạng?"
 
-**Ghi chú:** đây cũng là chỗ nên nói rõ phân biệt Gradient Descent vs Backpropagation nếu có câu hỏi: Backprop là thuật toán TÍNH gradient hiệu quả bằng chain rule; Gradient Descent là quy tắc CẬP NHẬT dùng gradient đã có. Hai khái niệm độc lập, hay bị nhầm là một.
+**Chỉ vào box Forward / Backward / Optimizer ở nửa dưới slide, nói rõ ranh giới hay bị nhầm:**
+> "Ba bước tách biệt: Forward tính prediction và loss; Backward — chính là Backpropagation — CHỈ tính gradient; Optimizer — Gradient Descent hoặc biến thể — mới là bước DÙNG gradient đó để cập nhật tham số. Backpropagation không tự sửa weight."
+
+**Ghi chú:** đây là câu trả lời chuẩn nếu giảng viên hỏi "Backprop và Gradient Descent khác nhau thế nào" — chỉ thẳng vào box 3 bước trên slide thay vì giải thích chay.
 
 ---
 
@@ -137,7 +140,7 @@
 **Nói:**
 > "Đây là phần em đặc biệt cẩn thận về mặt khoa học. Chạy Xavier và He, mỗi scheme lặp lại độc lập 5 seed khác nhau {42,...,46}, báo cáo mean ± std thay vì tin vào 1 lần chạy. Kết quả: Xavier đạt 69.1% ± 4.7 điểm phần trăm, He đạt 70.5% ± 5.7 điểm phần trăm. **Khoảng std của hai scheme chồng lấn nhau** — nghĩa là không đủ cơ sở để kết luận scheme nào vượt trội hơn cho ReLU trong setup này. Khác biệt rõ ràng và nhất quán hơn nhiều nằm ở gradient RMS: He cao hơn Xavier khoảng 35 lần, ở MỌI seed, không dao động."
 
-**Đây là câu trả lời chuẩn nếu ai hỏi "vậy Xavier hay He tốt hơn?":** *"Về accuracy, trong thực nghiệm 5-seed này, khác biệt không có ý nghĩa thống kê. Về gradient scale, He nhất quán cao hơn — nhưng gradient cao hơn không tự động nghĩa là tốt hơn, chỉ là 'gần với thiết kế lý thuyết cho ReLU' hơn."*
+**Đây là câu trả lời chuẩn nếu ai hỏi "vậy Xavier hay He tốt hơn?":** *"Về accuracy, em không chạy hypothesis test chính thức — nhưng phân phối accuracy của hai scheme qua 5 seed chồng lấn đáng kể, nên thực nghiệm này không ủng hộ việc xếp hạng rõ ràng giữa Xavier và He. Về gradient scale, He cho gradient RMS lớn hơn Xavier một cách nhất quán ở cả 5 seed — nhưng gradient lớn hơn không tự động nghĩa là tốt hơn, chỉ là 'gần với thiết kế lý thuyết cho ReLU' hơn."*
 
 ### Slide 23 — Biểu đồ tổng hợp 5 thí nghiệm
 **Nói:**
@@ -147,19 +150,25 @@
 **Nói:**
 > "Đây là một trong những visualization quan trọng nhất của toàn bộ demo, vì nó thể hiện TRỰC TIẾP gradient flow qua từng layer — không qua trung gian, khác với accuracy vốn là bằng chứng gián tiếp, chịu ảnh hưởng bởi nhiều yếu tố khác ngoài initialization. Trục dọc là 5 scheme, trục ngang là 11 layer (10 hidden + output), màu thể hiện log₁₀ của gradient RMS. Nhìn là thấy ngay: hàng Zero toàn -20 (làm tròn cho 'đúng 0'), Random nhỏ toàn khoảng -12 đến -13, Random lớn toàn khoảng +7 đến +9, còn Xavier và He nằm ở vùng giữa ổn định, khoảng -1 đến -3.4."
 
-### Slide 25 — Depth Experiment
+### Slide 25 — Activation Variance theo layer
 **Nói:**
-> "Mở rộng: so sánh Random, Xavier, He tại nhiều độ sâu, từ 2 đến 50 hidden layer. Trong thiết lập này: Random (naive) có gradient RMS về xấp xỉ 0 từ độ sâu 20 trở lên. Xavier suy giảm dần đều, cho gradient RMS rất nhỏ tại depth=50, khoảng 3×10⁻¹⁰. He duy trì gradient RMS cùng order of magnitude — khoảng 10⁻² — đến tận depth=50, trong architecture và training setup đang xét. **Nhưng đây là insight quan trọng nhất của cả bài**: gradient ổn định không đồng nghĩa học tốt. He tại L=12 chỉ đạt 32.6% test accuracy — không phải vì vanishing gradient, mà vì overfitting trên tập train nhỏ không regularization. Nói cách khác: stable gradient flow là điều kiện quan trọng cho optimization ổn định, nhưng KHÔNG phải điều kiện đủ để model generalize tốt."
+> "Heatmap slide trước chứng minh initialization ảnh hưởng BACKWARD — gradient. Slide này bổ sung bằng chứng ở chiều FORWARD: Var(a) theo layer, tại bước khởi tạo, cho 4 scheme (bỏ Zero vì activation của nó luôn bằng 0, không vẽ được trên thang log). Kết quả: Random nhỏ — Var(a) co lại dần, cùng câu chuyện vanishing nhưng lần này ở forward pass; Random lớn — Var(a) tăng theo cấp số mũ, hàng chục bậc độ lớn chỉ sau 10 layer; Xavier và He — Var(a) gần như phẳng quanh bậc 10⁰ suốt cả 10 layer. Đây đúng là điều slide Synthesis đã dự đoán: Var(a) ổn định ở forward, Var(δ) ổn định ở backward."
 
-### Slide 26 — Bảng tổng hợp kết quả
+### Slide 26 — Depth Experiment
+**Nói:**
+> "Mở rộng: so sánh Random, Xavier, He tại nhiều độ sâu, từ 2 đến 50 hidden layer. Trong thiết lập này: Random (naive) có gradient RMS về xấp xỉ 0 từ độ sâu 20 trở lên. Xavier suy giảm dần đều, cho gradient RMS rất nhỏ tại depth=50, khoảng 3×10⁻¹⁰. He duy trì gradient RMS cùng order of magnitude — khoảng 10⁻² — đến tận depth=50, trong architecture và training setup đang xét. **Nhưng đây là insight quan trọng nhất của cả bài**: gradient ổn định không đồng nghĩa học tốt. He tại L=12 có train loss chỉ 0.456 — khớp tốt trên tập train — nhưng test loss vọt lên 5.41, test accuracy chỉ 32.6%. Khoảng cách train/test lớn như vậy chính là bằng chứng cụ thể cho overfitting — không phải suy đoán chỉ từ accuracy thấp. Nói cách khác: stable gradient flow là điều kiện quan trọng cho optimization ổn định, nhưng KHÔNG phải điều kiện đủ để model generalize tốt."
+
+**Nếu bị hỏi "sao chắc đó là overfitting mà không phải nguyên nhân khác?"** → chỉ thẳng vào 2 con số: train loss thấp (0.456) + test loss cao gấp hơn 10 lần (5.41) — đây là chữ ký kinh điển của overfitting (fit tốt trên train, tệ trên test), khác với vanishing gradient (sẽ khiến CẢ train loss cũng không giảm được).
+
+### Slide 27 — Bảng tổng hợp kết quả
 **Nói:**
 > "Tổng hợp tất cả: thứ tự đọc bảng này là Gradient RMS → Training Loss → Test Accuracy, đúng thứ tự ưu tiên đã nói ở slide Metrics. Zero và Random nhỏ: vanishing. Random lớn: exploding, NaN. Xavier và He: ổn định. Số liệu lấy nguyên văn từ CSV, kể cả dòng NaN của Random lớn — không làm tròn để đẹp bảng, không giấu kết quả thất bại."
 
 ---
 
-## ACT 4 — Conclusion (Slide 27–29)
+## ACT 4 — Conclusion (Slide 28–30)
 
-### Slide 27 — Conclusion
+### Slide 28 — Conclusion
 **Nói:**
 > "Tổng kết bằng đúng mạch đã đi qua: Derivative → Chain Rule → Backpropagation → Gradient Flow → Vanishing/Exploding → Initialization → Stable Training. Bốn takeaway:
 > 1. Backpropagation là cách tính gradient hiệu quả bằng cách áp dụng chain rule ngược qua computational graph.
@@ -167,11 +176,11 @@
 > 3. Xavier và He chọn scale của initial weight dựa trên fan-in/fan-out để giữ activation và gradient trong phạm vi hợp lý, dưới các giả định nhất định.
 > 4. Good initialization cải thiện optimization và gradient flow, nhưng không đảm bảo generalization tốt — đây chính là điều Depth Experiment vừa chứng minh bằng số liệu thật."
 
-### Slide 28 — Mở rộng (tham khảo)
+### Slide 29 — Mở rộng (tham khảo)
 **Nói:**
 > "Nếu còn thời gian: Initialization chỉ là bước khởi đầu. Các mạng hiện đại còn dùng Batch/Layer Normalization để chuẩn hoá lại tín hiệu mỗi lớp thay vì chỉ dựa vào 1 lần khởi tạo; Residual Connections cho gradient một đường tắt bỏ qua tích luỹ nhiều lớp; Gradient Clipping chặn cứng exploding bất kể nguyên nhân. Em chỉ giới thiệu ngắn, không đi sâu vì đây không phải trọng tâm bài."
 
-### Slide 29 — References
+### Slide 30 — References
 **Nói:**
 > "11 nguồn tham khảo, từ Rumelhart 1986 (backprop gốc) tới He 2015, Glorot & Bengio 2010, và cả PyTorch paper — đều đã verify, khớp với danh mục IEEE trong báo cáo LaTeX đi kèm, không có nguồn bịa."
 
@@ -258,4 +267,4 @@ Chỉ cần nói:
 
 ---
 
-*Kịch bản này khớp 100% với nội dung và số liệu trong `Slide_Backprop_Initialization.pptx` (29 slide) tại thời điểm soạn. Nếu slide được build lại với số liệu mới (`node build_deck.js`), hãy đối chiếu lại các con số cụ thể trong file này trước khi thuyết trình.*
+*Kịch bản này khớp 100% với nội dung và số liệu trong `Slide_Backprop_Initialization.pptx` (30 slide) tại thời điểm soạn. Nếu slide được build lại với số liệu mới (`node build_deck.js`), hãy đối chiếu lại các con số cụ thể trong file này trước khi thuyết trình.*

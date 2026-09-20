@@ -72,12 +72,12 @@ pres.layout = "WIDE";
 const W = 13.333, H = 7.5;
 const MX = 0.7;
 
-const TOTAL_SLIDES = 29;
+const TOTAL_SLIDES = 30;
 const ACTS = [
   { label: "Motivation & Math", from: 2, to: 9 },
   { label: "Vanishing/Exploding & Init", from: 10, to: 17 },
-  { label: "Experiment", from: 18, to: 26 },
-  { label: "Conclusion", from: 27, to: 29 },
+  { label: "Experiment", from: 18, to: 27 },
+  { label: "Conclusion", from: 28, to: 30 },
 ];
 
 // ---------------------------------------------------------------- helpers
@@ -450,12 +450,31 @@ function twoCol(slide, { leftTitle, leftItems, leftColor = BLUE, leftFill = "EAF
     node(s, { x: rightX, y, w: boxW + 0.3, h: boxH, label: lab, fill: i === 0 ? "FBEEEC" : "EAF0FB", lineColor: i === 0 ? RED : BLUE, fs: 12.5 });
     if (i < bwd.length - 1) arrow(s, rightX + (boxW + 0.3) / 2, y + boxH, rightX + (boxW + 0.3) / 2, y + rStep, { color: RED, width: 1.8 });
   });
+  const rbX = rightX + 2.3, rbW = W - MX - (rightX + 2.3);
   bulletBlock(s, [
-    "Gradient của lớp CÀNG GẦN INPUT phụ thuộc vào TÍCH của CÀNG NHIỀU đạo hàm cục bộ",
+    "Gradient lan truyền về lớp gần input phụ thuộc vào TÍCH của nhiều local Jacobian VÀ weight transformation — không chỉ là tích các đạo hàm vô hướng đơn giản",
     "Đây chính là cầu nối trực tiếp sang vấn đề tiếp theo: điều gì xảy ra khi tích đó có nhiều số hạng?",
-  ], { x: rightX + 2.3, y: topY + 0.3, w: W - MX - (rightX + 2.3), h: 2.6, fontSize: 15.5, spaceAfter: 14 });
+  ], { x: rbX, y: topY + 0.15, w: rbW, h: 2.1, fontSize: 14.5, spaceAfter: 12 });
+  // Box phân biệt Backprop (tính gradient) vs Optimizer/GD (dùng gradient để update) --
+  // tránh nhầm "Backprop tự update weight".
+  const pipe = [
+    { lab: "Forward", sub: "compute prediction + loss", fill: "EAF0FB", line: BLUE },
+    { lab: "Backward", sub: "compute gradients (Backprop)", fill: "FBEEEC", line: RED },
+    { lab: "Optimizer", sub: "update parameters (Gradient Descent)", fill: "FBF3E2", line: GOLD },
+  ];
+  const pbY = topY + 2.55, pbW = (rbW - 0.5) / 3, pbH = 1.15;
+  pipe.forEach((p, i) => {
+    const x = rbX + i * (pbW + 0.25);
+    s.addShape(pres.ShapeType.roundRect, { x, y: pbY, w: pbW, h: pbH, rectRadius: 0.06, fill: { color: p.fill }, line: { color: p.line, width: 1 } });
+    s.addText(p.lab, { x: x + 0.12, y: pbY + 0.1, w: pbW - 0.24, h: 0.35, fontSize: 13, bold: true, color: p.line, fontFace: FONT_HEAD, isTextBox: true, margin: 0 });
+    s.addText(p.sub, { x: x + 0.12, y: pbY + 0.48, w: pbW - 0.24, h: pbH - 0.55, fontSize: 10, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0 });
+    if (i < pipe.length - 1) arrow(s, x + pbW, pbY + pbH / 2, x + pbW + 0.25, pbY + pbH / 2, { color: MUTED, width: 1.5 });
+  });
+  s.addText("Backpropagation KHÔNG tự cập nhật weight — nó chỉ tính gradient. Việc update là của Optimizer (Gradient Descent hoặc biến thể).", {
+    x: rbX, y: pbY + pbH + 0.15, w: rbW, h: 0.55, fontSize: 11, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0,
+  });
   pageTag(s, 9); stampFooter(s, 9);
-  noteText(s, "Cầu nối cực kỳ quan trọng: lớp 1 (xa Loss nhất) có gradient = tích của NHIỀU đạo hàm cục bộ nhất — vì sao vanishing/exploding luôn nặng nhất ở các lớp đầu.");
+  noteText(s, "Cầu nối cực kỳ quan trọng: lớp gần input có gradient là tích của NHIỀU Jacobian/weight transformation nhất — vì sao vanishing/exploding luôn nặng nhất ở các lớp đầu. Box Forward/Backward/Optimizer làm rõ ranh giới hay bị nhầm: Backpropagation là thuật toán TÍNH gradient; Gradient Descent (trong Optimizer) mới là quy tắc DÙNG gradient đó để update parameter — hai bước tách biệt, Backprop không tự sửa weight.");
 }
 
 // ================================================================
@@ -589,7 +608,7 @@ function twoCol(slide, { leftTitle, leftItems, leftColor = BLUE, leftFill = "EAF
   ], { y: 3.1, w: W - 2 * MX, h: 2.3, fontSize: 15, spaceAfter: 10 });
   statCallout(s, { x: MX, y: 5.6, w: 3.8, h: 1.4, value: pct(mainHeRelu.test_acc), label: "He + ReLU — test accuracy (thực nghiệm thật, 6 hidden layer)", color: GOOD });
   pageTag(s, 15); stampFooter(s, 15);
-  noteText(s, "Số liệu lấy từ results/logs/run_he_relu.json. Trung thực khoa học: chênh lệch nhỏ giữa He/Xavier cho ReLU (xem slide So sánh) KHÔNG có ý nghĩa thống kê với 1 seed duy nhất.");
+  noteText(s, "Số liệu lấy từ results/logs/run_he_relu.json. Trung thực khoa học: chênh lệch nhỏ giữa He/Xavier cho ReLU ở đây chỉ đến từ 1 seed duy nhất — không đủ căn cứ để xếp hạng scheme nào tốt hơn, vì chưa biết chênh lệch này có tách biệt rõ so với biến động giữa các lần chạy hay không (xem slide Multi-seed ở phần Demo để có bằng chứng đầy đủ hơn với 5 seed).");
 }
 
 // ================================================================
@@ -758,7 +777,7 @@ experimentSlide(21, {
 
 experimentSlide(22, {
   kickerTxt: "Demo — Experiment 4 & 5 (5 seeds mỗi scheme)",
-  titleTxt: "Xavier vs. He — cả hai học được, chênh lệch KHÔNG đủ ý nghĩa",
+  titleTxt: "Xavier vs. He — cả hai học được, phân phối accuracy CHỒNG LẤN",
   codeLines: [
     "nn.init.xavier_normal_(layer.weight)                                       # Experiment 4",
     "nn.init.kaiming_normal_(layer.weight, mode='fan_in', nonlinearity='relu')  # Experiment 5",
@@ -771,7 +790,7 @@ experimentSlide(22, {
   ],
   verdictText: `Accuracy: Xavier ${pct(multiseed("xavier").acc_mean)}±${pp(multiseed("xavier").acc_std)}pp vs. He ${pct(multiseed("he").acc_mean)}±${pp(multiseed("he").acc_std)}pp — khoảng std CHỒNG LẤN nhau, không đủ cơ sở kết luận scheme nào vượt trội cho ReLU trong setup này. Khác biệt rõ ràng và nhất quán hơn nằm ở gradient RMS (He > Xavier ở mọi seed).`,
   verdictColor: GOOD,
-  note: "Số liệu thật từ results/tables/multiseed_xavier_he_summary.csv (5 seed độc lập {42..46}, cùng kiến trúc 10 hidden layer). Đây là điểm chỉnh sửa quan trọng: 1 seed duy nhất KHÔNG đủ để nói 'Xavier tốt hơn He' hay ngược lại — mean±std qua nhiều seed cho thấy chênh lệch accuracy nằm trong nhiễu ngẫu nhiên, trong khi chênh lệch gradient RMS (bậc ~35 lần) lại nhất quán và có ý nghĩa hơn nhiều.",
+  note: "Số liệu thật từ results/tables/multiseed_xavier_he_summary.csv (5 seed độc lập {42..46}, cùng kiến trúc 10 hidden layer). Đây là điểm chỉnh sửa quan trọng: 1 seed duy nhất KHÔNG đủ để nói 'Xavier tốt hơn He' hay ngược lại. Lưu ý về wording: đây KHÔNG phải một kiểm định thống kê chính thức (không có hypothesis test/confidence interval) — chỉ là quan sát mean±std qua 5 lần chạy. Diễn đạt đúng: 'phân phối test-accuracy của hai scheme chồng lấn đáng kể, nên thực nghiệm này không ủng hộ việc xếp hạng rõ ràng giữa Xavier và He.' Ngược lại, gradient RMS lớp 1 của He nhất quán LỚN HƠN Xavier ở cả 5 seed (không dao động qua lại) — có thể nói 'He cho gradient RMS lớp 1 lớn hơn Xavier một cách nhất quán trong setup này', nhưng KHÔNG suy rộng thành 'He luôn cho gradient tốt hơn'.",
 });
 
 // ================================================================
@@ -801,16 +820,34 @@ experimentSlide(22, {
   title(s, "Gradient RMS Heatmap — layer × initialization", { fontSize: 23 });
   const imgW = 9.4, imgH = imgW / (11 / 5.2);
   s.addImage({ path: FIG("gradient_heatmap_slide.png"), x: (W - imgW) / 2, y: 1.75, w: imgW, h: imgH });
-  s.addText("log₁₀(RMS gradient) đo thật tại bước khởi tạo, 10 hidden layer, activation ReLU — xanh dương = quá nhỏ (vanish), đỏ = quá lớn (explode), cam nhạt/vàng = vùng ổn định.", {
-    x: MX, y: 1.75 + imgH + 0.1, w: W - 2 * MX, h: 0.6, fontSize: 12.5, italic: true, color: MUTED,
+  s.addText("log₁₀(RMS gradient) đo thật tại bước khởi tạo, 10 hidden layer, activation ReLU — xanh dương = rất nhỏ (đặc trưng vanishing), đỏ = rất lớn (đặc trưng exploding), cam nhạt/vàng = vùng gradient ở mức trung bình, quan sát thấy ổn định hơn trong thực nghiệm này.", {
+    x: MX, y: 1.75 + imgH + 0.1, w: W - 2 * MX, h: 0.6, fontSize: 12, italic: true, color: MUTED,
     fontFace: FONT_BODY, isTextBox: true, margin: 0,
   });
   pageTag(s, 24); stampFooter(s, 24);
-  noteText(s, "Đây là một trong những visualization quan trọng nhất của toàn bộ demo vì thể hiện TRỰC TIẾP gradient flow qua từng layer, không qua trung gian (khác với accuracy — bằng chứng gián tiếp, chịu ảnh hưởng của nhiều yếu tố khác). Mỗi ô là một số liệu thật (RMS = grad.pow(2).mean().sqrt()), không phải minh hoạ cách điệu.");
+  noteText(s, "Đây là một trong những visualization quan trọng nhất của toàn bộ demo vì thể hiện TRỰC TIẾP gradient flow qua từng layer, không qua trung gian (khác với accuracy — bằng chứng gián tiếp, chịu ảnh hưởng của nhiều yếu tố khác). Mỗi ô là một số liệu thật (RMS = grad.pow(2).mean().sqrt()), không phải minh hoạ cách điệu. Lưu ý: 3 màu (xanh/vàng/đỏ) là mô tả trực quan theo thang màu liên tục, KHÔNG phải một ngưỡng (threshold) toán học được định nghĩa chính thức cho 'vùng ổn định'.");
 }
 
 // ================================================================
-// SLIDE 25 — Depth Experiment
+// SLIDE 25 — Activation Variance (forward-pass evidence)
+// ================================================================
+{
+  const s = pres.addSlide();
+  kicker(s, "Demo — Visualization bổ sung (Forward Pass)");
+  title(s, "Activation Variance theo layer", { fontSize: 25 });
+  const imgW = 6.3, imgH = imgW / (9 / 6.2);
+  s.addImage({ path: FIG("activation_variance_slide.png"), x: (W - imgW) / 2, y: 1.75, w: imgW, h: imgH });
+  bulletBlock(s, [
+    "Random nhỏ: Var(a) co lại dần theo layer — cùng câu chuyện vanishing đã thấy ở gradient, nhưng lần này ở FORWARD PASS",
+    "Random lớn: Var(a) tăng theo cấp số mũ — hàng chục bậc độ lớn chỉ sau 10 layer",
+    "Xavier/He: Var(a) gần như phẳng, dao động quanh bậc 10⁰ suốt 10 layer",
+  ], { y: 1.75 + imgH + 0.15, w: W - 2 * MX, h: 1.3, fontSize: 13, spaceAfter: 6 });
+  pageTag(s, 25); stampFooter(s, 25);
+  noteText(s, "Bổ sung quan trọng: Heatmap slide trước chứng minh initialization ảnh hưởng BACKWARD (gradient); slide này chứng minh THÊM rằng cùng cơ chế cũng chi phối FORWARD (activation) — đúng như slide Synthesis đã nêu (Var(a) ổn định ở forward, Var(δ) ổn định ở backward). Không vẽ Zero-init vì mọi activation của nó đúng bằng 0 (không biểu diễn được trên thang log). Số liệu thật từ results/logs/deep_demo_*.json, field initial_activation_stats.");
+}
+
+// ================================================================
+// SLIDE 26 — Depth Experiment
 // ================================================================
 {
   const s = pres.addSlide();
@@ -823,14 +860,14 @@ experimentSlide(22, {
     "Random (naive): trong thiết lập này, gradient RMS về xấp xỉ 0 từ độ sâu 20 trở lên",
     "Xavier: suy giảm dần đều — cho gradient RMS rất nhỏ tại depth=50 (≈3×10⁻¹⁰)",
     "He: duy trì gradient RMS cùng order of magnitude (~10⁻²) đến depth=50, trong architecture và training setup đang xét",
-    `Nhưng gradient ổn định KHÔNG đồng nghĩa học tốt: He@L=12 test acc chỉ ${pct(he12.test_acc)} (overfitting quan sát được, không phải vanishing — khớp phát hiện của báo cáo chính)`,
-  ], { x: MX + imgW + 0.4, y: 2.0, w: W - MX - imgW - 0.4 - MX, h: 4.6, fontSize: 12.5, spaceAfter: 9 });
-  pageTag(s, 25); stampFooter(s, 25);
-  noteText(s, `Số liệu thật từ results/logs/depth_experiment_v2.json. Tránh phát biểu phổ quát kiểu "He ổn định ở mọi độ sâu" hay "Xavier thất bại" — đây là quan sát TRONG setup thực nghiệm cụ thể (MLP, ReLU, Fashion-MNIST). He duy trì gradient RMS cùng bậc độ lớn xuyên suốt (kể cả L=50: grad_rms≈${depthRow("he", 50).grad_rms_layer1_init.toExponential(2)}) nhưng test accuracy vẫn dao động (L=12: 32.6%, L=20: 53.6%, L=50: ${pct(he50.test_acc)}) — insight quan trọng nhất: stable gradient flow là điều kiện quan trọng cho optimization ổn định, nhưng KHÔNG phải điều kiện đủ để model generalize tốt.`);
+    `Nhưng gradient ổn định KHÔNG đồng nghĩa học tốt: He@L=12 train loss chỉ ${he12.final_train_loss.toFixed(3)} trong khi test loss vọt lên ${he12.test_loss.toFixed(2)} (test acc ${pct(he12.test_acc)}) — khoảng cách train/test lớn này là bằng chứng cụ thể cho overfitting, không phải suy đoán từ accuracy đơn lẻ`,
+  ], { x: MX + imgW + 0.4, y: 2.0, w: W - MX - imgW - 0.4 - MX, h: 4.6, fontSize: 12, spaceAfter: 9 });
+  pageTag(s, 26); stampFooter(s, 26);
+  noteText(s, `Số liệu thật từ results/logs/depth_experiment_v2.json. Tránh phát biểu phổ quát kiểu "He ổn định ở mọi độ sâu" hay "Xavier thất bại" — đây là quan sát TRONG setup thực nghiệm cụ thể (MLP, ReLU, Fashion-MNIST). He duy trì gradient RMS cùng bậc độ lớn xuyên suốt (kể cả L=50: grad_rms≈${depthRow("he", 50).grad_rms_layer1_init.toExponential(2)}) nhưng test accuracy vẫn dao động (L=12: 32.6%, L=20: 53.6%, L=50: ${pct(he50.test_acc)}). Về nhãn 'overfitting' tại L=12: chỉ gọi đúng tên khi có bằng chứng train tốt/test kém — ở đây train loss=${he12.final_train_loss.toFixed(3)} (thấp, khớp tốt) trong khi test loss=${he12.test_loss.toFixed(2)} (cao, gấp hơn 10 lần) — khoảng cách train/test rõ ràng này là căn cứ cho nhãn overfitting, không phải chỉ suy đoán từ test accuracy thấp. Insight quan trọng nhất: stable gradient flow là điều kiện quan trọng cho optimization ổn định, nhưng KHÔNG phải điều kiện đủ để model generalize tốt.`);
 }
 
 // ================================================================
-// SLIDE 26 — Results Table
+// SLIDE 27 — Results Table
 // ================================================================
 {
   const s = pres.addSlide();
@@ -866,12 +903,12 @@ experimentSlide(22, {
   s.addText("Số liệu lấy nguyên văn từ results/tables/deep_demo_summary.csv — không làm tròn để \"đẹp bảng\", không có kết quả nào bị bỏ sót. Xem thêm Activation Variance trong log JSON của từng cấu hình (results/logs/deep_demo_*.json).", {
     x: MX, y: 5.35, w: W - 2 * MX, h: 0.6, fontSize: 11.5, italic: true, color: MUTED, fontFace: FONT_BODY, isTextBox: true, margin: 0,
   });
-  pageTag(s, 26); stampFooter(s, 26);
+  pageTag(s, 27); stampFooter(s, 27);
   noteText(s, "Bảng ánh xạ trực tiếp từ CSV thật, kể cả NaN của Random-large — trung thực khoa học, không che giấu kết quả thất bại. Test accuracy KHÔNG phải bằng chứng duy nhất cho initialization — nó là chỉ số gián tiếp nhất trong 4 nhóm metric (Activation variance, Gradient RMS, Training loss, rồi mới đến Accuracy).");
 }
 
 // ================================================================
-// SLIDE 27 — Conclusion
+// SLIDE 28 — Conclusion
 // ================================================================
 {
   const s = pres.addSlide(); darkBg(s);
@@ -900,12 +937,12 @@ experimentSlide(22, {
     text: `${i + 1}. ${t}`, options: { color: "CADCFC", fontSize: 11.5, breakLine: true, paraSpaceAfter: 5, fontFace: FONT_BODY },
   }));
   s.addText(paras, { x: MX, y: y + 0.1, w: W - 2 * MX, h: 1.5, valign: "top", isTextBox: true, margin: 0 });
-  stampFooter(s, 27, true);
+  stampFooter(s, 28, true);
   noteText(s, "Flow tổng kết toàn bộ mạch trình bày — 3 takeaway đọc thẳng ra từ sơ đồ, chốt bằng câu hỏi nghiên cứu đã đặt ra ở Slide 2.");
 }
 
 // ================================================================
-// SLIDE 28 — Optional extension
+// SLIDE 29 — Optional extension
 // ================================================================
 {
   const s = pres.addSlide();
@@ -926,12 +963,12 @@ experimentSlide(22, {
     "Residual Networks — cho gradient một 'đường tắt' (skip connection) bỏ qua tích luỹ nhiều lớp",
     "Gradient Clipping — chặn cứng exploding gradient bất kể nguyên nhân",
   ], { x: MX, y: finalY + 1.0, w: W - 2 * MX, h: 2.0, fontSize: 13.5, spaceAfter: 8 });
-  pageTag(s, 28); stampFooter(s, 28);
+  pageTag(s, 29); stampFooter(s, 29);
   noteText(s, "Chỉ giới thiệu ngắn, KHÔNG đi sâu — tránh lệch trọng tâm khỏi Backprop + Initialization là chủ đề chính của báo cáo.");
 }
 
 // ================================================================
-// SLIDE 29 — References
+// SLIDE 30 — References
 // ================================================================
 {
   const s = pres.addSlide(); darkBg(s);
@@ -954,7 +991,7 @@ experimentSlide(22, {
     text: t, options: { bullet: false, color: "D8E0EF", fontSize: 11, breakLine: true, paraSpaceAfter: 6.5, fontFace: FONT_BODY },
   }));
   s.addText(paras, { x: MX, y: 1.85, w: W - 2 * MX, h: 5.15, valign: "top", isTextBox: true, margin: 0 });
-  stampFooter(s, 29, true);
+  stampFooter(s, 30, true);
   noteText(s, "11 nguồn, khớp danh mục tham khảo IEEE trong báo cáo LaTeX — không có nguồn bịa.");
 }
 
