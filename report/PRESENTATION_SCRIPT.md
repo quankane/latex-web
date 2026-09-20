@@ -1,6 +1,6 @@
 # Kịch bản thuyết trình — Backpropagation & Parameter Initialization
 
-**Dùng cùng với:** `Slide_Backprop_Initialization.pptx` (30 slide)
+**Dùng cùng với:** `Slide_Backprop_Initialization.pptx` (31 slide)
 **Thời lượng đề xuất:** 25–30 phút thuyết trình + 5–10 phút demo/Q&A
 **Đối tượng:** Học phần Deep Learning bậc Thạc sĩ
 
@@ -25,7 +25,7 @@
 | 1. Motivation & Math | 1–9 | Đặt vấn đề → Derivative → Gradient → GD → Forward → Chain Rule → Backprop | ~8 phút |
 | 2. Vanishing/Exploding & Init | 10–17 | Vanishing/Exploding → Zero/Random/Xavier/He → Synthesis | ~8 phút |
 | 3. Experiment | 18–27 | Thiết kế thực nghiệm → 5 experiment → Heatmap → Activation Variance → Depth → Bảng tổng hợp | ~11 phút |
-| 4. Conclusion | 28–30 | Kết luận → Mở rộng → References | ~3 phút |
+| 4. Conclusion | 28–31 | Limitations → Kết luận → Mở rộng → References | ~4 phút |
 
 ---
 
@@ -94,21 +94,23 @@
 
 ### Slide 13 — Random Initialization
 **Nói:**
-> "Random giải quyết được symmetry. Nhưng chọn sai variance vẫn thất bại: std quá nhỏ → activation nhỏ dần → có xu hướng vanishing. Std quá lớn, với mạng ReLU → gradient có xu hướng tăng vọt → exploding. Nhưng — điểm cần làm rõ — đây là hành vi quan sát được của mạng ReLU trong thực nghiệm này. Với activation bão hoà như sigmoid/tanh, std lớn còn có thể đẩy pre-activation vào vùng bão hoà, khiến derivative gần 0 — tức cũng gây vanishing, chứ không chỉ exploding. Hai cơ chế thất bại khác nhau tùy activation."
+> "Random giải quyết được symmetry. Nhưng chọn sai variance vẫn thất bại: weight rất nhỏ có xu hướng co lại scale của pre-activation/activation → gradient nhỏ dần qua mỗi lớp → có xu hướng vanishing. Weight lớn, với mạng ReLU → gradient có xu hướng tăng vọt → exploding. Nhưng — điểm cần làm rõ — đây là hành vi quan sát được của mạng ReLU trong thực nghiệm này. Với activation bão hoà như sigmoid/tanh, std lớn còn có thể đẩy pre-activation vào vùng bão hoà, khiến derivative gần 0 — tức cũng gây vanishing, chứ không chỉ exploding. Hai cơ chế thất bại khác nhau tùy activation."
 
 ### Slide 14 — Xavier/Glorot Initialization
 **Nói:**
-> "Xavier/Glorot Normal: W_ij ~ N(0, 2/(fan_in+fan_out)). Mục tiêu: giữ variance tín hiệu ổn định qua từng lớp, cân bằng 2 điều kiện — giữ Var(z) khi forward VÀ giữ Var(gradient) khi backward. Thường dùng với Tanh hoặc activation có gain phù hợp; Tanh còn có lợi thế zero-centered — **Sigmoid thì KHÔNG zero-centered**, đây là điểm hay bị phát biểu nhầm. Số liệu thật trên lưới chính (6 hidden layer): Xavier+ReLU đạt 67.4% test accuracy."
+> "Xavier/Glorot Normal: W_ij ~ N(0, 2/(fan_in+fan_out)). Mục tiêu: CHỌN scale của weight để xấp xỉ giữ variance tín hiệu ổn định qua từng lớp, dưới các giả định đơn giản hoá — không phải một cam kết toán học tuyệt đối. Cân bằng 2 điều kiện: giữ Var(z) khi forward VÀ giữ Var(gradient) khi backward. Thường dùng với Tanh hoặc activation có gain phù hợp; Tanh còn có lợi thế zero-centered — **Sigmoid thì KHÔNG zero-centered**, đây là điểm hay bị phát biểu nhầm."
+
+**Lưu ý:** slide này KHÔNG show số test accuracy — cố tình, vì deck từng có 3 con số Xavier accuracy khác nhau ở 3 chỗ (6-layer main grid, 10-layer 1-seed, 10-layer 5-seed) gây khó hiểu. Toàn bộ số liệu thực nghiệm dồn về phần Demo phía sau.
 
 ### Slide 15 — He/Kaiming Initialization
 **Nói:**
-> "He/Kaiming Normal: W_ij ~ N(0, 2/fan_in), dùng cho ReLU/Leaky ReLU. Dưới giả định pre-activation gần đối xứng quanh 0, ReLU đặt khoảng một nửa giá trị về 0. He dùng scale 2/fan_in để bù sự suy giảm variance do ReLU gây ra — gấp đôi công thức forward-preserving thuần. Trong nhiều thiết lập, cách này giúp giữ Var(a) cùng bậc với Var(x) qua các lớp ReLU. Số liệu thật: He+ReLU đạt 66.7% trên cùng lưới 6 hidden layer."
+> "He/Kaiming Normal (cho ReLU): W_ij ~ N(0, 2/fan_in). Dưới giả định pre-activation gần đối xứng quanh 0, ReLU đặt khoảng một nửa giá trị về 0 — He dùng scale 2/fan_in để bù sự suy giảm second moment do ReLU gây ra, dưới các giả định đơn giản hoá này. Gấp đôi công thức forward-preserving thuần. **Với Leaky ReLU**: gain phụ thuộc vào negative slope a — công thức 2/fan_in ở đây là trường hợp riêng a=0 (ReLU thường), không áp dụng chính xác cho mọi Leaky ReLU."
 
-**Nếu bị hỏi "vậy Xavier hay He tốt hơn cho ReLU?"** → đừng trả lời ngay ở đây, nói: "Chênh lệch 67.4% vs 66.7% chỉ từ 1 seed — chưa đủ ý nghĩa thống kê, em sẽ quay lại câu hỏi này với 5-seed replication ở phần Experiment."
+**Nếu bị hỏi "vậy Xavier hay He tốt hơn cho ReLU?"** → đừng trả lời ngay ở đây, nói: "Em cố tình không đưa accuracy vào 2 slide lý thuyết này để tránh nhầm lẫn giữa nhiều bộ số liệu — câu trả lời đầy đủ (với 5-seed replication) nằm ở slide Experiment 4&5 phần Demo."
 
 ### Slide 16 — Comparison Table
 **Nói:**
-> "Tổng hợp: Zero (không nên dùng), Small Random N(0,0.01²) (chỉ mạng rất nông), Xavier/Glorot (Tanh), He/Kaiming (ReLU/Leaky ReLU), và Orthogonal — em liệt kê Orthogonal cho đầy đủ bức tranh lý thuyết nhưng **không có thực nghiệm đi kèm trong project này**, tránh gây hiểu nhầm đã test đủ. Mọi thí nghiệm tiếp theo nhằm kiểm chứng đúng bảng này bằng số liệu thật."
+> "Tổng hợp theo 4 cột: Initialization, Formula, Typical activation, Ghi chú — tránh nhét sai kiểu dữ liệu (trước đây cột 'Activation phù hợp' từng ghi nhầm 'Deep/RNN' hay 'chỉ mạng nông', đó không phải tên activation). Zero (không dùng cho hidden weight), Small Random (naive baseline, không scale theo fan-in/out), Xavier/Glorot (Tanh), He/Kaiming (ReLU), và Orthogonal — với ma trận chữ nhật là SEMI-orthogonal, em liệt kê cho đầy đủ bức tranh lý thuyết nhưng **không có thực nghiệm đi kèm trong project này**, tránh gây hiểu nhầm đã test đủ 5 phương pháp. Mọi thí nghiệm tiếp theo nhằm kiểm chứng đúng bảng này bằng số liệu thật."
 
 ### Slide 17 — What are Xavier/He trying to preserve? (Synthesis)
 **Nói:**
@@ -116,7 +118,7 @@
 
 ---
 
-## ACT 3 — Experiment (Slide 18–26)
+## ACT 3 — Experiment (Slide 18–27)
 
 **Chuyển ý:** "Đến đây là lý thuyết. Phần còn lại em thiết kế một thực nghiệm nhỏ để kiểm chứng trực tiếp — không chỉ 'train rồi xem accuracy', mà đo đúng những đại lượng lý thuyết vừa nói tới: variance, gradient."
 
@@ -128,19 +130,21 @@
 **Nói:**
 > "Em log 4 nhóm metric, theo đúng thứ tự ưu tiên khi đọc kết quả: (1) Activation Variance theo layer — tín hiệu sớm nhất cho co cụm hoặc bão hoà; (2) Gradient RMS theo layer — RMS(∂L/∂W) = grad.pow(2).mean().sqrt(), chuẩn hoá theo số phần tử để so sánh công bằng giữa các layer có kích thước khác nhau; (3) Training Loss & Accuracy theo epoch; (4) Weight Variance theo layer, đối chiếu với công thức lý thuyết. Không chỉ đo accuracy — 4 nhóm metric này giúp phân biệt NGUYÊN NHÂN thất bại (vanishing vs exploding vs overfitting) thay vì chỉ thấy 'model tệ'."
 
-### Slide 20 — Experiment 1 & 2: Zero vs Random nhỏ
+### Slide 20 — Experiment 1 & 2: Zero vs Random nhỏ — HAI cơ chế khác nhau
 **Nói:**
-> "Chạy thật: `nn.init.zeros_` cho Experiment 1, `nn.init.normal_(std=0.01)` cho Experiment 2. Kết quả thật trên 10-hidden-layer: Zero cho gradient RMS lớp 1 đúng bằng 0.0; Random nhỏ cho gradient RMS ≈1.13×10⁻¹³ — về mặt số học khác 0 nhưng nhỏ tới mức vô dụng. Cả hai đều kẹt đúng ở mức ngẫu nhiên 10.0% test accuracy. Nguyên nhân khác nhau: Zero vì symmetry breaking, Random nhỏ vì gradient co lại theo hàm mũ qua 10 lớp — nhưng hậu quả cuối cùng giống hệt nhau."
+> "Chạy thật: `nn.init.zeros_` cho Experiment 1, `nn.init.normal_(std=0.01)` cho Experiment 2. Kết quả thật trên 10-hidden-layer: Zero cho gradient RMS lớp 1 đúng bằng 0.0; Random nhỏ cho gradient RMS ≈1.13×10⁻¹³ — về mặt số học khác 0 nhưng nhỏ tới mức vô dụng. Cả hai đều kẹt đúng ở mức ngẫu nhiên 10.0% test accuracy — nhưng **nguyên nhân hoàn toàn khác nhau, đừng gộp chung**: Zero thất bại vì các hidden unit KHÔNG PHÁ ĐƯỢC symmetry — chúng bắt đầu giống hệt nhau và tiếp tục nhận gradient/update giống nhau suốt training. Random nhỏ thất bại vì vanishing gradient thật sự — scale bị co lại lặp đi lặp lại qua 10 lớp."
+
+**LƯU Ý QUAN TRỌNG — lỗi hay mắc phải khi nói:** đừng bao giờ nói "Zero thất bại VÌ symmetry breaking" — đó là nói NGƯỢC nghĩa (symmetry breaking = phá được đối xứng, tức là điều KHÔNG xảy ra ở đây). Nói đúng là "Zero thất bại vì KHÔNG phá được symmetry" (failure to break symmetry).
 
 ### Slide 21 — Experiment 3: Random LỚN
 **Nói:**
 > "`nn.init.normal_(std=1.0)`. Đây là slide 'kịch tính' nhất: gradient RMS lớp 1 bùng nổ tới 1.87×10⁷ ngay bước đầu tiên, train loss thành NaN ngay từ epoch 1 và không phục hồi suốt cả 15 epoch. Đây là bằng chứng thực nghiệm trực tiếp cho hiện tượng Exploding Gradient đã nói ở slide lý thuyết — không phải minh hoạ, đây là NaN thật xảy ra khi em chạy thí nghiệm này."
 
-### Slide 22 — Experiment 4 & 5: Xavier vs He (5-seed)
+### Slide 22 — Experiment 4 & 5: Xavier vs He (5-seed, raw points)
 **Nói:**
-> "Đây là phần em đặc biệt cẩn thận về mặt khoa học. Chạy Xavier và He, mỗi scheme lặp lại độc lập 5 seed khác nhau {42,...,46}, báo cáo mean ± std thay vì tin vào 1 lần chạy. Kết quả: Xavier đạt 69.1% ± 4.7 điểm phần trăm, He đạt 70.5% ± 5.7 điểm phần trăm. **Khoảng std của hai scheme chồng lấn nhau** — nghĩa là không đủ cơ sở để kết luận scheme nào vượt trội hơn cho ReLU trong setup này. Khác biệt rõ ràng và nhất quán hơn nhiều nằm ở gradient RMS: He cao hơn Xavier khoảng 35 lần, ở MỌI seed, không dao động."
+> "Đây là phần em đặc biệt cẩn thận về mặt khoa học. Chạy Xavier và He, mỗi scheme lặp lại độc lập 5 seed khác nhau {42,...,46} — slide in ra nguyên văn cả 5 giá trị accuracy từng seed, không chỉ mean±std, để minh bạch hoàn toàn. Kết quả: Xavier đạt 69.1% ± 4.7 điểm phần trăm (pp — percentage points), He đạt 70.5% ± 5.7pp. **Khoảng mean±1std của hai scheme chồng lấn đáng kể** — run-to-run variability lớn so với chênh lệch mean, nên không đủ cơ sở xếp hạng scheme nào tốt hơn cho ReLU trong setup này. Khác biệt rõ ràng và cùng chiều hơn nhiều nằm ở gradient RMS: He cao hơn Xavier khoảng 35 lần, ở cả 5 seed, không dao động."
 
-**Đây là câu trả lời chuẩn nếu ai hỏi "vậy Xavier hay He tốt hơn?":** *"Về accuracy, em không chạy hypothesis test chính thức — nhưng phân phối accuracy của hai scheme qua 5 seed chồng lấn đáng kể, nên thực nghiệm này không ủng hộ việc xếp hạng rõ ràng giữa Xavier và He. Về gradient scale, He cho gradient RMS lớn hơn Xavier một cách nhất quán ở cả 5 seed — nhưng gradient lớn hơn không tự động nghĩa là tốt hơn, chỉ là 'gần với thiết kế lý thuyết cho ReLU' hơn."*
+**Đây là câu trả lời chuẩn nếu ai hỏi "vậy Xavier hay He tốt hơn?":** *"Về accuracy, em không chạy hypothesis test chính thức (không có p-value/confidence interval) — em chỉ show mean±std, chưa show toàn bộ distribution, nên không nói 'hai distribution overlap' mà nói đúng hơn: khoảng mean±1std của hai scheme chồng lấn đáng kể, run-to-run variability lớn so với chênh lệch mean — không đủ cơ sở xếp hạng rõ ràng giữa Xavier và He. Về gradient scale, He cho gradient RMS lớn hơn Xavier một cách nhất quán ở cả 5 seed — nhưng gradient lớn hơn không tự động nghĩa là optimization tốt hơn, điều quan trọng là tránh collapse/explosion bệnh lý chứ không phải gradient càng lớn càng tốt."*
 
 ### Slide 23 — Biểu đồ tổng hợp 5 thí nghiệm
 **Nói:**
@@ -152,7 +156,7 @@
 
 ### Slide 25 — Activation Variance theo layer
 **Nói:**
-> "Heatmap slide trước chứng minh initialization ảnh hưởng BACKWARD — gradient. Slide này bổ sung bằng chứng ở chiều FORWARD: Var(a) theo layer, tại bước khởi tạo, cho 4 scheme (bỏ Zero vì activation của nó luôn bằng 0, không vẽ được trên thang log). Kết quả: Random nhỏ — Var(a) co lại dần, cùng câu chuyện vanishing nhưng lần này ở forward pass; Random lớn — Var(a) tăng theo cấp số mũ, hàng chục bậc độ lớn chỉ sau 10 layer; Xavier và He — Var(a) gần như phẳng quanh bậc 10⁰ suốt cả 10 layer. Đây đúng là điều slide Synthesis đã dự đoán: Var(a) ổn định ở forward, Var(δ) ổn định ở backward."
+> "Heatmap slide trước chứng minh initialization ảnh hưởng BACKWARD — gradient. Slide này bổ sung bằng chứng ở chiều FORWARD: Var(a) theo layer, tại bước khởi tạo, cho 4 scheme (bỏ Zero vì activation của nó luôn bằng 0, không vẽ được trên thang log). Kết quả: Random nhỏ — Var(a) co lại dần, cùng câu chuyện vanishing nhưng lần này ở forward pass; Random lớn — Var(a) tăng theo cấp số mũ, hàng chục bậc độ lớn chỉ sau 10 layer; He — Var(a) gần như phẳng (chỉ đổi ~0.8× từ layer 1 tới layer 10); Xavier — **vẫn suy giảm thật** (~395× từ layer 1 tới 10), chỉ là hẹp hơn nhiều so với Random nhỏ (~10¹⁹×) — nên em tránh gọi Xavier là 'phẳng', chỉ Random nhỏ mới đúng nghĩa co lại mạnh, He mới thực sự gần phẳng."
 
 ### Slide 26 — Depth Experiment
 **Nói:**
@@ -162,27 +166,29 @@
 
 ### Slide 27 — Bảng tổng hợp kết quả
 **Nói:**
-> "Tổng hợp tất cả: thứ tự đọc bảng này là Gradient RMS → Training Loss → Test Accuracy, đúng thứ tự ưu tiên đã nói ở slide Metrics. Zero và Random nhỏ: vanishing. Random lớn: exploding, NaN. Xavier và He: ổn định. Số liệu lấy nguyên văn từ CSV, kể cả dòng NaN của Random lớn — không làm tròn để đẹp bảng, không giấu kết quả thất bại."
+> "Tổng hợp tất cả: thứ tự đọc bảng này là Gradient RMS → Final Train Loss → Test Accuracy, đúng thứ tự ưu tiên đã nói ở slide Metrics. Zero và Random nhỏ: vanishing. Random lớn: exploding, NaN. Xavier và He: không vanish/explode rõ rệt ở độ sâu 10 layer này — nhưng slide Depth Experiment vừa cho thấy Xavier suy giảm rõ hơn He khi kiến trúc sâu hơn, nên em không gọi cả hai là 'ổn định' như một tính chất tuyệt đối. Số liệu lấy nguyên văn từ CSV, kể cả dòng NaN của Random lớn — không làm tròn để đẹp bảng, không giấu kết quả thất bại. Cột 'Final Train Loss' em ghi rõ là TRAIN loss (không phải validation/test) để tránh mập mờ."
 
----
+## ACT 4 — Conclusion (Slide 28–31)
 
-## ACT 4 — Conclusion (Slide 28–30)
-
-### Slide 28 — Conclusion
+### Slide 28 — Limitations
 **Nói:**
-> "Tổng kết bằng đúng mạch đã đi qua: Derivative → Chain Rule → Backpropagation → Gradient Flow → Vanishing/Exploding → Initialization → Stable Training. Bốn takeaway:
-> 1. Backpropagation là cách tính gradient hiệu quả bằng cách áp dụng chain rule ngược qua computational graph.
+> "Trước khi kết luận, em xin nêu rõ giới hạn của thực nghiệm này — đúng tinh thần một mini research presentation. Sáu điểm: (1) Fashion-MNIST chỉ dùng SUBSET 5.000/1.000/2.000 mẫu, chưa phải full dataset; (2) chỉ test MLP+ReLU, chưa đại diện cho CNN/Transformer/RNN; (3) optimizer và learning rate cố định để cô lập biến initialization — chưa khảo sát tương tác initialization×learning rate; (4) Gradient RMS và Activation Variance đo TẠI KHỞI TẠO, trên 1 batch, không phải trung bình suốt training; (5) multi-seed mới chạy n=5 cho Xavier/He, còn ít để ước lượng chính xác biến thiên; (6) Depth Experiment dùng 8 epoch thay vì 15 để giữ thời gian chạy hợp lý. Kết luận của em đúng TRONG phạm vi đã khảo sát, chưa chắc mở rộng ra ngoài."
+
+### Slide 29 — Conclusion
+**Nói:**
+> "Tổng kết bằng đúng mạch đã đi qua: Derivative → Chain Rule → Backpropagation → Gradient Flow → Vanishing/Exploding → Initialization → Stable Training. Trước khi liệt kê takeaway, em trả lời trực tiếp câu hỏi nghiên cứu đặt ra ở Slide 2: Initialization quyết định scale khởi đầu của activation (forward) và gradient (backward); scale sai có thể gây symmetry failure, vanishing, hoặc exploding; các scheme theo fan-in/fan-out như Xavier/He cải thiện đáng kể khả năng huấn luyện được trên MLP sâu đã khảo sát. Bốn takeaway:
+> 1. Backpropagation là thuật toán tính gradient hiệu quả bằng chain rule ngược qua computational graph, tái sử dụng đạo hàm cục bộ (reverse-mode autodiff) — đặc biệt hiệu quả khi một scalar loss phụ thuộc vào rất nhiều tham số, đúng bối cảnh Deep Learning.
 > 2. Trong mạng sâu, gradient phụ thuộc vào tích của nhiều Jacobian/weight transformation — nên scale của gradient có thể vanish hoặc explode.
 > 3. Xavier và He chọn scale của initial weight dựa trên fan-in/fan-out để giữ activation và gradient trong phạm vi hợp lý, dưới các giả định nhất định.
 > 4. Good initialization cải thiện optimization và gradient flow, nhưng không đảm bảo generalization tốt — đây chính là điều Depth Experiment vừa chứng minh bằng số liệu thật."
 
-### Slide 29 — Mở rộng (tham khảo)
+### Slide 30 — Mở rộng (tham khảo)
 **Nói:**
 > "Nếu còn thời gian: Initialization chỉ là bước khởi đầu. Các mạng hiện đại còn dùng Batch/Layer Normalization để chuẩn hoá lại tín hiệu mỗi lớp thay vì chỉ dựa vào 1 lần khởi tạo; Residual Connections cho gradient một đường tắt bỏ qua tích luỹ nhiều lớp; Gradient Clipping chặn cứng exploding bất kể nguyên nhân. Em chỉ giới thiệu ngắn, không đi sâu vì đây không phải trọng tâm bài."
 
-### Slide 30 — References
+### Slide 31 — References
 **Nói:**
-> "11 nguồn tham khảo, từ Rumelhart 1986 (backprop gốc) tới He 2015, Glorot & Bengio 2010, và cả PyTorch paper — đều đã verify, khớp với danh mục IEEE trong báo cáo LaTeX đi kèm, không có nguồn bịa."
+> "7 nguồn tham khảo, mỗi nguồn tương ứng trực tiếp với một phần lý thuyết hoặc thực nghiệm thực sự dùng trong bài: Rumelhart 1986 (backprop gốc), LeCun 1998/2012 (Efficient BackProp), Glorot & Bengio 2010 (Xavier), He 2015 (Kaiming/He-init), Goodfellow 2016 (textbook nền tảng), Xiao 2017 (Fashion-MNIST), Paszke 2019 (PyTorch/autograd) — đều đã verify, khớp với danh mục IEEE trong báo cáo LaTeX đi kèm."
 
 **Kết bài:**
 > "Em xin dừng phần trình bày tại đây. Cảm ơn thầy/cô và các bạn đã lắng nghe, em sẵn sàng trả lời câu hỏi."
@@ -267,4 +273,4 @@ Chỉ cần nói:
 
 ---
 
-*Kịch bản này khớp 100% với nội dung và số liệu trong `Slide_Backprop_Initialization.pptx` (30 slide) tại thời điểm soạn. Nếu slide được build lại với số liệu mới (`node build_deck.js`), hãy đối chiếu lại các con số cụ thể trong file này trước khi thuyết trình.*
+*Kịch bản này khớp 100% với nội dung và số liệu trong `Slide_Backprop_Initialization.pptx` (31 slide) tại thời điểm soạn. Nếu slide được build lại với số liệu mới (`node build_deck.js`), hãy đối chiếu lại các con số cụ thể trong file này trước khi thuyết trình.*
