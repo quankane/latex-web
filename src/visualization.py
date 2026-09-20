@@ -240,6 +240,75 @@ def plot_activation_histogram(runs: List[Dict], activation: str,
     return out
 
 
+DEMO_SCHEME_ORDER = ["zero", "random_normal", "random_large", "xavier", "he"]
+DEMO_SCHEME_LABEL = {
+    "zero": "Zero", "random_normal": "Random\n(small, 0.01)",
+    "random_large": "Random\n(large, 1.0)", "xavier": "Xavier", "he": "He",
+}
+
+
+def plot_gradient_heatmap(demo_runs: Dict[str, Dict], out_name: str = "gradient_heatmap.png") -> Path:
+    """Heatmap |grad RMS| (log10) x (scheme, layer) -- dung du lieu that tu
+    experiments/run_deep_demo.py (10 hidden layer, 5 scheme). `demo_runs`:
+    dict scheme -> run dict (nhu tra ve tu train_one_config)."""
+    schemes = [s for s in DEMO_SCHEME_ORDER if s in demo_runs]
+    n_layers = len(demo_runs[schemes[0]]["initial_grad_norms"])
+    mat = np.zeros((len(schemes), n_layers))
+    for i, scheme in enumerate(schemes):
+        gn = demo_runs[scheme]["initial_grad_norms"]
+        for j, g in enumerate(gn):
+            rms = g["grad_rms"]
+            mat[i, j] = np.log10(rms) if rms > 0 else -20.0  # -20 lam san cho "dung 0" (Zero-init)
+
+    fig, ax = plt.subplots(figsize=(9.5, 4.2))
+    im = ax.imshow(mat, aspect="auto", cmap="RdYlBu_r", vmin=-14, vmax=2)
+    ax.set_xticks(range(n_layers))
+    ax.set_xticklabels([str(j + 1) for j in range(n_layers)])
+    ax.set_yticks(range(len(schemes)))
+    ax.set_yticklabels([DEMO_SCHEME_LABEL[s] for s in schemes])
+    ax.set_xlabel("Lớp (1 = gần input nhất)")
+    ax.set_title("log$_{10}$(RMS gradient) theo layer × scheme khởi tạo\n"
+                  "(bước đầu tiên, 10 hidden layer, activation = ReLU)")
+    cbar = fig.colorbar(im, ax=ax)
+    cbar.set_label(r"$\log_{10}(\mathrm{RMS}\ \partial L/\partial W^{(l)})$")
+    for i in range(len(schemes)):
+        for j in range(n_layers):
+            ax.text(j, i, f"{mat[i, j]:.1f}", ha="center", va="center", fontsize=7.5,
+                     color="white" if mat[i, j] < -6 or mat[i, j] > -1 else "black")
+    fig.tight_layout()
+    out = FIG_DIR / out_name
+    fig.savefig(out)
+    plt.close(fig)
+    return out
+
+
+def plot_depth_comparison_v2(rows: List[Dict], out_name: str = "depth_comparison_v2.png") -> Path:
+    """Gradient RMS lop 1 (khoi tao) theo do sau, 3 scheme (random_normal,
+    xavier, he), dung du lieu tu results/logs/depth_experiment_v2.json."""
+    scheme_order = ["random_normal", "xavier", "he"]
+    label = {"random_normal": "Random (naive)", "xavier": "Xavier/Glorot", "he": "He/Kaiming"}
+    color = {"random_normal": "#e07b39", "xavier": "#55a868", "he": "#c44e52"}
+    fig, ax = plt.subplots(figsize=(7.2, 4.6))
+    for scheme in scheme_order:
+        pts = [r for r in rows if r["scheme"] == scheme]
+        pts.sort(key=lambda r: r["depth"])
+        depths = [r["depth"] for r in pts]
+        grms = [max(r["grad_rms_layer1_init"], 1e-20) for r in pts]
+        ax.plot(depths, grms, color=color[scheme], marker="o", label=label[scheme])
+    ax.set_yscale("log")
+    ax.set_xlabel("Độ sâu mạng (số hidden layer)")
+    ax.set_ylabel("RMS gradient lớp 1, tại khởi tạo (thang log)")
+    ax.set_title("Gradient lớp đầu tiên co lại theo độ sâu — Random vs. Xavier vs. He\n"
+                  "(activation = ReLU, đo tại bước khởi tạo, chưa train)")
+    ax.legend(loc="best", frameon=False)
+    ax.grid(alpha=0.25, which="both")
+    fig.tight_layout()
+    out = FIG_DIR / out_name
+    fig.savefig(out)
+    plt.close(fig)
+    return out
+
+
 def generate_all_figures(runs: List[Dict]) -> List[Path]:
     """Sinh toan bo hinh bat buoc. Lat cat chinh: activation='relu' (so
     initialization, khop Experiment 1-5/7/8); rieng initialization_comparison

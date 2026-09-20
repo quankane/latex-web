@@ -16,9 +16,14 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-Scheme = Literal["zero", "random_normal", "lecun", "xavier", "he"]
+Scheme = Literal["zero", "random_normal", "random_large", "lecun", "xavier", "he"]
 
 SCHEMES = ("zero", "random_normal", "lecun", "xavier", "he")
+
+# "random_large" KHONG nam trong SCHEMES (luoi 20 cau hinh chinh, Muc 7.3
+# report) -- day la scheme BO SUNG, chi dung trong experiments/run_deep_demo.py
+# de minh hoa truc quan truong hop "std qua lon" (doi lap voi random_normal =
+# "std qua nho"), theo dung 2 nhanh that bai duoc mo ta o Muc 5.3 report.
 
 
 def weight_variance(scheme: Scheme, fan_in: int, fan_out: int) -> float:
@@ -35,6 +40,8 @@ def weight_variance(scheme: Scheme, fan_in: int, fan_out: int) -> float:
         return 0.0
     if scheme == "random_normal":
         return 0.01 ** 2
+    if scheme == "random_large":
+        return 1.0 ** 2
     if scheme == "lecun":
         return 1.0 / fan_in
     if scheme == "xavier":
